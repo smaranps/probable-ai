@@ -5,6 +5,7 @@ import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import { AuroraBackground } from "@/app/components/auroraBackground";
 import { useAuth } from "@/app/context/authContext";
 import { useRouter } from "next/navigation";
+import Navbar from "@/app/components/navbar";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -28,56 +29,13 @@ export default function Home() {
     >
       <div className="relative min-h-screen flex flex-col justify-between">
         <AuroraBackground>
-          <div className="sticky top-0 z-50 pt-4 px-4 sm:px-8 max-w-5xl mx-auto w-full">
-            <nav className="bg-[#111827]/60 backdrop-blur-md border border-[#1E293B]/80 rounded-2xl px-6 py-3.5 flex items-center justify-between shadow-lg shadow-black/20">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-md bg-[#10B981] flex items-center justify-center font-bold text-slate-950 text-xs">
-                  P
-                </div>
-                <span className="font-heading text-xl font-bold tracking-tight text-white">
-                  Probable<span className="text-[#10B981]">.ai</span>
-                </span>
-              </div>
-
-              <div className="flex items-center gap-6 text-sm font-medium">
-                <a
-                  href="#about"
-                  className="text-[#94A3B8] hover:text-white transition"
-                >
-                  How It Works
-                </a>
-                {user ? (
-                  <Link
-                    href="/dashboard"
-                    className="px-4 py-1.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-semibold rounded-lg transition"
-                  >
-                    Dashboard
-                  </Link>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={signInWithGoogle}
-                      className="px-4 py-1.5 text-[#94A3B8] hover:text-white transition"
-                    >
-                      Sign up
-                    </button>
-                    <button
-                      onClick={signInWithGoogle}
-                      className="px-4 py-1.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-semibold rounded-lg transition"
-                    >
-                      Sign In
-                    </button>
-                  </div>
-                )}
-              </div>
-            </nav>
-          </div>
+          <Navbar user={user} />
           <section className="flex-1 flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto my-auto py-12">
             <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white mb-4 leading-none">
               Probable<span className="text-[#10B981]">.ai</span>
             </h1>
             <p className="text-[#94A3B8] text-lg sm:text-xl md:text-2xl font-normal mb-8 max-w-xl">
-              Your academic profile, analyzed in seconds.
+              Your academic profile, analyzed in seconds. 
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">

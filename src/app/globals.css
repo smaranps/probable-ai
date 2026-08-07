@@ -5,42 +5,86 @@
   --foreground: #171717;
 }
 
+/* Source: From UI Skills Aurora Motion */
+
 @keyframes auroraMoveMain {
-  0% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-  }
-  33% {
-    transform: translate(8%, -6%) scale(1.12) rotate(4deg);
-  }
-  66% {
-    transform: translate(-6%, 8%) scale(0.95) rotate(-3deg);
-  }
+  0%,
   100% {
     transform: translate(0%, 0%) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate(8%, -10%) scale(1.15) rotate(5deg);
+  }
+  50% {
+    transform: translate(-5%, 8%) scale(0.9) rotate(-3deg);
+  }
+  75% {
+    transform: translate(-10%, -5%) scale(1.05) rotate(2deg);
   }
 }
 
 @keyframes auroraMoveSecondary {
-  0% {
-    transform: translate(0%, 0%) scale(1) rotate(0deg);
-  }
-  33% {
-    transform: translate(-10%, 6%) scale(1.08) rotate(-5deg);
-  }
-  66% {
-    transform: translate(6%, -8%) scale(1.15) rotate(4deg);
-  }
+  0%,
   100% {
     transform: translate(0%, 0%) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate(-10%, 8%) scale(1.08) rotate(-5deg);
+  }
+  50% {
+    transform: translate(8%, -10%) scale(1.2) rotate(4deg);
+  }
+  75% {
+    transform: translate(5%, 10%) scale(0.95) rotate(-2deg);
+  }
+}
+
+@keyframes auroraMoveAccent {
+  0%,
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  33% {
+    transform: translate(5%, 5%) scale(1.1);
+  }
+  66% {
+    transform: translate(-5%, -5%) scale(0.9);
   }
 }
 
 .animate-aurora-main {
-  animation: auroraMoveMain 14s ease-in-out infinite alternate;
+  animation: auroraMoveMain 23s ease-in-out infinite;
   will-change: transform;
 }
 
 .animate-aurora-secondary {
-  animation: auroraMoveSecondary 18s ease-in-out infinite alternate;
+  animation: auroraMoveSecondary 17s ease-in-out infinite;
   will-change: transform;
+}
+
+.animate-aurora-accent {
+  animation: auroraMoveAccent 29s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-140px) translateX(30px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.animate-particle {
+  animation: floatUp var(--duration, 10s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }

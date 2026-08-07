@@ -7,34 +7,24 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
   signOut,
   onAuthStateChanged,
-  updateProfile,
 } from "firebase/auth";
-import { auth } from "@/app/services/firebaseConfig";
-
-const signUpWithEmail = async (
-  email: string,
-  pass: string,
-  fullName: string
-) => {
-  const userCredential = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    pass
-  );
-
-  await updateProfile(userCredential.user, {
-    displayName: fullName,
-  });
-};
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/app/services/firebaseConfig";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
-  signUpWithEmail: (e: string, p: string) => Promise<void>;
-  signInWithEmail: (e: string, p: string) => Promise<void>;
+  signUpWithEmail: (
+    email: string,
+    pass: string,
+    fullName: string
+  ) => Promise<void>;
+  signInWithEmail: (email: string, pass: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -54,11 +44,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-  };
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
 
-  const signUpWithEmail = async (email: string, pass: string) => {
-    await createUserWithEmailAndPassword(auth, email, pass);
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, {
+        uid: user.uid,
+        displayName: user.displayName || "",
+        email: user.email || "",
+        photoURL: user.photoURL || "",
+        createdAt: new Date().toISOString(),
+      });
+    }
+  };
+  const signUpWithEmail = async (
+    email: string,
+    pass: string,
+    fullName: string
+  ) => {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      pass
+    );
+
+    // Set display name in Firebase user profile
+    await updateProfile(userCredential.user, { displayName: fullName });
+
+    // Send verification email
+    await sendEmailVerification(userCredential.user);
   };
 
   const signInWithEmail = async (email: string, pass: string) => {
