@@ -20,25 +20,21 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("user_profile");
     localStorage.removeItem("auth_token");
-    window.dispatchEvent(new Event("storage"));
-
     if (onSignOut) {
-      onSignOut();
-    } else {
-      router.push("/login");
-      router.refresh();
+      await onSignOut();
     }
+    router.push("/login");
+    router.refresh();
   };
-
   return (
     <div
       className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-8 max-w-5xl mx-auto w-full pointer-events-auto"
       style={{ fontFamily: googleSansFlex.style.fontFamily }}
     >
-      <nav className="bg-white/70 backdrop-blur-md border border-white/60 rounded-2xl px-6 py-3.5 shadow-xl shadow-slate-950/10 transition-all duration-300">
+      <nav className="bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl px-6 py-3.5 shadow-xl shadow-slate-950/10 transition-all duration-300">
         <div className="flex items-center justify-between">
           <Link
             href="/"
@@ -87,7 +83,7 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
                 <button
                   type="button"
                   onClick={() => router.push("/login?mode=signup")}
-                  className="px-4 py-1.5 text-slate-600 hover:text-slate-900 transition cursor-pointer font-medium"
+                  className="px-4 py-1.5 text-slate-750 hover:text-slate-900 transition cursor-pointer font-medium border-[#10B981] border-2 rounded-lg"
                 >
                   Sign up
                 </button>

@@ -7,10 +7,7 @@ import { UserProfileData } from "@/app/components/onboarding";
 import { FloatingParticles } from "@/app/components/dashboardParticles";
 import { Google_Sans_Flex } from "next/font/google";
 import { useRouter } from "next/navigation";
-import DetailedReportModal from "./detailedReport";
-import Navbar from "./navbar";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import CreditCounter from "@/app/components/limits";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConfig";
@@ -65,6 +62,28 @@ export interface TargetProgramOption {
   maxOdds: number;
 }
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 0.1, 0.25, 1.0],
+    },
+  },
+};
+
 const TIER_BADGE_STYLES: Record<string, string> = {
   Safety: "bg-emerald-50 text-emerald-700 border-emerald-200",
   Match: "bg-emerald-50 text-emerald-700 border-emerald-200",
@@ -104,10 +123,11 @@ export default function OverviewDashboard({
   const [loading, setLoading] = useState<boolean>(false);
   const [hasRun, setHasRun] = useState<boolean>(false);
   const [userCredits, setUserCredits] = useState<number>(5);
+  const [creditsLoaded, setCreditsLoaded] = useState<boolean>(false);
   const [currentProfile, setCurrentProfile] = useState<UserProfileData | null>(
     null
   );
-
+  const getTodayKey = () => new Date().toISOString().split("T")[0];
   const activeProgram =
     targetPrograms.find((p) => p.id === activeProgramId) || targetPrograms[0];
 
@@ -144,7 +164,7 @@ export default function OverviewDashboard({
       if (data.estimatedMin !== undefined) {
         setAiResult(data);
         setHasRun(true);
-        setUserCredits((prev) => Math.max(0, prev - 1));
+        if (currentUser) await spendCredit(currentUser.uid);
 
         const updatedTargets = targetPrograms.map((p) =>
           p.id === prog.id
@@ -202,19 +222,50 @@ export default function OverviewDashboard({
     const fetchProfile = async () => {
       const user = auth.currentUser;
       if (!user) return;
-
       try {
         const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists()) {
-          setCurrentProfile(userDoc.data() as UserProfileData);
+          const data = userDoc.data() as UserProfileData & {
+            creditsRemaining?: number;
+            creditsDate?: string;
+          };
+          setCurrentProfile(data);
+          const today = getTodayKey();
+          if (
+            data.creditsDate === today &&
+            typeof data.creditsRemaining === "number"
+          ) {
+            setUserCredits(data.creditsRemaining);
+          } else {
+            setUserCredits(5);
+            await setDoc(
+              doc(db, "users", user.uid),
+              { creditsRemaining: 5, creditsDate: today },
+              { merge: true }
+            );
+          }
         }
       } catch (err) {
         console.error("Dashboard fetch error:", err);
+      } finally {
+        setCreditsLoaded(true);
       }
     };
 
     fetchProfile();
   }, []);
+
+  const spendCredit = async (uid: string) => {
+    setUserCredits((prev) => {
+      const next = Math.max(0, prev - 1);
+      setDoc(
+        doc(db, "users", uid),
+        { creditsRemaining: next, creditsDate: getTodayKey() },
+        { merge: true }
+      ).catch((err) => console.error("Credit save error:", err));
+      return next;
+    });
+  };
 
   const handleProgramSwitch = (prog: TargetProgramOption) => {
     setActiveProgramId(prog.id);
@@ -238,9 +289,18 @@ export default function OverviewDashboard({
       style={{ fontFamily: googleSansFlex.style.fontFamily }}
     >
       <FloatingParticles />
-      <div className="relative z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 space-y-6 flex-grow pb-16">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 space-y-6 flex-grow pb-16"
+      >
         <LiquidBackground />
-        <div className="flex flex-col sm:flex-row items-start sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 mt-20">
+
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row items-start sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 mt-20"
+        >
           <div>
             <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-1 block">
               Active Evaluation Target
@@ -261,12 +321,14 @@ export default function OverviewDashboard({
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <CreditCounter remaining={userCredits} total={5} />
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm cursor-pointer"
               onClick={() => router.push("/details")}
             >
               <Sparkles size={16} /> Detailed Report
-            </button>
+            </motion.button>
             <div className="flex bg-slate-100/70 p-1 rounded-xl border border-slate-200/70 w-full sm:w-auto">
               <button
                 type="button"
@@ -291,17 +353,20 @@ export default function OverviewDashboard({
                 <Flame size={14} /> Roast
               </button>
             </div>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               type="button"
               onClick={() => router.push("/onboarding")}
               className="p-2 text-slate-500 hover:text-slate-800 hover:bg-white/70 rounded-xl transition-colors border border-transparent hover:border-slate-200 cursor-pointer"
               title="Edit Profile Data"
             >
               <RotateCcw size={16} />
-            </button>
+            </motion.button>
           </div>
-        </div>
-        <div className="space-y-2">
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="space-y-2">
           <div className="flex items-center justify-between px-1">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">
               Application Targets Comparison
@@ -323,8 +388,9 @@ export default function OverviewDashboard({
                   key={prog.id}
                   type="button"
                   onClick={() => handleProgramSwitch(prog)}
-                  whileHover={{ y: -2 }}
+                  whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
                   className={`relative text-left p-4 rounded-xl border transition-all cursor-pointer backdrop-blur-xl ${
                     isSelected
                       ? "bg-white/90 border-emerald-500/50 shadow-md ring-2 ring-emerald-500/20"
@@ -332,7 +398,15 @@ export default function OverviewDashboard({
                   }`}
                 >
                   {isSelected && (
-                    <span className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 rounded-t-xl" />
+                    <motion.span
+                      layoutId="activeTargetIndicator"
+                      className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 rounded-t-xl"
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                    />
                   )}
                   <div className="flex items-start justify-between gap-2 mb-1.5">
                     <p className="text-[11px] font-semibold text-slate-500 truncate">
@@ -359,8 +433,10 @@ export default function OverviewDashboard({
               );
             })}
           </div>
-        </div>
-        <div
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
           className={`p-6 rounded-2xl border transition-colors duration-500 shadow-sm relative overflow-hidden backdrop-blur-xl ${
             mode === "advisor"
               ? "bg-gradient-to-b from-emerald-50/80 to-white/60 border-emerald-100"
@@ -385,7 +461,9 @@ export default function OverviewDashboard({
             </div>
             {hasRun && (
               <div>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   type="button"
                   onClick={() => handleRunAnalysis(mode, activeProgram)}
                   disabled={loading}
@@ -396,97 +474,131 @@ export default function OverviewDashboard({
                     className={loading ? "animate-spin" : ""}
                   />
                   Re-evaluate
-                </button>
+                </motion.button>
               </div>
             )}
           </div>
 
-          {loading ? (
-            <div className="py-10 flex items-center justify-center gap-3 text-sm text-slate-500">
-              <Sparkles size={16} className="animate-pulse text-emerald-500" />
-              Analyzing {activeProgram.university} historical markers...
-            </div>
-          ) : hasRun ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-              <div className="md:col-span-1 md:border-r border-slate-200 pb-4 md:pb-0 pr-0 md:pr-6">
-                {aiResult?.estimatedMin !== undefined ? (
-                  <div>
-                    <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 inline-block mb-3">
-                      {aiResult.tier || activeProgram.tier}
-                    </span>
-                    <div className="text-4xl font-light tracking-tight text-slate-900 mb-1">
-                      {aiResult.estimatedMin}%{" "}
-                      <span className="text-slate-400 font-serif">–</span>{" "}
-                      {aiResult.estimatedMax}%
-                    </div>
-                    <span className="text-xs text-slate-500 font-medium block">
-                      Estimated Probability Range
-                    </span>
-                  </div>
-                ) : (
-                  <div>
-                    <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 inline-block mb-3">
-                      {activeProgram.tier}
-                    </span>
-                    <div className="text-4xl font-light tracking-tight text-slate-900 mb-1">
-                      {activeProgram.minOdds}%{" "}
-                      <span className="text-slate-400 font-serif">–</span>{" "}
-                      {activeProgram.maxOdds}%
-                    </div>
-                    <span className="text-xs text-slate-500 font-medium block">
-                      Estimated Probability Range
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              <div className="md:col-span-2 space-y-3">
-                <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-widest block">
-                  {mode === "advisor" ? "Strategic Breakdown" : "Roast Summary"}
-                </span>
-                <p className="text-sm leading-relaxed text-slate-700 font-normal">
-                  {aiResult?.reasoning || rawTextResponse}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="py-8 flex flex-col items-center justify-center text-center space-y-6">
-              <div className="flex items-center gap-3 text-slate-600 text-sm max-w-md bg-white/70 p-4 rounded-xl border border-slate-200">
-                <TrendingUp
-                  size={18}
-                  className={
-                    mode === "advisor" ? "text-emerald-500" : "text-rose-500"
-                  }
-                />
-                <span className="text-left leading-relaxed">
-                  Calculates an estimated acceptance range factoring in Waterloo
-                  Euclid weighting, school flags, and top 6 averages for &nbsp;
-                  <strong>{activeProgram.university}</strong>.
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleRunAnalysis(mode, activeProgram)}
-                disabled={loading || userCredits <= 0}
-                className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm flex items-center gap-2 cursor-pointer ${
-                  userCredits <= 0
-                    ? "bg-slate-300 text-slate-500 cursor-not-allowed"
-                    : mode === "advisor"
-                    ? "bg-emerald-500 hover:bg-emerald-400 text-white"
-                    : "bg-rose-500 hover:bg-rose-400 text-white"
-                }`}
+          <AnimatePresence mode="wait">
+            {loading ? (
+              <motion.div
+                key="loading"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="py-10 flex items-center justify-center gap-3 text-sm text-slate-500"
               >
-                <Sparkles size={16} />
-                {userCredits <= 0
-                  ? "Daily Limit Reached"
-                  : `Run ${
-                      mode === "advisor" ? "Advisor" : "Roast"
-                    } Evaluation`}
-              </button>
-            </div>
-          )}
-        </div>
-        <div id="graph-container" className="space-y-6">
+                <Sparkles
+                  size={16}
+                  className="animate-pulse text-emerald-500"
+                />
+                Analyzing {activeProgram.university} historical markers...
+              </motion.div>
+            ) : hasRun ? (
+              <motion.div
+                key="results"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start"
+              >
+                <div className="md:col-span-1 md:border-r border-slate-200 pb-4 md:pb-0 pr-0 md:pr-6">
+                  {aiResult?.estimatedMin !== undefined ? (
+                    <div>
+                      <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 inline-block mb-3">
+                        {aiResult.tier || activeProgram.tier}
+                      </span>
+                      <div className="text-4xl font-light tracking-tight text-slate-900 mb-1">
+                        {aiResult.estimatedMin}%{" "}
+                        <span className="text-slate-400 font-serif">–</span>{" "}
+                        {aiResult.estimatedMax}%
+                      </div>
+                      <span className="text-xs text-slate-500 font-medium block">
+                        Estimated Probability Range
+                      </span>
+                    </div>
+                  ) : (
+                    <div>
+                      <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 inline-block mb-3">
+                        {activeProgram.tier}
+                      </span>
+                      <div className="text-4xl font-light tracking-tight text-slate-900 mb-1">
+                        {activeProgram.minOdds}%{" "}
+                        <span className="text-slate-400 font-serif">–</span>{" "}
+                        {activeProgram.maxOdds}%
+                      </div>
+                      <span className="text-xs text-slate-500 font-medium block">
+                        Estimated Probability Range
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="md:col-span-2 space-y-3">
+                  <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-widest block">
+                    {mode === "advisor"
+                      ? "Strategic Breakdown"
+                      : "Roast Summary"}
+                  </span>
+                  <p className="text-sm leading-relaxed text-slate-700 font-normal">
+                    {aiResult?.reasoning || rawTextResponse}
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="py-8 flex flex-col items-center justify-center text-center space-y-6"
+              >
+                <div className="flex items-center gap-3 text-slate-600 text-sm max-w-md bg-white/70 p-4 rounded-xl border border-slate-200">
+                  <TrendingUp
+                    size={18}
+                    className={
+                      mode === "advisor" ? "text-emerald-500" : "text-rose-500"
+                    }
+                  />
+                  <span className="text-left leading-relaxed">
+                    Calculates an estimated acceptance range factoring in
+                    Waterloo Euclid weighting, school flags, and top 6 averages
+                    for &nbsp;
+                    <strong>{activeProgram.university}</strong>.
+                  </span>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  type="button"
+                  onClick={() => handleRunAnalysis(mode, activeProgram)}
+                  disabled={loading || userCredits <= 0 || !creditsLoaded}
+                  className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm flex items-center gap-2 cursor-pointer ${
+                    userCredits <= 0
+                      ? "bg-slate-300 text-slate-500 cursor-not-allowed"
+                      : mode === "advisor"
+                      ? "bg-emerald-500 hover:bg-emerald-400 text-white"
+                      : "bg-rose-500 hover:bg-rose-400 text-white"
+                  }`}
+                >
+                  <Sparkles size={16} />
+                  {userCredits <= 0
+                    ? "Daily Limit Reached"
+                    : `Run ${
+                        mode === "advisor" ? "Advisor" : "Roast"
+                      } Evaluation`}
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          id="graph-container"
+          className="space-y-6"
+        >
           <DashboardCharts
             profile={{
               ...profile,
@@ -498,10 +610,17 @@ export default function OverviewDashboard({
             metrics={aiResult?.radarMetrics}
             isLoading={loading}
           />
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        </motion.div>
+
+        <motion.div
+          variants={itemVariants}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+        >
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/70 flex items-center justify-between shadow-sm shadow-slate-200/50">
+            <motion.div
+              whileHover={{ y: -2 }}
+              className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/70 flex items-center justify-between shadow-sm shadow-slate-200/50 transition-shadow hover:shadow-md"
+            >
               <div className="space-y-2">
                 <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500">
                   Calculated OUAC Top 6
@@ -519,7 +638,7 @@ export default function OverviewDashboard({
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-slate-500">
                 <GraduationCap size={28} strokeWidth={1.5} />
               </div>
-            </div>
+            </motion.div>
 
             <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/70 space-y-5 shadow-sm shadow-slate-200/50">
               <div className="flex items-center justify-between">
@@ -533,8 +652,9 @@ export default function OverviewDashboard({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {profile.courses.map((course, idx) => (
-                  <div
+                  <motion.div
                     key={idx}
+                    whileHover={{ scale: 1.01, y: -1 }}
                     className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between group hover:border-slate-300 transition-colors"
                   >
                     <div>
@@ -562,7 +682,7 @@ export default function OverviewDashboard({
                     <span className="font-medium text-base text-slate-700">
                       {course.grade !== "" ? `${course.grade}%` : "—"}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -603,7 +723,10 @@ export default function OverviewDashboard({
                   STEM Contests
                 </span>
                 <div className="grid grid-cols-3 gap-3 text-center">
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                  <motion.div
+                    whileHover={{ y: -1 }}
+                    className="p-3 bg-slate-50 rounded-xl border border-slate-200"
+                  >
                     <div className="text-[10px] text-slate-500 mb-1">
                       EUCLID
                     </div>
@@ -612,27 +735,33 @@ export default function OverviewDashboard({
                         ? profile.contests.euclid
                         : "—"}
                     </div>
-                  </div>
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ y: -1 }}
+                    className="p-3 bg-slate-50 rounded-xl border border-slate-200"
+                  >
                     <div className="text-[10px] text-slate-500 mb-1">CSMC</div>
                     <div className="font-medium text-slate-800">
                       {profile.contests.csmc !== ""
                         ? profile.contests.csmc
                         : "—"}
                     </div>
-                  </div>
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ y: -1 }}
+                    className="p-3 bg-slate-50 rounded-xl border border-slate-200"
+                  >
                     <div className="text-[10px] text-slate-500 mb-1">CCC</div>
                     <div className="font-medium text-slate-800">
                       {profile.contests.ccc !== "" ? profile.contests.ccc : "—"}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

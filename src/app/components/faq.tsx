@@ -2,6 +2,20 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+});
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 interface FAQItem {
   id: number;
@@ -49,12 +63,12 @@ export default function AdmissionMythsSection() {
   };
 
   return (
-    <section className="bg-transparent text-slate-900 py-20 px-6 w-full border-t border-slate-200/70">
+    <section
+      className="bg-transparent text-slate-900 py-20 px-6 w-full border-t border-slate-200/70"
+      style={{ fontFamily: `var(${plusJakarta.variable})` }}
+    >
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-emerald-600 uppercase bg-emerald-50 border border-emerald-200 rounded-full mb-3">
-            Canadian Admissions Real Talk
-          </span>
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
             Common Admission &nbsp;
             <span className="text-[#10B981]">Myths vs. Reality</span>
@@ -77,8 +91,11 @@ export default function AdmissionMythsSection() {
                   className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/60 transition"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
-                      MYTH #{item.id}
+                    <span
+                      className="text-xs  font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200"
+                      style={{ fontFamily: `var(${plusJakarta.variable})` }}
+                    >
+                      Myth #{item.id}
                     </span>
                     <h3 className="font-semibold text-sm md:text-base text-slate-800">
                       {item.myth}
@@ -100,7 +117,12 @@ export default function AdmissionMythsSection() {
                       <div className="p-5 pt-0 border-t border-slate-200/70 text-xs md:text-sm text-slate-600 leading-relaxed space-y-3">
                         <p className="pt-3">{item.truth}</p>
                         <div className="flex items-center gap-2 pt-2">
-                          <span className="text-[11px] font-semibold text-slate-500">
+                          <span
+                            className="text-[11px] font-semibold text-slate-500"
+                            style={{
+                              fontFamily: `var(${plusJakarta.variable})`,
+                            }}
+                          >
                             Applies to:
                           </span>
                           <div className="flex flex-wrap gap-1.5">

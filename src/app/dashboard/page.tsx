@@ -6,14 +6,20 @@ import OverviewDashboard from "@/app/components/dashboard";
 import { db, auth } from "../services/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-
+import { isLoggingOut, setLoggingOut } from "@/app/services/authFlags";
 export default function Home() {
   const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (isLoggingOut()) {
+        setUserProfile(null);
+        setShowModal(false);
+        setIsLoading(false);
+        setLoggingOut(false);
+        return;
+      }
       if (user) {
         try {
           const docRef = doc(db, "users", user.uid);
@@ -56,7 +62,6 @@ export default function Home() {
       </main>
     );
   }
-
   return (
     <main className="min-h-screen py-8">
       {showModal && (
@@ -65,7 +70,6 @@ export default function Home() {
           userDisplayName="Student"
         />
       )}
-
       {userProfile ? (
         <OverviewDashboard
           profile={userProfile}

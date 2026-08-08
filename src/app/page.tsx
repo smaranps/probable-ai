@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/app/components/navbar";
 import { motion } from "framer-motion";
 import AdmissionMythsSection from "./components/faq";
+import HeroPreviewCards from "@/app/components/previewCard";
 
 // Animations proivded by Google Gemini
 const containerVariants = {
@@ -34,10 +35,10 @@ const cardVariants = {
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-plus-jakarta",
+  display: "swap",
 });
-
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -53,18 +54,22 @@ export default function Home() {
       className={`${inter.variable} ${plusJakarta.variable} font-sans min-h-screen bg-[#090D16] text-white flex flex-col justify-between`}
     >
       <AuroraBackground className="h-[80vh] min-h-[600px] flex items-center justify-center pt-16">
+        <HeroPreviewCards />
         <section className="flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto">
           <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-4 leading-tight">
             Probable<span className="text-[#10B981]">.ai</span>
           </h1>
-          <p className="text-[#94A3B8] text-base sm:text-lg md:text-xl font-normal mb-8 max-w-xl">
+          <p
+            className="text-[#94A3B8] sm:text-lg md:text-xl font-normal mb-8 max-w-xl"
+            style={{ fontFamily: `var(${plusJakarta.variable})` }}
+          >
             Your academic profile, analyzed in seconds.
           </p>
-
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
             <button
               onClick={() => router.push("/login?mode=login")}
               className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20 cursor-pointer"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
             >
               Analyze my profile!
             </button>
@@ -79,10 +84,13 @@ export default function Home() {
       </AuroraBackground>
       <section
         id="about"
-        className="bg-slate-200 text-slate-900 py-20 px-6 w-full flex-grow overflow-hidden"
+        className="bg-slate-50 text-slate-900 py-20 px-6 w-full flex-grow overflow-hidden"
       >
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-heading text-2xl font-extrabold mb-8 text-slate-900">
+          <h2
+            className="text-2xl font-extrabold mb-8 text-slate-900 tracking-tight"
+            style={{ fontFamily: `var(${plusJakarta.variable})` }}
+          >
             About our application:
           </h2>
           <motion.div
@@ -96,6 +104,7 @@ export default function Home() {
               variants={cardVariants}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
               className="bg-white border border-emerald-200/80 p-6 rounded-xl flex items-start gap-5 shadow-sm hover:shadow-md transition cursor-default"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
             >
               <div className="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-xl shrink-0 flex items-center justify-center text-emerald-600 shadow-sm">
                 <svg

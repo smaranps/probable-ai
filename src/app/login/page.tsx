@@ -6,6 +6,73 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 import Link from "next/link";
+import { Plus_Jakarta_Sans, Inter, Google_Sans_Flex } from "next/font/google";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+});
+const googleSansFlex = Google_Sans_Flex({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-google-sans-flex",
+  display: "swap",
+});
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const leftContentVariants: Variants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1.0],
+    },
+  },
+};
+
+const rightCardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.1,
+      ease: [0.25, 0.1, 0.25, 1.0],
+    },
+  },
+};
+const formFieldVariants: Variants = {
+  hidden: { opacity: 0, height: 0, marginBottom: 0 },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    marginBottom: 16,
+    transition: {
+      duration: 0.25,
+      ease: [0.25, 0.1, 0.25, 1.0],
+    },
+  },
+  exit: {
+    opacity: 0,
+    height: 0,
+    marginBottom: 0,
+    transition: {
+      duration: 0.2,
+      ease: [0.25, 0.1, 0.25, 1.0],
+    },
+  },
+};
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -16,7 +83,6 @@ function LoginContent() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
   const router = useRouter();
 
@@ -27,7 +93,6 @@ function LoginContent() {
       setIsSignUp(false);
     }
   }, [modeParam]);
-
   useEffect(() => {
     localStorage.removeItem("user_profile");
     localStorage.removeItem("auth_token");
@@ -53,7 +118,6 @@ function LoginContent() {
       setError(err?.message || "Failed to authenticate with Google.");
     }
   };
-
   const handleGuestLogin = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("isGuestMode", "true");
@@ -74,7 +138,6 @@ function LoginContent() {
     try {
       if (isSignUp) {
         await signUpWithEmail(email, password, fullName);
-        // New signups always go to onboarding
         router.push("/onboarding");
       } else {
         const cred = await signInWithEmail(email, password);
@@ -105,8 +168,13 @@ function LoginContent() {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      <div className="md:w-1/2 bg-[#090D16] text-white p-8 md:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1E293B]">
+    <div className="min-h-screen flex flex-col md:flex-row overflow-hidden">
+      <motion.div
+        variants={leftContentVariants}
+        initial="hidden"
+        animate="visible"
+        className="md:w-1/2 bg-[#090D16] text-white p-8 md:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1E293B]"
+      >
         <div>
           <Link href="/" className="inline-flex items-center gap-2.5 mb-16">
             <div className="w-8 h-8 rounded-lg bg-[#10B981] flex items-center justify-center font-bold text-[#090D16] text-base">
@@ -117,13 +185,22 @@ function LoginContent() {
             </span>
           </Link>
           <div className="max-w-lg space-y-4">
-            <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-[#10B981] uppercase bg-[#064E3B]/30 border border-[#10B981]/20 rounded-full">
-              Ontario Admissions Intelligence
+            <span
+              className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-[#10B981] uppercase bg-[#064E3B]/30 border border-[#10B981]/20 rounded-full"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
+            >
+              Admissions Expert
             </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              Calculate your university chances.
+            <h1
+              className="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
+            >
+              Calculate your University Chances.
             </h1>
-            <p className="text-[#94A3B8] text-base leading-relaxed pt-2">
+            <p
+              className="text-[#94A3B8] leading-relaxed pt-2"
+              style={{ fontFamily: `var(${googleSansFlex.variable})` }}
+            >
               Our platform analyzes your Top 6 average, target programs,
               extracurriculars, contest scores, and university-specific
               factors/penalties, along with using historical Ontario admissions
@@ -131,41 +208,67 @@ function LoginContent() {
             </p>
           </div>
         </div>
-
-        <p className="text-xs text-[#64748B] mt-12">
+        <p
+          className="text-xs text-[#64748B] mt-12"
+          style={{ fontFamily: `var(${inter.variable})` }}
+        >
           Powered by real Ontario applicant data & Gemini AI.
         </p>
-      </div>
-
+      </motion.div>
       <div className="md:w-1/2 bg-slate-100 p-6 md:p-12 flex items-center justify-center relative overflow-hidden">
         <div className="absolute top-10 right-10 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 left-10 w-64 h-64 bg-teal-300/30 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="w-full max-w-md bg-white/70 backdrop-blur-xl border border-white/80 p-8 rounded-2xl shadow-2xl relative z-10">
+        <motion.div
+          variants={rightCardVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-full max-w-md bg-white/70 backdrop-blur-xl border border-white/80 p-8 rounded-2xl shadow-2xl relative z-10"
+        >
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight mb-1">
+            <motion.h2
+              key={isSignUp ? "signup-title" : "login-title"}
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              className="text-2xl font-bold text-slate-900 tracking-tight mb-1"
+            >
               {isSignUp ? "Create an account" : "Welcome back"}
-            </h2>
-            <p className="text-sm text-slate-600">
+            </motion.h2>
+            <motion.p
+              key={isSignUp ? "signup-sub" : "login-sub"}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              className="text-sm text-slate-600"
+            >
               {isSignUp
                 ? "Sign up to start calculating your admissions odds"
                 : "Log in to access your dashboard"}
-            </p>
+            </motion.p>
           </div>
-
-          {error && (
-            <div className="bg-red-500/10 border border-red-500/30 text-red-600 text-xs p-3 rounded-lg mb-6">
-              {error}
-            </div>
-          )}
-
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                animate={{ opacity: 1, height: "auto", marginBottom: 24 }}
+                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                className="bg-red-500/10 border border-red-500/30 text-red-600 text-xs p-3 rounded-lg overflow-hidden"
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className="space-y-3 mb-6">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               type="button"
               disabled={isSubmitting}
               onClick={handleGoogleAuth}
-              className="w-full py-2.5 px-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-medium text-sm rounded-lg transition-all shadow-sm flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
+              className="w-full py-2.5 px-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-medium text-sm rounded-lg transition-colors shadow-sm flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
+              style={{ fontFamily: `var(${googleSansFlex.variable})` }}
             >
+
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
                   fill="#EA4335"
@@ -185,41 +288,50 @@ function LoginContent() {
                 />
               </svg>
               {isSubmitting ? "Authenticating..." : "Continue with Google"}
-            </button>
-
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               type="button"
               onClick={handleGuestLogin}
-              className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 font-medium text-sm rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 font-medium text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              style={{ fontFamily: `var(${googleSansFlex.variable})` }}
             >
               Continue as Guest / Try Demo
-            </button>
+            </motion.button>
           </div>
-
           <div className="relative flex items-center justify-center my-6">
             <div className="border-t border-slate-200 w-full"></div>
             <span className="bg-white/80 px-3 text-xs text-slate-500 absolute font-mono rounded">
               OR
             </span>
           </div>
-
-          <form onSubmit={handleEmailAuth} className="space-y-4">
-            {isSignUp && (
-              <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1.5">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Enter your full name"
-                  className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
-                  required
-                />
-              </div>
-            )}
-            <div>
+          <form onSubmit={handleEmailAuth}>
+            <AnimatePresence initial={false}>
+              {isSignUp && (
+                <motion.div
+                  key="fullNameInput"
+                  variants={formFieldVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="overflow-hidden"
+                >
+                  <label className="block text-xs font-medium text-slate-700 mb-1.5">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Enter your full name"
+                    className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
+                    required={isSignUp}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <div className="mb-4">
               <label className="block text-xs font-medium text-slate-700 mb-1.5">
                 Email address
               </label>
@@ -232,7 +344,7 @@ function LoginContent() {
                 required
               />
             </div>
-            <div>
+            <div className="mb-4">
               <label className="block text-xs font-medium text-slate-700 mb-1.5">
                 Password
               </label>
@@ -245,11 +357,12 @@ function LoginContent() {
                 required
               />
             </div>
-
-            <button
+            <motion.button
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2.5 bg-[#090D16] hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-all mt-2 cursor-pointer shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full py-2.5 bg-[#090D16] hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-colors mt-2 cursor-pointer shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>
@@ -261,9 +374,8 @@ function LoginContent() {
               ) : (
                 "Log In"
               )}
-            </button>
+            </motion.button>
           </form>
-
           <p className="text-xs text-center text-slate-600 mt-6">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
             &nbsp;
@@ -278,12 +390,11 @@ function LoginContent() {
               {isSignUp ? "Log In" : "Sign Up"}
             </button>
           </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 }
-
 export default function LoginPage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#090D16]" />}>
