@@ -56,7 +56,9 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
   }, [profile.university, profile.program]);
 
   const benchmarkMean = benchmark?.benchmarkMean ?? 92.5;
-  const sampleCount = benchmark?.sampleCount + "+" ?? 0;
+  const sampleCount = benchmark?.sampleCount
+    ? `${benchmark.sampleCount}+`
+    : "0";
 
   const comparisonData = [
     {
