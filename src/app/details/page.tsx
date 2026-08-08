@@ -12,7 +12,7 @@ export default function DetailsPage() {
       try {
         setProfile(JSON.parse(saved));
       } catch (err) {
-        console.error("Error loading profile:", err);
+        console.error("Error loading your profile:", err);
       }
     }
   }, []);
