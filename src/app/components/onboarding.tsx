@@ -412,8 +412,8 @@ export default function OnboardingModal({
     setStep((s) => (s > 1 ? ((s - 1) as any) : s));
   };
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-      <div className="relative w-full max-w-2xl bg-slate-50/95 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 ">
+      <div className="relative w-full max-w-2xl bg-slate-50/95 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] mt-[50px] ">
         <div className="bg-slate-200/60 border-b border-slate-200/80 p-3 px-6">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2">
             Demo Presets:

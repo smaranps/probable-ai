@@ -28,7 +28,9 @@ interface AuthContextType {
   signInWithEmail: (email: string, pass: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
 }
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,36 +38,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      if (currentUser) {
-        try {
-          const userRef = doc(db, "users", currentUser.uid);
-          const userSnap = await getDoc(userRef);
 
-          if (!userSnap.exists()) {
-            await setDoc(userRef, {
-              uid: currentUser.uid,
-              displayName: currentUser.displayName || "",
-              email: currentUser.email || "",
-              photoURL: currentUser.photoURL || "",
-              createdAt: new Date().toISOString(),
-              onboardingCompleted: false,
-            });
+      if (currentUser) {
+        (async () => {
+          try {
+            const userRef = doc(db, "users", currentUser.uid);
+            let userSnap;
+            try {
+              userSnap = await getDoc(userRef);
+            } catch (fetchErr: any) {
+              console.warn(
+                "Firestore offline during auth state transition:",
+                fetchErr?.message
+              );
+              return;
+            }
+            if (!userSnap?.exists()) {
+              await setDoc(
+                userRef,
+                {
+                  uid: currentUser.uid,
+                  displayName: currentUser.displayName || "",
+                  email: currentUser.email || "",
+                  photoURL: currentUser.photoURL || "",
+                  createdAt: new Date().toISOString(),
+                  onboardingCompleted: false,
+                },
+                { merge: true }
+              );
+            }
+          } catch (err) {
+            console.warn("Background profile initialization skipped:", err);
           }
-        } catch (err) {
-          console.warn("Background profile check skipped:", err);
-        }
+        })();
       }
+
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
-
   const signInWithGoogle = async (): Promise<UserCredential> => {
     const provider = new GoogleAuthProvider();
     return await signInWithPopup(auth, provider);
   };
-
   const signUpWithEmail = async (
     email: string,
     pass: string,
@@ -86,9 +102,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   ): Promise<UserCredential> => {
     return await signInWithEmailAndPassword(auth, email, pass);
   };
+
   const logout = async () => {
     await signOut(auth);
   };
+
   return (
     <AuthContext.Provider
       value={{
@@ -104,7 +122,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     </AuthContext.Provider>
   );
 }
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) throw new Error("useAuth must be used within an AuthProvider");
