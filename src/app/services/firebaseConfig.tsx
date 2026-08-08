@@ -1,8 +1,8 @@
 // Source: Google's Firebase Initialize Setup (Guarded for Next.js Build Phase)
 
-import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
-import { getFirestore, type Firestore } from "firebase/firestore";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,18 +12,11 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
-const hasValidKey = Boolean(
-  firebaseConfig.apiKey && firebaseConfig.apiKey !== "undefined"
-);
 
-const app: FirebaseApp | null = hasValidKey
-  ? getApps().length > 0
-    ? getApp()
-    : initializeApp(firebaseConfig)
-  : null;
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-export const auth = (app ? getAuth(app) : {}) as Auth;
+export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
-export const db = (app ? getFirestore(app) : {}) as Firestore;
+export const db = getFirestore(app);
 
 export default app;
