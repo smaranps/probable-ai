@@ -122,6 +122,12 @@ export default function OverviewDashboard({
             </p>
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
+            <button
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm"
+              onClick={() => router.push("/details")}
+            >
+              <Sparkles size={16} /> Detailed Report
+            </button>
             <div className="flex bg-slate-100/70 p-1 rounded-xl border border-slate-200/70 w-full sm:w-auto">
               <button
                 type="button"
@@ -260,13 +266,6 @@ export default function OverviewDashboard({
               >
                 <Sparkles size={16} /> Run
                 {mode === "advisor" ? "Advisor" : "Roast"} Evaluation
-              </button>
-
-              <button
-                className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm"
-                onClick={() => router.push("/details")}
-              >
-                <Sparkles size={16} /> Detailed Report
               </button>
             </div>
           )}

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   Radar,
   RadarChart,
@@ -9,6 +10,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+
 export interface RadarMetrics {
   applicantTop6: number;
   applicantContest: number;
@@ -26,6 +28,7 @@ interface RadarProps {
   metrics?: RadarMetrics;
   isLoading?: boolean;
 }
+
 export function CompetitivenessRadar({ metrics, isLoading }: RadarProps) {
   if (isLoading) {
     return (
@@ -36,16 +39,17 @@ export function CompetitivenessRadar({ metrics, isLoading }: RadarProps) {
       </div>
     );
   }
+
   const chartData = [
     {
       subject: "Top 6 Avg",
       applicant: metrics?.applicantTop6 ?? 0,
-      medianAdmitted: metrics?.medianTop6 ?? 90,
+      medianAdmitted: metrics?.medianTop6 ?? 96,
     },
     {
       subject: "STEM Contests",
       applicant: metrics?.applicantContest ?? 0,
-      medianAdmitted: metrics?.medianContest ?? 0,
+      medianAdmitted: metrics?.medianContest ?? 75,
     },
     {
       subject: "EC Leadership",
@@ -55,12 +59,12 @@ export function CompetitivenessRadar({ metrics, isLoading }: RadarProps) {
     {
       subject: "Course Rigor",
       applicant: metrics?.applicantRigor ?? 0,
-      medianAdmitted: metrics?.medianRigor ?? 95,
+      medianAdmitted: metrics?.medianRigor ?? 90,
     },
     {
       subject: "Adj. Factor",
       applicant: metrics?.applicantAdjFactor ?? 0,
-      medianAdmitted: metrics?.medianAdjFactor ?? 90,
+      medianAdmitted: metrics?.medianAdjFactor ?? 88,
     },
   ];
 
@@ -76,7 +80,7 @@ export function CompetitivenessRadar({ metrics, isLoading }: RadarProps) {
           </p>
         </div>
         <span className="text-[10px] bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full border border-emerald-200 font-medium">
-          Verified CUDO Vector
+          Veridied CUDO Data
         </span>
       </div>
 
@@ -117,7 +121,7 @@ export function CompetitivenessRadar({ metrics, isLoading }: RadarProps) {
                 color: "#1E293B",
                 fontSize: "12px",
               }}
-              formatter={(value: any) => [`${value}%`, "Enrolled Median"]}
+              formatter={(value: any) => [`${value}%`, "Median Admitted"]}
             />
           </RadarChart>
         </ResponsiveContainer>
