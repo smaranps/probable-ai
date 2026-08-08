@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/app/context/authContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -18,23 +18,42 @@ export default function LoginPage() {
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
   const router = useRouter();
 
+  useEffect(() => {
+    localStorage.removeItem("user_profile");
+    localStorage.removeItem("auth_token");
+  }, []);
   const handlePostAuthRedirect = async (uid: string) => {
     try {
-      const userDocRef = doc(db, "users", uid);
-      const userSnap = await getDoc(userDocRef);
+      const fetchUserData = async () => {
+        const userDocRef = doc(db, "users", uid);
+        return await getDoc(userDocRef);
+      };
 
-      if (userSnap.exists() && userSnap.data()?.onboardingCompleted) {
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Timeout")), 2000)
+      );
+
+      const userSnap: any = await Promise.race([
+        fetchUserData(),
+        timeoutPromise,
+      ]);
+
+      if (
+        userSnap &&
+        userSnap.exists() &&
+        userSnap.data()?.onboardingCompleted
+      ) {
         router.push("/dashboard");
       } else {
         router.push("/onboarding");
       }
     } catch (err) {
-      router.push("/onboarding");
+      router.push("/dashboard");
     }
   };
-
   const handleGoogleAuth = async () => {
     setError("");
+    setIsSubmitting(true);
     try {
       const result: any = await signInWithGoogle();
       if (result?.user) {
@@ -43,8 +62,12 @@ export default function LoginPage() {
         router.push("/onboarding");
       }
     } catch (err: any) {
-      if (err?.code === "auth/popup-closed-by-user") return;
+      if (err?.code === "auth/popup-closed-by-user") {
+        setIsSubmitting(false);
+        return;
+      }
       setError(err?.message || "Failed to authenticate with Google.");
+      setIsSubmitting(false);
     }
   };
 
@@ -78,6 +101,7 @@ export default function LoginPage() {
         }
       }
     } catch (err: any) {
+      setIsSubmitting(false);
       if (
         err.code === "auth/user-not-found" ||
         err.code === "auth/wrong-password" ||
@@ -91,8 +115,6 @@ export default function LoginPage() {
       } else {
         setError(err.message || "Authentication failed. Please try again.");
       }
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -108,7 +130,6 @@ export default function LoginPage() {
               Probable<span className="text-[#10B981]">.ai</span>
             </span>
           </Link>
-
           <div className="max-w-lg space-y-4">
             <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-[#10B981] uppercase bg-[#064E3B]/30 border border-[#10B981]/20 rounded-full">
               Ontario Admissions Intelligence
@@ -129,7 +150,6 @@ export default function LoginPage() {
           Powered by real Ontario applicant data & Gemini AI.
         </p>
       </div>
-
       <div className="md:w-1/2 bg-slate-100 p-6 md:p-12 flex items-center justify-center relative overflow-hidden">
         <div className="absolute top-10 right-10 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 left-10 w-64 h-64 bg-teal-300/30 rounded-full blur-3xl pointer-events-none" />
@@ -145,7 +165,6 @@ export default function LoginPage() {
                 : "Log in to access your dashboard"}
             </p>
           </div>
-
           {error && (
             <div className="bg-red-500/10 border border-red-500/30 text-red-600 text-xs p-3 rounded-lg mb-6">
               {error}
@@ -154,8 +173,9 @@ export default function LoginPage() {
           <div className="space-y-3 mb-6">
             <button
               type="button"
+              disabled={isSubmitting}
               onClick={handleGoogleAuth}
-              className="w-full py-2.5 px-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-medium text-sm rounded-lg transition-all shadow-sm flex items-center justify-center gap-3 cursor-pointer"
+              className="w-full py-2.5 px-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-medium text-sm rounded-lg transition-all shadow-sm flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -175,25 +195,22 @@ export default function LoginPage() {
                   d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"
                 />
               </svg>
-              Continue with Google
+              {isSubmitting ? "Authenticating..." : "Continue with Google"}
             </button>
-
             <button
               type="button"
               onClick={handleGuestLogin}
               className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 font-medium text-sm rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              Continue as Guest / Try Demo →
+              Continue as Guest / Try Demo
             </button>
           </div>
-
           <div className="relative flex items-center justify-center my-6">
             <div className="border-t border-slate-200 w-full"></div>
             <span className="bg-white/80 px-3 text-xs text-slate-500 absolute font-mono rounded">
               OR
             </span>
           </div>
-
           <form onSubmit={handleEmailAuth} className="space-y-4">
             {isSignUp && (
               <div>
@@ -210,7 +227,6 @@ export default function LoginPage() {
                 />
               </div>
             )}
-
             <div>
               <label className="block text-xs font-medium text-slate-700 mb-1.5">
                 Email address
@@ -224,7 +240,6 @@ export default function LoginPage() {
                 required
               />
             </div>
-
             <div>
               <label className="block text-xs font-medium text-slate-700 mb-1.5">
                 Password
@@ -238,16 +253,23 @@ export default function LoginPage() {
                 required
               />
             </div>
-
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2.5 bg-[#090D16] hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-all mt-2 cursor-pointer shadow-md disabled:opacity-50"
+              className="w-full py-2.5 bg-[#090D16] hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-all mt-2 cursor-pointer shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {isSubmitting ? "Processing..." : isSignUp ? "Sign Up" : "Log In"}
+              {isSubmitting ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Processing...
+                </>
+              ) : isSignUp ? (
+                "Sign Up"
+              ) : (
+                "Log In"
+              )}
             </button>
           </form>
-
           <p className="text-xs text-center text-slate-600 mt-6">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
             <button

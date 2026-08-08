@@ -11,6 +11,7 @@ import {
   updateProfile,
   signOut,
   onAuthStateChanged,
+  UserCredential,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "@/app/services/firebaseConfig";
@@ -18,13 +19,13 @@ import { auth, db } from "@/app/services/firebaseConfig";
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: () => Promise<UserCredential>;
   signUpWithEmail: (
     email: string,
     pass: string,
     fullName: string
-  ) => Promise<void>;
-  signInWithEmail: (email: string, pass: string) => Promise<void>;
+  ) => Promise<UserCredential>;
+  signInWithEmail: (email: string, pass: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
 }
 
@@ -42,44 +43,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (): Promise<UserCredential> => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
-    const user = result.user;
+    const loggedInUser = result.user;
 
-    const userRef = doc(db, "users", user.uid);
+    const userRef = doc(db, "users", loggedInUser.uid);
     const userSnap = await getDoc(userRef);
 
     if (!userSnap.exists()) {
       await setDoc(userRef, {
-        uid: user.uid,
-        displayName: user.displayName || "",
-        email: user.email || "",
-        photoURL: user.photoURL || "",
+        uid: loggedInUser.uid,
+        displayName: loggedInUser.displayName || "",
+        email: loggedInUser.email || "",
+        photoURL: loggedInUser.photoURL || "",
         createdAt: new Date().toISOString(),
+        onboardingCompleted: false, // Explicitly initialize onboarding status
       });
     }
+
+    return result; // Return result so caller receives user object
   };
+
   const signUpWithEmail = async (
     email: string,
     pass: string,
     fullName: string
-  ) => {
+  ): Promise<UserCredential> => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       pass
     );
-
-    // Set display name in Firebase user profile
     await updateProfile(userCredential.user, { displayName: fullName });
-
-    // Send verification email
     await sendEmailVerification(userCredential.user);
+
+    return userCredential;
   };
 
-  const signInWithEmail = async (email: string, pass: string) => {
-    await signInWithEmailAndPassword(auth, email, pass);
+  const signInWithEmail = async (
+    email: string,
+    pass: string
+  ): Promise<UserCredential> => {
+    const credential = await signInWithEmailAndPassword(auth, email, pass);
+    return credential;
   };
 
   const logout = async () => {

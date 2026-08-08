@@ -10,14 +10,15 @@ import {
   Plus,
   Trash2,
   Sparkles,
-  GraduationCap,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export interface CourseEntry {
   code: string;
   grade: number | "";
   isSummerSchool: boolean;
   isRepeated: boolean;
+  isRequired?: boolean;
 }
 
 export interface UserProfileData {
@@ -34,6 +35,85 @@ export interface UserProfileData {
   hasOvsOrNightSchool: boolean;
   extracurriculars: string;
 }
+const DEFAULT_COURSES: CourseEntry[] = [
+  {
+    code: "ENG4U",
+    grade: "",
+    isSummerSchool: false,
+    isRepeated: false,
+    isRequired: true,
+  },
+  {
+    code: "MHF4U",
+    grade: "",
+    isSummerSchool: false,
+    isRepeated: false,
+    isRequired: true,
+  },
+  {
+    code: "MCV4U",
+    grade: "",
+    isSummerSchool: false,
+    isRepeated: false,
+    isRequired: true,
+  },
+  {
+    code: "SPH4U",
+    grade: "",
+    isSummerSchool: false,
+    isRepeated: false,
+    isRequired: false,
+  },
+  {
+    code: "SCH4U",
+    grade: "",
+    isSummerSchool: false,
+    isRepeated: false,
+    isRequired: false,
+  },
+  {
+    code: "ICS4U",
+    grade: "",
+    isSummerSchool: false,
+    isRepeated: false,
+    isRequired: false,
+  },
+];
+
+export function calculateOUACTop6(
+  courses: CourseEntry[],
+  requiredCodes: string[] = ["ENG4U", "MHF4U", "MCV4U"]
+): number {
+  const validCourses = courses.filter(
+    (c) =>
+      c.code.trim() !== "" && typeof c.grade === "number" && !isNaN(c.grade)
+  ) as (CourseEntry & { grade: number })[];
+
+  if (validCourses.length === 0) return 0;
+
+  const top6: (CourseEntry & { grade: number })[] = [];
+  const remaining: (CourseEntry & { grade: number })[] = [];
+
+  validCourses.forEach((course) => {
+    const isReq = requiredCodes.some((req) =>
+      course.code.trim().toUpperCase().includes(req.toUpperCase())
+    );
+    if (isReq) {
+      top6.push(course);
+    } else {
+      remaining.push(course);
+    }
+  });
+
+  remaining.sort((a, b) => b.grade - a.grade);
+
+  while (top6.length < 6 && remaining.length > 0) {
+    top6.push(remaining.shift()!);
+  }
+
+  const total = top6.reduce((sum, c) => sum + c.grade, 0);
+  return Number((total / top6.length).toFixed(1));
+}
 
 interface OnboardingModalProps {
   onComplete: (data: UserProfileData) => void;
@@ -45,19 +125,127 @@ export default function OnboardingModal({
   userDisplayName = "Student",
 }: OnboardingModalProps) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUniversity, setSelectedUniversity] = useState("");
   const [program, setProgram] = useState("");
+  const [courses, setCourses] = useState<CourseEntry[]>(DEFAULT_COURSES);
+  const router = useRouter();
 
-  const [courses, setCourses] = useState<CourseEntry[]>([
-    { code: "ENG4U", grade: "", isSummerSchool: false, isRepeated: false },
-    { code: "MHF4U", grade: "", isSummerSchool: false, isRepeated: false },
-    { code: "MCV4U", grade: "", isSummerSchool: false, isRepeated: false },
-    { code: "SPH4U", grade: "", isSummerSchool: false, isRepeated: false },
-    { code: "SCH4U", grade: "", isSummerSchool: false, isRepeated: false },
-    { code: "ICS4U", grade: "", isSummerSchool: false, isRepeated: false },
-  ]);
+  const PRESET_PROFILES: { label: string; data: UserProfileData }[] = [
+    {
+      label: "96% Waterloo SE",
+      data: {
+        university: "University of Waterloo",
+        program: "Software Engineering",
+        applicantType: "101",
+        top6Average: 96.2,
+        courses: [
+          {
+            code: "ENG4U",
+            grade: 94,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: true,
+          },
+          {
+            code: "MHF4U",
+            grade: 98,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: true,
+          },
+          {
+            code: "MCV4U",
+            grade: 97,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: true,
+          },
+          {
+            code: "SPH4U",
+            grade: 95,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: false,
+          },
+          {
+            code: "SCH4U",
+            grade: 96,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: false,
+          },
+          {
+            code: "ICS4U",
+            grade: 98,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: false,
+          },
+        ],
+        contests: { euclid: 78, csmc: 48, ccc: 52 },
+        hasOvsOrNightSchool: false,
+        extracurriculars:
+          "Robotics Captain, Founder of a non-profit, DECA ICDC Finalist",
+      },
+    },
+    {
+      label: " 92% + OVS Flag",
+      data: {
+        university: "University of Toronto - St. George",
+        program: "Computer Science",
+        applicantType: "101",
+        top6Average: 92.5,
+        courses: [
+          {
+            code: "ENG4U",
+            grade: 88,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: true,
+          },
+          {
+            code: "MHF4U",
+            grade: 96,
+            isSummerSchool: true,
+            isRepeated: false,
+            isRequired: true,
+          },
+          {
+            code: "MCV4U",
+            grade: 95,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: true,
+          },
+          {
+            code: "SPH4U",
+            grade: 90,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: false,
+          },
+          {
+            code: "SCH4U",
+            grade: 91,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: false,
+          },
+          {
+            code: "ICS4U",
+            grade: 95,
+            isSummerSchool: false,
+            isRepeated: false,
+            isRequired: false,
+          },
+        ],
+        contests: { euclid: "", csmc: "", ccc: "" },
+        hasOvsOrNightSchool: true,
+        extracurriculars: "Math Club Vice President, Peer Tutor (100+ hrs)",
+      },
+    },
+  ];
 
   const [applicantType, setApplicantType] = useState<"101" | "105">("101");
   const [contests, setContests] = useState({
@@ -75,14 +263,8 @@ export default function OnboardingModal({
       uni.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery]);
-
   const calculatedAverage = useMemo(() => {
-    const validGrades = courses
-      .map((c) => Number(c.grade))
-      .filter((g) => !isNaN(g) && g > 0);
-    if (validGrades.length === 0) return 0;
-    const sum = validGrades.reduce((acc, curr) => acc + curr, 0);
-    return Math.round((sum / validGrades.length) * 10) / 10;
+    return calculateOUACTop6(courses);
   }, [courses]);
 
   const handleCourseChange = (
@@ -99,8 +281,25 @@ export default function OnboardingModal({
     if (courses.length >= 8) return;
     setCourses([
       ...courses,
-      { code: "", grade: "", isSummerSchool: false, isRepeated: false },
+      {
+        code: "",
+        grade: "",
+        isSummerSchool: false,
+        isRepeated: false,
+        isRequired: false,
+      },
     ]);
+  };
+  const applyPreset = (presetData: UserProfileData) => {
+    setSelectedUniversity(presetData.university);
+    setSearchQuery(presetData.university);
+    setProgram(presetData.program);
+    setApplicantType(presetData.applicantType);
+    setCourses(presetData.courses);
+    setContests(presetData.contests);
+    setHasOvsOrNightSchool(presetData.hasOvsOrNightSchool);
+    setExtracurriculars(presetData.extracurriculars);
+    setStep(2);
   };
 
   const removeCourseRow = (index: number) => {
@@ -119,13 +318,36 @@ export default function OnboardingModal({
       hasOvsOrNightSchool,
       extracurriculars,
     };
-    onComplete(profileData);
+    localStorage.setItem("ouac_user_profile", JSON.stringify(profileData));
+
+    if (onComplete) {
+      onComplete(profileData);
+    }
+    router.push("/dashboard");
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 ">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <div className="relative w-full max-w-2xl bg-slate-50/95 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-        <div className="px-6 pt-6 pb-4 border-b border-slate-200/80 bg-white/50">
+        <div className="bg-slate-200/60 border-b border-slate-200/80 p-3 px-6">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2">
+            Demo Presets:
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {PRESET_PROFILES.map((preset, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => applyPreset(preset.data)}
+                className="text-xs bg-white hover:bg-emerald-50 hover:border-emerald-500 border border-slate-300 text-slate-800 font-semibold px-3 py-1.5 rounded-lg transition shadow-sm cursor-pointer"
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="px-6 pt-4 pb-4 border-b border-slate-200/80 bg-white/50">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-600 flex items-center gap-1.5">
               <Sparkles size={13} /> Step {step} of 4
@@ -150,14 +372,13 @@ export default function OnboardingModal({
             <div className="space-y-5">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-                  Nice to meet you, {userDisplayName}! 👋
+                  Nice to meet you, {userDisplayName}!
                 </h2>
                 <p className="text-sm text-slate-500 mt-1">
-                  Select your target university and program to benchmark your
-                  odds.
+                  Select your target university and program to start your
+                  analysis.
                 </p>
               </div>
-
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                   Target University
@@ -349,7 +570,6 @@ export default function OnboardingModal({
                   Top STEM programs weigh competition scores heavily.
                 </p>
               </div>
-
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
                   Applicant Category
@@ -375,7 +595,6 @@ export default function OnboardingModal({
                       Ontario High School Student
                     </div>
                   </button>
-
                   <button
                     type="button"
                     onClick={() => setApplicantType("105")}
@@ -520,7 +739,6 @@ export default function OnboardingModal({
           >
             <ChevronLeft size={16} /> Back
           </button>
-
           {step < 4 ? (
             <button
               type="button"

@@ -1,3 +1,5 @@
+// Source: Skills UI for the Aurora Background, Gemini for styling
+
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
@@ -43,11 +45,16 @@ export const FloatingParticles = () => {
     </div>
   );
 };
+
+interface AuroraBackgroundProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
 export const AuroraBackground = ({
   children,
-}: {
-  children: React.ReactNode;
-}) => {
+  className = "",
+}: AuroraBackgroundProps) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -59,7 +66,9 @@ export const AuroraBackground = ({
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#090D16] text-white overflow-hidden flex flex-col justify-between">
+    <div
+      className={`relative bg-[#090D16] text-white overflow-hidden ${className}`}
+    >
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <FloatingParticles />
         <div
@@ -119,7 +128,7 @@ export const AuroraBackground = ({
         </svg>
       </div>
 
-      <div className="relative z-10 w-full flex-grow flex flex-col justify-between">
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
         {children}
       </div>
     </div>

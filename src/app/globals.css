@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc !important;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 /* Source: From UI Skills Aurora Motion */
@@ -87,4 +97,50 @@
 .animate-particle {
   animation: floatUp var(--duration, 10s) ease-in-out infinite;
   animation-delay: var(--delay, 0s);
+}
+
+#graph-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: space-between;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 768px) {
+  #graph-container {
+    flex-direction: column;
+  }
+}
+
+@keyframes blob-drift {
+  0% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
+  }
+  33% {
+    transform: translate(8vw, -10vh) scale(1.1) rotate(120deg);
+    border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+  }
+  66% {
+    transform: translate(-10vw, 8vh) scale(0.9) rotate(240deg);
+    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1) rotate(360deg);
+    border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%;
+  }
+}
+
+.animate-liquid-1 {
+  animation: blob-drift 25s ease-in-out infinite alternate;
+}
+
+.animate-liquid-2 {
+  animation: blob-drift 30s ease-in-out infinite alternate-reverse;
+}
+
+.animate-liquid-3 {
+  animation: blob-drift 28s ease-in-out infinite alternate;
+  animation-delay: -10s;
 }

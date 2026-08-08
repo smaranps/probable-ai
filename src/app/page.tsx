@@ -27,37 +27,31 @@ export default function Home() {
     <div
       className={`${inter.variable} ${plusJakarta.variable} font-sans min-h-screen bg-[#090D16] text-white flex flex-col justify-between`}
     >
-      <div className="relative min-h-screen flex flex-col justify-between">
-        <AuroraBackground>
-          <Navbar user={user} />
-          <section className="flex-1 flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto my-auto py-12">
-            <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white mb-4 leading-none">
-              Probable<span className="text-[#10B981]">.ai</span>
-            </h1>
-            <p className="text-[#94A3B8] text-lg sm:text-xl md:text-2xl font-normal mb-8 max-w-xl">
-              Your academic profile, analyzed in seconds. 
-            </p>
+      <AuroraBackground className="h-[80vh] min-h-[600px] flex items-center justify-center pt-16">
+        <section className="flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto">
+          <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+            Probable<span className="text-[#10B981]">.ai</span>
+          </h1>
+          <p className="text-[#94A3B8] text-base sm:text-lg md:text-xl font-normal mb-8 max-w-xl">
+            Your academic profile, analyzed in seconds.
+          </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
-              <button
-                onClick={signInWithGoogle}
-                className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20"
-              >
-                Analyze my profile!
-              </button>
-              <button
-                onClick={() => router.push("/login")}
-                className="w-full sm:w-auto px-7 py-3 bg-[#111827] hover:bg-[#1E293B] border border-[#1E293B] text-[#94A3B8] hover:text-white font-medium text-sm rounded-lg transition"
-              >
-                Login
-              </button>
-            </div>
-          </section>
-
-          <div className="h-16 pointer-events-none"></div>
-        </AuroraBackground>
-      </div>
-
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
+            <button
+              onClick={signInWithGoogle}
+              className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20 cursor-pointer"
+            >
+              Analyze my profile!
+            </button>
+            <button
+              onClick={() => router.push("/login")}
+              className="w-full sm:w-auto px-7 py-3 bg-[#111827] hover:bg-[#1E293B] border border-[#1E293B] text-[#94A3B8] hover:text-white font-medium text-sm rounded-lg transition cursor-pointer"
+            >
+              Login
+            </button>
+          </div>
+        </section>
+      </AuroraBackground>
       <section
         id="about"
         className="bg-[#D1FAE5] text-slate-900 py-20 px-6 w-full flex-grow"

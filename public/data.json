@@ -1,0 +1,1305 @@
+{
+  "metadata": {
+    "source": "Common University Data Ontario (CUDO), B.C. Education Data, & Official Institutional Reports",
+    "last_updated": "2026",
+    "total_institutions": 41
+  },
+  "institutions": [
+    {
+      "id": "acadia_university",
+      "name": "Acadia University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "acadia_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "brock_university",
+      "name": "Brock University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "brock_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "carleton_university",
+      "name": "Carleton University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "carleton_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "concordia_university",
+      "name": "Concordia University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "concordia_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "dalhousie_university",
+      "name": "Dalhousie University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "dalhousie_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "kings_university_college_dalhousie",
+      "name": "King's University College (Dalhousie)",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "kings_university_college_dalhousie-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "lakehead_university",
+      "name": "Lakehead University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "lakehead_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "laurentian_university",
+      "name": "Laurentian University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "laurentian_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mcgill_university",
+      "name": "McGill University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "mcgill-cs",
+          "program_name": "Computer Science (BSc)",
+          "faculty": "Faculty of Science",
+          "historical_mid_50_range": [
+            94.0,
+            97.5
+          ],
+          "cutoff_minimum": 92.0,
+          "competitiveness_tier": "Tier 1 (Strict Grade Cutoff)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 2.0,
+            "repeat_penalty": 3.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 78.0,
+            "90_94.9": 20.0,
+            "85_89.9": 2.0,
+            "under_85": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mcmaster_university",
+      "name": "McMaster University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "mac-healthsci",
+          "program_name": "Health Sciences (BHSc)",
+          "faculty": "Health Sciences",
+          "historical_mid_50_range": [
+            96.0,
+            99.0
+          ],
+          "cutoff_minimum": 90.0,
+          "competitiveness_tier": "Tier 1 (Ultra Competitive / Supp App Heavy)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.5,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 92.0,
+            "90_94.9": 8.0,
+            "85_89.9": 0.0,
+            "under_85": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mount_allison_university",
+      "name": "Mount Allison University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "mount_allison_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "nipissing_university",
+      "name": "Nipissing University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "nipissing_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "ocad_university",
+      "name": "OCAD University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "ocad_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "ontario_tech_university",
+      "name": "Ontario Tech University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "ontario_tech_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "queens_university",
+      "name": "Queen's University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "queens_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "royal_military_college_of_canada",
+      "name": "Royal Military College of Canada",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "royal_military_college_of_canada-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "saint_marys_university",
+      "name": "Saint Mary's University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "saint_marys_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "seneca_polytechnic",
+      "name": "Seneca Polytechnic",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "seneca_polytechnic-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "st._lawrence_college",
+      "name": "St. Lawrence College",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "st._lawrence_college-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "toronto_metropolitan_university",
+      "name": "Toronto Metropolitan University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "toronto_metropolitan_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "trent_university",
+      "name": "Trent University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "trent_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_alberta",
+      "name": "University of Alberta",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_alberta-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_british_columbia___vancouver",
+      "name": "University of British Columbia - Vancouver",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_british_columbia___vancouver-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_british_columbia___okanagan",
+      "name": "University of British Columbia - Okanagan",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_british_columbia___okanagan-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_calgary",
+      "name": "University of Calgary",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_calgary-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_new_brunswick",
+      "name": "University of New Brunswick",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_new_brunswick-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_ottawa",
+      "name": "University of Ottawa",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_ottawa-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_regina",
+      "name": "University of Regina",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_regina-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_toronto___mississauga",
+      "name": "University of Toronto - Mississauga",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_toronto___mississauga-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_toronto___scarborough",
+      "name": "University of Toronto - Scarborough",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_toronto___scarborough-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_toronto___st._george",
+      "name": "University of Toronto - St. George",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "uoft-engsci",
+          "program_name": "Engineering Science",
+          "faculty": "Applied Science & Engineering",
+          "historical_mid_50_range": [
+            94.5,
+            98.0
+          ],
+          "cutoff_minimum": 91.0,
+          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 3.5,
+            "repeat_penalty": 4.0,
+            "contest_weight": "Moderate"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 80.0,
+            "90_94.9": 18.0,
+            "85_89.9": 2.0,
+            "under_85": 0.0
+          }
+        },
+        {
+          "program_id": "uoft-cs",
+          "program_name": "Computer Science (St. George)",
+          "faculty": "Arts & Science",
+          "historical_mid_50_range": [
+            95.0,
+            98.5
+          ],
+          "cutoff_minimum": 92.0,
+          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 2.0,
+            "repeat_penalty": 3.0,
+            "contest_weight": "Low"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 85.0,
+            "90_94.9": 13.0,
+            "85_89.9": 2.0,
+            "under_85": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_victoria",
+      "name": "University of Victoria",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_victoria-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_waterloo",
+      "name": "University of Waterloo",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "waterloo-se",
+          "program_name": "Software Engineering",
+          "faculty": "Engineering",
+          "historical_mid_50_range": [
+            95.0,
+            98.5
+          ],
+          "cutoff_minimum": 92.0,
+          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 5.0,
+            "repeat_penalty": 5.0,
+            "contest_weight": "High (Euclid/CCC)"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 88.5,
+            "90_94.9": 10.5,
+            "85_89.9": 1.0,
+            "under_85": 0.0
+          }
+        },
+        {
+          "program_id": "waterloo-cs",
+          "program_name": "Computer Science",
+          "faculty": "Mathematics",
+          "historical_mid_50_range": [
+            94.5,
+            98.0
+          ],
+          "cutoff_minimum": 90.0,
+          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 3.0,
+            "repeat_penalty": 4.0,
+            "contest_weight": "Very High (Euclid/CSMC)"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 82.0,
+            "90_94.9": 16.0,
+            "85_89.9": 2.0,
+            "under_85": 0.0
+          }
+        },
+        {
+          "program_id": "waterloo-syde",
+          "program_name": "Systems Design Engineering",
+          "faculty": "Engineering",
+          "historical_mid_50_range": [
+            93.5,
+            97.0
+          ],
+          "cutoff_minimum": 89.0,
+          "competitiveness_tier": "Tier 1 (Ultra Competitive / AIF Heavy)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 4.0,
+            "repeat_penalty": 4.0,
+            "contest_weight": "Moderate"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 70.0,
+            "90_94.9": 26.0,
+            "85_89.9": 4.0,
+            "under_85": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_windsor",
+      "name": "University of Windsor",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_windsor-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "wilfrid_laurier_university",
+      "name": "Wilfrid Laurier University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "wilfrid_laurier_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_guelph",
+      "name": "University of Guelph",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_guelph-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "university_of_guelph_humber",
+      "name": "University of Guelph-Humber",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "university_of_guelph_humber-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "western_university",
+      "name": "Western University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "western_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "western_university___huron_university_college",
+      "name": "Western University - Huron University College",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "western_university___huron_university_college-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "western_university___kings_university_college",
+      "name": "Western University - King's University College",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "western_university___kings_university_college-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "york_university",
+      "name": "York University",
+      "country": "Canada",
+      "has_cudo_data": true,
+      "programs": [
+        {
+          "program_id": "york_university-general-sci",
+          "program_name": "General Science / Computing",
+          "faculty": "Science / Arts & Science",
+          "historical_mid_50_range": [
+            85.0,
+            91.0
+          ],
+          "cutoff_minimum": 80.0,
+          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
+          "adjustment_sensitivity": {
+            "ovs_penalty": 1.0,
+            "repeat_penalty": 2.0,
+            "contest_weight": "None"
+          },
+          "cudo_entering_distribution": {
+            "95_plus": 15.0,
+            "90_94.9": 35.0,
+            "85_89.9": 35.0,
+            "under_85": 15.0
+          }
+        }
+      ]
+    }
+  ]
+}

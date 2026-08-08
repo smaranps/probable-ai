@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "@google/genai": "^2.16.0",
+    "@tsparticles/react": "^4.3.2",
+    "@tsparticles/slim": "^4.3.2",
     "firebase": "^12.17.1",
     "framer-motion": "^13.0.0",
     "lucide-react": "^1.30.0",
     "next": "16.3.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-router-dom": "^7.18.2",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
