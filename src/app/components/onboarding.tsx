@@ -12,6 +12,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { db, auth } from "../services/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 export interface TargetChoice {
   university: string;
@@ -361,7 +363,7 @@ export default function OnboardingModal({
     setCourses(courses.filter((_, i) => i !== index));
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
     const profileData: UserProfileData = {
       university: targetChoices[0].university,
       program: targetChoices[0].program,
@@ -373,9 +375,21 @@ export default function OnboardingModal({
       hasOvsOrNightSchool,
       extracurriculars,
     };
-    localStorage.setItem("ouac_user_profile", JSON.stringify(profileData));
-    if (onComplete) onComplete(profileData);
-    router.push("/dashboard");
+
+    try {
+      const user = auth.currentUser;
+      const docId = user ? user.uid : "demo_user";
+      await setDoc(doc(db, "user_profiles", docId), {
+        ...profileData,
+        updatedAt: new Date().toISOString(),
+      });
+      localStorage.setItem("ouac_user_profile", JSON.stringify(profileData));
+
+      if (onComplete) onComplete(profileData);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Error saving profile to Firestore:", error);
+    }
   };
 
   const handleContinue = () => {

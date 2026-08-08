@@ -3,22 +3,57 @@
 import React, { useState, useEffect } from "react";
 import OnboardingModal, { UserProfileData } from "@/app/components/onboarding";
 import OverviewDashboard from "@/app/components/dashboard";
+import { db, auth } from "../services/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home() {
   const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const saved = localStorage.getItem("ouac_user_profile");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setUserProfile(parsed);
-        setShowModal(false);
-      } catch (err) {
-        console.error("Failed to load saved profile", err);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const docRef = doc(db, "user_profiles", user.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            setUserProfile(docSnap.data() as UserProfileData);
+            setShowModal(false);
+          } else {
+            const saved = localStorage.getItem("ouac_user_profile");
+            if (saved) {
+              setUserProfile(JSON.parse(saved));
+              setShowModal(false);
+            } else {
+              setShowModal(true);
+            }
+          }
+        } catch (error) {
+          console.error("Firestore read error:", error);
+          const saved = localStorage.getItem("ouac_user_profile");
+          if (saved) {
+            setUserProfile(JSON.parse(saved));
+            setShowModal(false);
+          } else {
+            setShowModal(true);
+          }
+        }
+      } else {
+        const saved = localStorage.getItem("ouac_user_profile");
+        if (saved) {
+          setUserProfile(JSON.parse(saved));
+          setShowModal(false);
+        } else {
+          setShowModal(true);
+        }
       }
-    }
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const handleModalComplete = (data: UserProfileData) => {
@@ -30,6 +65,15 @@ export default function Home() {
   const handleEditProfile = () => {
     setShowModal(true);
   };
+  if (isLoading) {
+    return (
+      <main className="min-h-screen py-8 flex items-center justify-center bg-slate-950 text-white">
+        <p className="text-sm font-medium text-slate-400 animate-pulse">
+          Loading your dashboard...
+        </p>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen py-8">

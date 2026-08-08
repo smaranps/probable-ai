@@ -32,22 +32,31 @@ export default function LoginPage() {
     localStorage.removeItem("user_profile");
     localStorage.removeItem("auth_token");
   }, []);
+
+  // Sign in with Google was fixed with help from Claude/Google Gemini.
   const handlePostAuthRedirect = async (uid: string) => {
     try {
-      const fetchUserData = async () => {
-        const userDocRef = doc(db, "users", uid);
-        return await getDoc(userDocRef);
-      };
+      const userDocRef = doc(db, "users", uid);
+      let userSnap = null;
+      let retries = 3;
 
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error("Timeout")), 2000)
-      );
-
-      const userSnap: any = await Promise.race([
-        fetchUserData(),
-        timeoutPromise,
-      ]);
-
+      while (retries > 0) {
+        try {
+          userSnap = await getDoc(userDocRef);
+          break;
+        } catch (innerErr: any) {
+          if (
+            innerErr?.code === "unavailable" ||
+            innerErr?.message?.toLowerCase().includes("offline")
+          ) {
+            retries -= 1;
+            if (retries === 0) throw innerErr;
+            await new Promise((res) => setTimeout(res, 500));
+          } else {
+            throw innerErr;
+          }
+        }
+      }
       if (
         userSnap &&
         userSnap.exists() &&
@@ -58,16 +67,17 @@ export default function LoginPage() {
         router.push("/onboarding");
       }
     } catch (err) {
-      router.push("/dashboard");
+      console.error("Error fetching user data after auth:", err);
+      router.push("/onboarding");
     }
   };
   const handleGoogleAuth = async () => {
     setError("");
     setIsSubmitting(true);
     try {
-      const result: any = await signInWithGoogle();
-      if (result?.user) {
-        await handlePostAuthRedirect(result.user.uid);
+      const res: any = await signInWithGoogle();
+      if (res?.user) {
+        await handlePostAuthRedirect(res.user.uid);
       } else {
         router.push("/onboarding");
       }

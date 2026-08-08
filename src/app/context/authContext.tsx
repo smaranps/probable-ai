@@ -28,41 +28,42 @@ interface AuthContextType {
   signInWithEmail: (email: string, pass: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
 }
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        try {
+          const userRef = doc(db, "users", currentUser.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (!userSnap.exists()) {
+            await setDoc(userRef, {
+              uid: currentUser.uid,
+              displayName: currentUser.displayName || "",
+              email: currentUser.email || "",
+              photoURL: currentUser.photoURL || "",
+              createdAt: new Date().toISOString(),
+              onboardingCompleted: false,
+            });
+          }
+        } catch (err) {
+          console.warn("Background profile check skipped:", err);
+        }
+      }
       setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
 
   const signInWithGoogle = async (): Promise<UserCredential> => {
     const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    const loggedInUser = result.user;
-
-    const userRef = doc(db, "users", loggedInUser.uid);
-    const userSnap = await getDoc(userRef);
-
-    if (!userSnap.exists()) {
-      await setDoc(userRef, {
-        uid: loggedInUser.uid,
-        displayName: loggedInUser.displayName || "",
-        email: loggedInUser.email || "",
-        photoURL: loggedInUser.photoURL || "",
-        createdAt: new Date().toISOString(),
-        onboardingCompleted: false, // Explicitly initialize onboarding status
-      });
-    }
-
-    return result; // Return result so caller receives user object
+    return await signInWithPopup(auth, provider);
   };
 
   const signUpWithEmail = async (
@@ -77,22 +78,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
     await updateProfile(userCredential.user, { displayName: fullName });
     await sendEmailVerification(userCredential.user);
-
     return userCredential;
   };
-
   const signInWithEmail = async (
     email: string,
     pass: string
   ): Promise<UserCredential> => {
-    const credential = await signInWithEmailAndPassword(auth, email, pass);
-    return credential;
+    return await signInWithEmailAndPassword(auth, email, pass);
   };
-
   const logout = async () => {
     await signOut(auth);
   };
-
   return (
     <AuthContext.Provider
       value={{
@@ -104,7 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logout,
       }}
     >
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }

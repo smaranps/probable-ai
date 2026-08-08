@@ -1,8 +1,12 @@
 // Source: Google's Firebase Initialize Setup (Guarded for Next.js Build Phase)
 
-import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
-import { getFirestore, type Firestore } from "firebase/firestore";
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  initializeFirestore,
+  getFirestore,
+  type Firestore,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey:
@@ -15,11 +19,23 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app: FirebaseApp =
-  getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-export const auth: Auth = getAuth(app);
+export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
-export const db: Firestore = getFirestore(app);
+let dbInstance: Firestore;
 
+if (getApps().length > 1 || (app as any)._initializedStore) {
+  dbInstance = getFirestore(app);
+} else {
+  try {
+    dbInstance = initializeFirestore(app, {
+      experimentalForceLongPolling: true,
+    });
+    (app as any)._initializedStore = true;
+  } catch (e) {
+    dbInstance = getFirestore(app);
+  }
+}
+export const db = dbInstance;
 export default app;
