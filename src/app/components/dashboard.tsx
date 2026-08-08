@@ -1,5 +1,3 @@
-// Styling with the colors, and icons were done by Google Gemini.
-
 "use client";
 import { LiquidBackground } from "@/app/components/dashboardBackground";
 import React, { useState, useEffect } from "react";
@@ -7,6 +5,9 @@ import { UserProfileData } from "@/app/components/onboarding";
 import { FloatingParticles } from "@/app/components/dashboardParticles";
 import { Google_Sans_Flex } from "next/font/google";
 import { useRouter } from "next/navigation";
+import DetailedReportModal from "./detailedReport";
+import Navbar from "./navbar";
+import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import CreditCounter from "@/app/components/limits";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -62,28 +63,6 @@ export interface TargetProgramOption {
   maxOdds: number;
 }
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: [0.25, 0.1, 0.25, 1.0],
-    },
-  },
-};
-
 const TIER_BADGE_STYLES: Record<string, string> = {
   Safety: "bg-emerald-50 text-emerald-700 border-emerald-200",
   Match: "bg-emerald-50 text-emerald-700 border-emerald-200",
@@ -109,6 +88,28 @@ const buildInitialTargets = (
   }));
 };
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 0.1, 0.25, 1.0],
+    },
+  },
+};
+
 export default function OverviewDashboard({
   profile,
   onResetModal,
@@ -122,11 +123,15 @@ export default function OverviewDashboard({
   const [rawTextResponse, setRawTextResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [hasRun, setHasRun] = useState<boolean>(false);
+  const [isGuest, setIsGuest] = useState<boolean>(false);
+  const [maxCredits, setMaxCredits] = useState<number>(5);
   const [userCredits, setUserCredits] = useState<number>(5);
+
   const [creditsLoaded, setCreditsLoaded] = useState<boolean>(false);
   const [currentProfile, setCurrentProfile] = useState<UserProfileData | null>(
     null
   );
+
   const getTodayKey = () => new Date().toISOString().split("T")[0];
   const activeProgram =
     targetPrograms.find((p) => p.id === activeProgramId) || targetPrograms[0];
@@ -136,7 +141,11 @@ export default function OverviewDashboard({
     prog = activeProgram
   ) => {
     if (userCredits <= 0) {
-      setRawTextResponse("You have reached your daily limit of 5 analyses.");
+      setRawTextResponse(
+        isGuest
+          ? "You have reached your guest limit of 1 analysis. Please sign up to get 5 daily analyses!"
+          : "You have reached your daily limit of 5 analyses."
+      );
       setHasRun(true);
       return;
     }
@@ -164,7 +173,7 @@ export default function OverviewDashboard({
       if (data.estimatedMin !== undefined) {
         setAiResult(data);
         setHasRun(true);
-        if (currentUser) await spendCredit(currentUser.uid);
+        await spendCredit(currentUser?.uid);
 
         const updatedTargets = targetPrograms.map((p) =>
           p.id === prog.id
@@ -177,7 +186,8 @@ export default function OverviewDashboard({
             : p
         );
         setTargetPrograms(updatedTargets);
-        if (currentUser) {
+
+        if (currentUser && !isGuest) {
           await setDoc(
             doc(db, "users", currentUser.uid),
             {
@@ -193,8 +203,9 @@ export default function OverviewDashboard({
       } else if (data.result) {
         setRawTextResponse(data.result);
         setHasRun(true);
-        setUserCredits((prev) => Math.max(0, prev - 1));
-        if (currentUser) {
+        await spendCredit(currentUser?.uid);
+
+        if (currentUser && !isGuest) {
           await setDoc(
             doc(db, "users", currentUser.uid),
             {
@@ -218,71 +229,94 @@ export default function OverviewDashboard({
       setLoading(false);
     }
   };
+
   useEffect(() => {
-    const fetchProfile = async () => {
-      const user = auth.currentUser;
-      if (!user) return;
-      try {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          const data = userDoc.data() as UserProfileData & {
-            creditsRemaining?: number;
-            creditsDate?: string;
-          };
-          setCurrentProfile(data);
-          const today = getTodayKey();
-          if (
-            data.creditsDate === today &&
-            typeof data.creditsRemaining === "number"
-          ) {
-            setUserCredits(data.creditsRemaining);
-          } else {
-            setUserCredits(5);
-            await setDoc(
-              doc(db, "users", user.uid),
-              { creditsRemaining: 5, creditsDate: today },
-              { merge: true }
-            );
-          }
+    const checkUserAndCredits = async () => {
+      const isGuestUser = localStorage.getItem("isGuestMode") === "true";
+      setIsGuest(isGuestUser);
+      const limit = isGuestUser ? 1 : 5;
+      setMaxCredits(limit);
+      const today = getTodayKey();
+
+      if (isGuestUser) {
+        const storedCredits = localStorage.getItem("guestCredits");
+        const storedDate = localStorage.getItem("guestCreditsDate");
+
+        if (storedDate === today && storedCredits !== null) {
+          setUserCredits(parseInt(storedCredits, 10));
+        } else {
+          setUserCredits(limit);
+          localStorage.setItem("guestCredits", limit.toString());
+          localStorage.setItem("guestCreditsDate", today);
         }
-      } catch (err) {
-        console.error("Dashboard fetch error:", err);
-      } finally {
         setCreditsLoaded(true);
+      } else {
+        const user = auth.currentUser;
+        if (!user) {
+          setCreditsLoaded(true);
+          return;
+        }
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const data = userDoc.data() as UserProfileData & {
+              creditsRemaining?: number;
+              creditsDate?: string;
+            };
+            setCurrentProfile(data);
+
+            if (
+              data.creditsDate === today &&
+              typeof data.creditsRemaining === "number"
+            ) {
+              setUserCredits(data.creditsRemaining);
+            } else {
+              setUserCredits(limit);
+              await setDoc(
+                doc(db, "users", user.uid),
+                { creditsRemaining: limit, creditsDate: today },
+                { merge: true }
+              );
+            }
+          }
+        } catch (err) {
+          console.error("Dashboard fetch error:", err);
+        } finally {
+          setCreditsLoaded(true);
+        }
       }
     };
-
-    fetchProfile();
+    checkUserAndCredits();
   }, []);
-
-  const spendCredit = async (uid: string) => {
+  const spendCredit = async (uid?: string) => {
     setUserCredits((prev) => {
       const next = Math.max(0, prev - 1);
-      setDoc(
-        doc(db, "users", uid),
-        { creditsRemaining: next, creditsDate: getTodayKey() },
-        { merge: true }
-      ).catch((err) => console.error("Credit save error:", err));
+      if (isGuest) {
+        localStorage.setItem("guestCredits", next.toString());
+        localStorage.setItem("guestCreditsDate", getTodayKey());
+      } else if (uid) {
+        setDoc(
+          doc(db, "users", uid),
+          { creditsRemaining: next, creditsDate: getTodayKey() },
+          { merge: true }
+        ).catch((err) => console.error("Credit save error:", err));
+      }
       return next;
     });
   };
-
   const handleProgramSwitch = (prog: TargetProgramOption) => {
     setActiveProgramId(prog.id);
     if (hasRun) {
       handleRunAnalysis(mode, prog);
     }
   };
-
   const handleModeChange = (newMode: "advisor" | "roast") => {
     setMode(newMode);
     if (hasRun) {
       handleRunAnalysis(newMode, activeProgram);
     }
   };
-
   const router = useRouter();
-
   return (
     <div
       className="relative w-full min-h-screen text-slate-700 flex flex-col overflow-x-hidden selection:bg-emerald-500/30"
@@ -296,10 +330,33 @@ export default function OverviewDashboard({
         className="relative z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 space-y-6 flex-grow pb-16"
       >
         <LiquidBackground />
+        <AnimatePresence>
+          {isGuest && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-emerald-500 text-white p-3 rounded-xl flex items-center justify-between shadow-lg shadow-emerald-500/20 mt-16"
+            >
+              <span className="text-sm font-medium flex items-center gap-2">
+                <Sparkles size={16} />
+                You are viewing this as a guest. Sign up to get 5 daily
+                analyses!
+              </span>
+              <button
+                onClick={() => router.push("/login?mode=signup")}
+                className="px-4 py-1.5 bg-white text-emerald-600 font-bold rounded-lg text-xs hover:bg-emerald-50 transition cursor-pointer"
+              >
+                Create Account
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row items-start sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 mt-20"
+          className={`flex flex-col sm:flex-row items-start sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 ${
+            !isGuest && "mt-20"
+          }`}
         >
           <div>
             <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-1 block">
@@ -320,7 +377,7 @@ export default function OverviewDashboard({
             </p>
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
-            <CreditCounter remaining={userCredits} total={5} />
+            <CreditCounter remaining={userCredits} total={maxCredits} />
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
@@ -365,7 +422,6 @@ export default function OverviewDashboard({
             </motion.button>
           </div>
         </motion.div>
-
         <motion.div variants={itemVariants} className="space-y-2">
           <div className="flex items-center justify-between px-1">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">
@@ -478,7 +534,6 @@ export default function OverviewDashboard({
               </div>
             )}
           </div>
-
           <AnimatePresence mode="wait">
             {loading ? (
               <motion.div
@@ -584,7 +639,9 @@ export default function OverviewDashboard({
                 >
                   <Sparkles size={16} />
                   {userCredits <= 0
-                    ? "Daily Limit Reached"
+                    ? isGuest
+                      ? "Guest Limit Reached"
+                      : "Daily Limit Reached"
                     : `Run ${
                         mode === "advisor" ? "Advisor" : "Roast"
                       } Evaluation`}
@@ -593,7 +650,6 @@ export default function OverviewDashboard({
             )}
           </AnimatePresence>
         </motion.div>
-
         <motion.div
           variants={itemVariants}
           id="graph-container"
@@ -611,7 +667,6 @@ export default function OverviewDashboard({
             isLoading={loading}
           />
         </motion.div>
-
         <motion.div
           variants={itemVariants}
           className="grid grid-cols-1 lg:grid-cols-3 gap-6"
@@ -639,7 +694,6 @@ export default function OverviewDashboard({
                 <GraduationCap size={28} strokeWidth={1.5} />
               </div>
             </motion.div>
-
             <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/70 space-y-5 shadow-sm shadow-slate-200/50">
               <div className="flex items-center justify-between">
                 <h2 className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest flex items-center gap-2">
@@ -687,13 +741,11 @@ export default function OverviewDashboard({
               </div>
             </div>
           </div>
-
           <div className="space-y-6">
             <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/70 space-y-6 shadow-sm shadow-slate-200/50">
               <h2 className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">
                 Profile Context
               </h2>
-
               {profile.hasOvsOrNightSchool ? (
                 <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3 text-sm text-amber-800">
                   <AlertTriangle
@@ -717,7 +769,6 @@ export default function OverviewDashboard({
                   <span className="font-medium">Standard Delivery</span>
                 </div>
               )}
-
               <div className="pt-5 border-t border-slate-200">
                 <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest block mb-3">
                   STEM Contests

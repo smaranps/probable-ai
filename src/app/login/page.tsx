@@ -86,6 +86,45 @@ function LoginContent() {
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
   const router = useRouter();
 
+  const handleFormValidation = () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!email) {
+      setError("Email address is required.");
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      setError("Invalid email address.");
+      return false;
+    }
+    if (isSignUp) {
+      if (!fullName.trim()) {
+        setError("Full name is required.");
+        return false;
+      }
+      if (!password) {
+        setError("Password is required.");
+        return false;
+      }
+      if (password.length < 8) {
+        setError("Password must be at least 8 characters.");
+        return false;
+      }
+    } else {
+      if (!password) {
+        setError("Password is required.");
+        return false;
+      }
+      if (password.length < 8) {
+        setError("Password must be at least 8 characters.");
+        return false;
+      }
+    }
+
+    setError("");
+    return true;
+  };
+
   useEffect(() => {
     if (modeParam === "signup") {
       setIsSignUp(true);
@@ -134,6 +173,12 @@ function LoginContent() {
     e.preventDefault();
     setError("");
     setIsSubmitting(true);
+
+    const isValid = handleFormValidation();
+    if (!isValid) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       if (isSignUp) {
@@ -246,18 +291,6 @@ function LoginContent() {
                 : "Log in to access your dashboard"}
             </motion.p>
           </div>
-          <AnimatePresence>
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-                animate={{ opacity: 1, height: "auto", marginBottom: 24 }}
-                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                className="bg-red-500/10 border border-red-500/30 text-red-600 text-xs p-3 rounded-lg overflow-hidden"
-              >
-                {error}
-              </motion.div>
-            )}
-          </AnimatePresence>
           <div className="space-y-3 mb-6">
             <motion.button
               whileHover={{ scale: 1.01 }}
@@ -268,7 +301,6 @@ function LoginContent() {
               className="w-full py-2.5 px-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-medium text-sm rounded-lg transition-colors shadow-sm flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
               style={{ fontFamily: `var(${googleSansFlex.variable})` }}
             >
-
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
                   fill="#EA4335"
@@ -326,7 +358,6 @@ function LoginContent() {
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
                     className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
-                    required={isSignUp}
                   />
                 </motion.div>
               )}
@@ -341,7 +372,6 @@ function LoginContent() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
                 className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
-                required
               />
             </div>
             <div className="mb-4">
@@ -354,9 +384,9 @@ function LoginContent() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
-                required
               />
             </div>
+
             <motion.button
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
@@ -375,6 +405,18 @@ function LoginContent() {
                 "Log In"
               )}
             </motion.button>
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                  animate={{ opacity: 1, height: "auto", marginBottom: 24 }}
+                  exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                  className="bg-red-500/10 border border-red-500/30 text-red-600 text-xs p-3 rounded-lg overflow-hidden mt-[10px]"
+                >
+                  {error}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </form>
           <p className="text-xs text-center text-slate-600 mt-6">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
