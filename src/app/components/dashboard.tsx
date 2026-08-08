@@ -2,7 +2,7 @@
 
 "use client";
 import { LiquidBackground } from "@/app/components/dashboardBackground";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UserProfileData } from "@/app/components/onboarding";
 import { FloatingParticles } from "@/app/components/dashboardParticles";
 import { Google_Sans_Flex } from "next/font/google";
@@ -11,6 +11,9 @@ import DetailedReportModal from "./detailedReport";
 import Navbar from "./navbar";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import CreditCounter from "@/app/components/limits";
+import { doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../services/firebaseConfig";
 
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
@@ -100,6 +103,10 @@ export default function OverviewDashboard({
   const [rawTextResponse, setRawTextResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [hasRun, setHasRun] = useState<boolean>(false);
+  const [userCredits, setUserCredits] = useState<number>(5);
+  const [currentProfile, setCurrentProfile] = useState<UserProfileData | null>(
+    null
+  );
 
   const activeProgram =
     targetPrograms.find((p) => p.id === activeProgramId) || targetPrograms[0];
@@ -108,6 +115,12 @@ export default function OverviewDashboard({
     selectedMode = mode,
     prog = activeProgram
   ) => {
+    if (userCredits <= 0) {
+      setRawTextResponse("You have reached your daily limit of 5 analyses.");
+      setHasRun(true);
+      return;
+    }
+
     setLoading(true);
     try {
       const activeProfileContext = {
@@ -115,7 +128,6 @@ export default function OverviewDashboard({
         university: prog.university,
         program: prog.program,
       };
-
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -125,10 +137,10 @@ export default function OverviewDashboard({
         }),
       });
       const data = await res.json();
-
       if (data.estimatedMin !== undefined) {
         setAiResult(data);
         setHasRun(true);
+        setUserCredits((prev) => Math.max(0, prev - 1));
         setTargetPrograms((prev) =>
           prev.map((p) =>
             p.id === prog.id
@@ -144,6 +156,7 @@ export default function OverviewDashboard({
       } else if (data.result) {
         setRawTextResponse(data.result);
         setHasRun(true);
+        setUserCredits((prev) => Math.max(0, prev - 1));
       } else {
         setRawTextResponse("Could not generate analysis at this time.");
         setHasRun(true);
@@ -156,6 +169,23 @@ export default function OverviewDashboard({
       setLoading(false);
     }
   };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          setCurrentProfile(userDoc.data() as UserProfileData);
+        }
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleProgramSwitch = (prog: TargetProgramOption) => {
     setActiveProgramId(prog.id);
@@ -181,8 +211,6 @@ export default function OverviewDashboard({
       <FloatingParticles />
       <div className="relative z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 space-y-6 flex-grow pb-16">
         <LiquidBackground />
-
-        {/* Top Target Program Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 mt-20">
           <div>
             <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-1 block">
@@ -192,7 +220,7 @@ export default function OverviewDashboard({
               {activeProgram.university}
             </h1>
             <p className="text-xs text-slate-500 mt-1">
-              Program:{" "}
+              Program: &nbsp;
               <span className="text-slate-700 font-medium">
                 {activeProgram.program}
               </span>
@@ -203,6 +231,7 @@ export default function OverviewDashboard({
             </p>
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
+            <CreditCounter remaining={userCredits} total={5} />
             <button
               className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm cursor-pointer"
               onClick={() => router.push("/details")}
@@ -243,8 +272,6 @@ export default function OverviewDashboard({
             </button>
           </div>
         </div>
-
-        {/* Multi-Program Comparison Switcher Grid */}
         <div className="space-y-2">
           <div className="flex items-center justify-between px-1">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">
@@ -404,21 +431,28 @@ export default function OverviewDashboard({
                 />
                 <span className="text-left leading-relaxed">
                   Calculates an estimated acceptance range factoring in Waterloo
-                  Euclid weighting, school flags, and top 6 averages for{" "}
+                  Euclid weighting, school flags, and top 6 averages for &nbsp;
                   <strong>{activeProgram.university}</strong>.
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => handleRunAnalysis(mode, activeProgram)}
+                disabled={loading || userCredits <= 0}
                 className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm flex items-center gap-2 cursor-pointer ${
-                  mode === "advisor"
+                  userCredits <= 0
+                    ? "bg-slate-300 text-slate-500 cursor-not-allowed"
+                    : mode === "advisor"
                     ? "bg-emerald-500 hover:bg-emerald-400 text-white"
                     : "bg-rose-500 hover:bg-rose-400 text-white"
                 }`}
               >
-                <Sparkles size={16} /> Run{" "}
-                {mode === "advisor" ? "Advisor" : "Roast"} Evaluation
+                <Sparkles size={16} />
+                {userCredits <= 0
+                  ? "Daily Limit Reached"
+                  : `Run ${
+                      mode === "advisor" ? "Advisor" : "Roast"
+                    } Evaluation`}
               </button>
             </div>
           )}

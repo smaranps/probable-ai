@@ -378,13 +378,23 @@ export default function OnboardingModal({
 
     try {
       const user = auth.currentUser;
-      const docId = user ? user.uid : "demo_user";
-      await setDoc(doc(db, "user_profiles", docId), {
-        ...profileData,
-        updatedAt: new Date().toISOString(),
-      });
+      if (!user) {
+        console.error("No authenticated user found.");
+        localStorage.setItem("ouac_user_profile", JSON.stringify(profileData));
+        if (onComplete) onComplete(profileData);
+        router.push("/dashboard");
+        return;
+      }
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          ...profileData,
+          onboardingCompleted: true,
+          updatedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
       localStorage.setItem("ouac_user_profile", JSON.stringify(profileData));
-
       if (onComplete) onComplete(profileData);
       router.push("/dashboard");
     } catch (error) {
@@ -490,7 +500,7 @@ export default function OnboardingModal({
                     onChange={(e) =>
                       updateCurrentChoice("university", e.target.value)
                     }
-                    placeholder="Search over 60+ universities (e.g. Waterloo, UofT)..."
+                    placeholder="Search over 40+ universities (e.g. Waterloo, UofT)..."
                     className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 focus:border-slate-900 focus:ring-0 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none transition shadow-sm"
                   />
                 </div>
