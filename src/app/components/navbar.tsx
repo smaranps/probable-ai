@@ -50,14 +50,14 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link
-              href="#about"
+              href="/#about"
               className="text-slate-600 hover:text-slate-900 transition"
             >
               How It Works
             </Link>
 
             <Link
-              href="#faq"
+              href="/#faq"
               className="text-slate-600 hover:text-slate-900 transition"
             >
               FAQ
