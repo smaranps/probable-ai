@@ -6,6 +6,7 @@ import { useAuth } from "@/app/context/authContext";
 import { setLoggingOut } from "@/app/services/authFlags";
 import { GUEST_MODE_EVENT, getGuestMode } from "@/app/services/guestMode";
 
+
 export default function NavbarWrapper() {
   const { user, logout } = useAuth();
   const [isGuest, setIsGuest] = useState(false);

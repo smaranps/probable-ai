@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Menu, X, LogOut, LayoutDashboard } from "lucide-react";
 import { Google_Sans_Flex } from "next/font/google";
+import { setGuestMode } from "@/app/services/guestMode";
 
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
@@ -28,7 +29,7 @@ export default function Navbar({
 
   const handleLogout = async () => {
     localStorage.removeItem("ouac_user_profile");
-    localStorage.removeItem("isGuestMode");
+    setGuestMode(false);
     localStorage.removeItem("guestOnboardingCompleted");
     localStorage.removeItem("guestCredits");
     localStorage.removeItem("guestCreditsDate");

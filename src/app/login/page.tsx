@@ -8,6 +8,7 @@ import { db } from "../services/firebaseConfig";
 import Link from "next/link";
 import { Plus_Jakarta_Sans, Inter, Google_Sans_Flex } from "next/font/google";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { setGuestMode } from "@/app/services/guestMode";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -160,7 +161,7 @@ function LoginContent() {
   };
   const handleGuestLogin = () => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("isGuestMode", "true");
+      setGuestMode(true);
       const guestCompleted = localStorage.getItem("guestOnboardingCompleted");
       if (guestCompleted === "true") {
         router.push("/dashboard");
