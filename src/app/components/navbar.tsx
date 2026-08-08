@@ -14,13 +14,24 @@ const googleSansFlex = Google_Sans_Flex({
 
 interface NavbarProps {
   user?: any;
+  isGuest?: boolean;
   onSignOut?: () => void;
 }
-export default function Navbar({ user = null, onSignOut }: NavbarProps) {
+export default function Navbar({
+  user = null,
+  isGuest = false,
+  onSignOut,
+}: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const isAuthed = !!user || isGuest;
 
   const handleLogout = async () => {
+    localStorage.removeItem("ouac_user_profile");
+    localStorage.removeItem("isGuestMode");
+    localStorage.removeItem("guestOnboardingCompleted");
+    localStorage.removeItem("guestCredits");
+    localStorage.removeItem("guestCreditsDate");
     localStorage.removeItem("user_profile");
     localStorage.removeItem("auth_token");
     if (onSignOut) {
@@ -51,18 +62,17 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
           <div className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link
               href="/#about"
-              className="text-slate-600 hover:text-slate-900 transition"
+              className="text-slate-900 transition-transform duration-300 ease-in-out hover:scale-105"
             >
               How It Works
             </Link>
-
             <Link
               href="/#faq"
-              className="text-slate-600 hover:text-slate-900 transition"
+              className="text-slate-900 hover:transition-transform duration-300 ease-in-out hover:scale-105"
             >
               FAQ
             </Link>
-            {user ? (
+            {isAuthed ? (
               <div className="flex items-center gap-3">
                 <Link
                   href="/dashboard"
@@ -83,14 +93,14 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
                 <button
                   type="button"
                   onClick={() => router.push("/login?mode=signup")}
-                  className="px-4 py-1.5 text-slate-750 hover:text-slate-900 transition cursor-pointer font-medium border-[#10B981] border-2 rounded-lg"
+                  className="px-4 py-1.5 text-sm border-[#10B981] border-2 rounded-lg text-slate-900 hover:text-slate-800 hover:bg-slate-100/80 transition cursor-pointer"
                 >
                   Sign up
                 </button>
                 <button
                   type="button"
                   onClick={() => router.push("/login?mode=login")}
-                  className="px-4 py-1.5 bg-[#10B981] hover:bg-[#14B8A6] text-white font-semibold rounded-lg transition cursor-pointer shadow-sm"
+                  className="px-4 py-1.5 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-800"
                 >
                   Sign In
                 </button>

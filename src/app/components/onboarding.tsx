@@ -392,8 +392,8 @@ export default function OnboardingModal({
     try {
       const user = auth.currentUser;
       if (!user) {
-        console.error("No authenticated user found.");
         localStorage.setItem("ouac_user_profile", JSON.stringify(profileData));
+        localStorage.setItem("guestOnboardingCompleted", "true");
         if (onComplete) onComplete(profileData);
         router.push("/dashboard");
         return;

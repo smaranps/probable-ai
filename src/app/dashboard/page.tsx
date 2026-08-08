@@ -36,7 +36,24 @@ export default function Home() {
           setShowModal(true);
         }
       } else {
-        setShowModal(true);
+        const isGuest = localStorage.getItem("isGuestMode") === "true";
+        if (isGuest) {
+          const stored = localStorage.getItem("ouac_user_profile");
+          if (stored) {
+            try {
+              const parsed = JSON.parse(stored) as UserProfileData;
+              setUserProfile(parsed);
+              setShowModal(false);
+            } catch (e) {
+              console.error("Failed to parse guest profile:", e);
+              setShowModal(true);
+            }
+          } else {
+            setShowModal(true);
+          }
+        } else {
+          setShowModal(true);
+        }
       }
       setIsLoading(false);
     });

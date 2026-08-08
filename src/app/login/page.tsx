@@ -163,7 +163,7 @@ function LoginContent() {
       localStorage.setItem("isGuestMode", "true");
       const guestCompleted = localStorage.getItem("guestOnboardingCompleted");
       if (guestCompleted === "true") {
-        router.push("/onboarding");
+        router.push("/dashboard");
       } else {
         router.push("/onboarding");
       }
