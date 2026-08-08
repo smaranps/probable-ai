@@ -1,12 +1,21 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "GEMINI_API_KEY is not configured in environment variables." },
+        { status: 500 }
+      );
+    }
+    const ai = new GoogleGenAI({ apiKey });
+
     const profile = await req.json();
 
     if (!profile) {
