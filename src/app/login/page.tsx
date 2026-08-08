@@ -4,8 +4,6 @@ import { useState, useEffect, Suspense } from "react";
 import { useAuth } from "@/app/context/authContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { db } from "../services/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
@@ -33,61 +31,18 @@ export default function LoginPage() {
     localStorage.removeItem("auth_token");
   }, []);
 
-  // Sign in with Google was fixed with help from Claude/Google Gemini.
-  const handlePostAuthRedirect = async (uid: string) => {
-    try {
-      const userDocRef = doc(db, "users", uid);
-      let userSnap = null;
-      let retries = 3;
-
-      while (retries > 0) {
-        try {
-          userSnap = await getDoc(userDocRef);
-          break;
-        } catch (innerErr: any) {
-          if (
-            innerErr?.code === "unavailable" ||
-            innerErr?.message?.toLowerCase().includes("offline")
-          ) {
-            retries -= 1;
-            if (retries === 0) throw innerErr;
-            await new Promise((res) => setTimeout(res, 500));
-          } else {
-            throw innerErr;
-          }
-        }
-      }
-      if (
-        userSnap &&
-        userSnap.exists() &&
-        userSnap.data()?.onboardingCompleted
-      ) {
-        router.push("/dashboard");
-      } else {
-        router.push("/onboarding");
-      }
-    } catch (err) {
-      console.error("Error fetching user data after auth:", err);
-      router.push("/onboarding");
-    }
-  };
   const handleGoogleAuth = async () => {
     setError("");
     setIsSubmitting(true);
     try {
-      const res: any = await signInWithGoogle();
-      if (res?.user) {
-        await handlePostAuthRedirect(res.user.uid);
-      } else {
-        router.push("/onboarding");
-      }
+      await signInWithGoogle();
+      router.push("/onboarding");
     } catch (err: any) {
+      setIsSubmitting(false);
       if (err?.code === "auth/popup-closed-by-user") {
-        setIsSubmitting(false);
         return;
       }
       setError(err?.message || "Failed to authenticate with Google.");
-      setIsSubmitting(false);
     }
   };
 
@@ -111,15 +66,10 @@ export default function LoginPage() {
     try {
       if (isSignUp) {
         await signUpWithEmail(email, password, fullName);
-        router.push("/onboarding");
       } else {
-        const res: any = await signInWithEmail(email, password);
-        if (res?.user) {
-          await handlePostAuthRedirect(res.user.uid);
-        } else {
-          router.push("/onboarding");
-        }
+        await signInWithEmail(email, password);
       }
+      router.push("/onboarding");
     } catch (err: any) {
       setIsSubmitting(false);
       if (
@@ -171,6 +121,7 @@ export default function LoginPage() {
             Powered by real Ontario applicant data & Gemini AI.
           </p>
         </div>
+
         <div className="md:w-1/2 bg-slate-100 p-6 md:p-12 flex items-center justify-center relative overflow-hidden">
           <div className="absolute top-10 right-10 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-10 left-10 w-64 h-64 bg-teal-300/30 rounded-full blur-3xl pointer-events-none" />
@@ -186,11 +137,13 @@ export default function LoginPage() {
                   : "Log in to access your dashboard"}
               </p>
             </div>
+
             {error && (
               <div className="bg-red-500/10 border border-red-500/30 text-red-600 text-xs p-3 rounded-lg mb-6">
                 {error}
               </div>
             )}
+
             <div className="space-y-3 mb-6">
               <button
                 type="button"
@@ -218,6 +171,7 @@ export default function LoginPage() {
                 </svg>
                 {isSubmitting ? "Authenticating..." : "Continue with Google"}
               </button>
+
               <button
                 type="button"
                 onClick={handleGuestLogin}
@@ -226,12 +180,14 @@ export default function LoginPage() {
                 Continue as Guest / Try Demo
               </button>
             </div>
+
             <div className="relative flex items-center justify-center my-6">
               <div className="border-t border-slate-200 w-full"></div>
               <span className="bg-white/80 px-3 text-xs text-slate-500 absolute font-mono rounded">
                 OR
               </span>
             </div>
+
             <form onSubmit={handleEmailAuth} className="space-y-4">
               {isSignUp && (
                 <div>
@@ -274,6 +230,7 @@ export default function LoginPage() {
                   required
                 />
               </div>
+
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -291,8 +248,9 @@ export default function LoginPage() {
                 )}
               </button>
             </form>
+
             <p className="text-xs text-center text-slate-600 mt-6">
-              {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
+              {isSignUp ? "Already have an account?" : "Don't have an account?"} &nbsp;
               <button
                 type="button"
                 onClick={() => {
