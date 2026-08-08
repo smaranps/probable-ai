@@ -9,9 +9,7 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey:
-    process.env.NEXT_PUBLIC_FIREBASE_API_KEY ||
-    "AIzaSyCqrFuJEWC2nEn00PwLYVRi0tHcOqYwKqg",
+  apiKey: "AIzaSyCqrFuJEWC2nEn00PwLYVRi0tHcOqYwKqg",
   authDomain: "gen-lang-client-0275138457.firebaseapp.com",
   projectId: "gen-lang-client-0275138457",
   storageBucket: "gen-lang-client-0275138457.firebasestorage.app",
