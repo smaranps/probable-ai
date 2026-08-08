@@ -23,7 +23,7 @@ body {
     transform: translate(0%, 0%) scale(1) rotate(0deg);
   }
   25% {
-    transform: translate(8%, -10%) scale(1.15) rotate(5deg);
+    transform: translate(8%, -10%) scale(1.16) rotate(5deg);
   }
   50% {
     transform: translate(-5%, 8%) scale(0.9) rotate(-3deg);
