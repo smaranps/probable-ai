@@ -16,7 +16,6 @@ import { Users, Sparkles, TrendingUp } from "lucide-react";
 
 interface DashboardChartsProps {
   profile: UserProfileData;
-  
 }
 
 interface BenchmarkData {
@@ -57,7 +56,7 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
   }, [profile.university, profile.program]);
 
   const benchmarkMean = benchmark?.benchmarkMean ?? 92.5;
-  const sampleCount = benchmark?.sampleCount ?? 0;
+  const sampleCount = benchmark?.sampleCount + "+" ?? 0;
 
   const comparisonData = [
     {
@@ -81,7 +80,8 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
             Top 6 Average vs. Historical Admissions Data
           </h3>
           <p className="text-xs text-slate-500">
-            Comparing your average directly against accepted applicants for{" "}
+            Comparing your average directly against accepted applicants for
+            &nbsp;
             <span className="font-semibold text-slate-800">
               {profile.university}
             </span>
@@ -93,11 +93,11 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
             <span className="animate-pulse">Loading dataset...</span>
           ) : (
             <span>
-              Sample Size:{" "}
+              Sample Size: &nbsp;
               <strong className="text-slate-900 font-mono">
                 {sampleCount}
               </strong>{" "}
-              entries
+              &nbsp; entries
             </span>
           )}
         </div>

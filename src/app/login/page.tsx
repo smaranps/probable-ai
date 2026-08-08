@@ -140,6 +140,7 @@ function LoginContent() {
   const handleGoogleAuth = async () => {
     setError("");
     setIsSubmitting(true);
+    localStorage.removeItem("isGuestMode");
     try {
       const result = await signInWithGoogle();
       const userRef = doc(db, "users", result.user.uid);
@@ -162,7 +163,7 @@ function LoginContent() {
       localStorage.setItem("isGuestMode", "true");
       const guestCompleted = localStorage.getItem("guestOnboardingCompleted");
       if (guestCompleted === "true") {
-        router.push("/dashboard");
+        router.push("/onboarding");
       } else {
         router.push("/onboarding");
       }
@@ -173,36 +174,41 @@ function LoginContent() {
     e.preventDefault();
     setError("");
     setIsSubmitting(true);
-
     const isValid = handleFormValidation();
     if (!isValid) {
       setIsSubmitting(false);
       return;
     }
-
+    const cleanEmail = email.trim();
     try {
       if (isSignUp) {
-        await signUpWithEmail(email, password, fullName);
+        await signUpWithEmail(cleanEmail, password, fullName);
         router.push("/onboarding");
       } else {
-        const cred = await signInWithEmail(email, password);
-        const userRef = doc(db, "users", cred.user.uid);
-        const userSnap = await getDoc(userRef);
+        const cred = await signInWithEmail(cleanEmail, password);
+        try {
+          const userRef = doc(db, "users", cred.user.uid);
+          const userSnap = await getDoc(userRef);
 
-        if (userSnap.exists() && userSnap.data()?.onboardingCompleted) {
-          router.push("/dashboard");
-        } else {
+          if (userSnap.exists() && userSnap.data()?.onboardingCompleted) {
+            router.push("/dashboard");
+          } else {
+            router.push("/onboarding");
+          }
+        } catch (firestoreErr) {
+          console.error("Firestore Error:", firestoreErr);
           router.push("/onboarding");
         }
       }
     } catch (err: any) {
+      console.error("Firebase Auth Error:", err);
       setIsSubmitting(false);
       if (
         err.code === "auth/user-not-found" ||
         err.code === "auth/wrong-password" ||
         err.code === "auth/invalid-credential"
       ) {
-        setError("Invalid email or password.");
+        setError("Invalid email or password. Did you sign up with Google?");
       } else if (err.code === "auth/email-already-in-use") {
         setError("An account with this email already exists.");
       } else if (err.code === "auth/weak-password") {

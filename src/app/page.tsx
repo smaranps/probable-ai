@@ -205,10 +205,10 @@ export default function Home() {
             className="mt-12 text-center"
           >
             <button
-              onClick={signInWithGoogle}
+              onClick={() => router.push("/login?mode=signup")}
               className="text-slate-700 hover:text-slate-950 font-medium underline text-xs transition cursor-pointer"
             >
-              Sign Up Below!
+              Sign Up Now!
             </button>
           </motion.div>
         </div>

@@ -231,17 +231,16 @@ export default function OverviewDashboard({
   };
 
   useEffect(() => {
-    const checkUserAndCredits = async () => {
-      const isGuestUser = localStorage.getItem("isGuestMode") === "true";
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      const isGuestUser =
+        !user && localStorage.getItem("isGuestMode") === "true";
       setIsGuest(isGuestUser);
       const limit = isGuestUser ? 1 : 5;
       setMaxCredits(limit);
       const today = getTodayKey();
-
       if (isGuestUser) {
         const storedCredits = localStorage.getItem("guestCredits");
         const storedDate = localStorage.getItem("guestCreditsDate");
-
         if (storedDate === today && storedCredits !== null) {
           setUserCredits(parseInt(storedCredits, 10));
         } else {
@@ -250,12 +249,7 @@ export default function OverviewDashboard({
           localStorage.setItem("guestCreditsDate", today);
         }
         setCreditsLoaded(true);
-      } else {
-        const user = auth.currentUser;
-        if (!user) {
-          setCreditsLoaded(true);
-          return;
-        }
+      } else if (user) {
         try {
           const userDoc = await getDoc(doc(db, "users", user.uid));
           if (userDoc.exists()) {
@@ -264,7 +258,6 @@ export default function OverviewDashboard({
               creditsDate?: string;
             };
             setCurrentProfile(data);
-
             if (
               data.creditsDate === today &&
               typeof data.creditsRemaining === "number"
@@ -284,9 +277,11 @@ export default function OverviewDashboard({
         } finally {
           setCreditsLoaded(true);
         }
+      } else {
+        setCreditsLoaded(true);
       }
-    };
-    checkUserAndCredits();
+    });
+    return () => unsubscribe();
   }, []);
   const spendCredit = async (uid?: string) => {
     setUserCredits((prev) => {

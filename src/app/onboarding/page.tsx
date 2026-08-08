@@ -1,11 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import OnboardingModal, { UserProfileData } from "@/app/components/onboarding";
+import OnboardingModal, {
+  UserProfileData,
+  TargetChoice,
+} from "@/app/components/onboarding";
 import { useAuth } from "@/app/context/authContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
+import { SelectionSummary } from "../components/sideComponent";
 import {
   AuroraBackground,
   FloatingParticles,
@@ -14,6 +18,13 @@ import {
 export default function OnboardingPage() {
   const { user } = useAuth();
   const router = useRouter();
+
+  // State to hold choices passed up from the OnboardingModal
+  const [liveChoices, setLiveChoices] = useState<TargetChoice[]>([
+    { university: "", program: "" },
+    { university: "", program: "" },
+    { university: "", program: "" },
+  ]);
 
   const handleOnboardingComplete = async (data: UserProfileData) => {
     if (
@@ -47,12 +58,20 @@ export default function OnboardingPage() {
 
   return (
     <AuroraBackground>
-      <main className="min-h-screen  flex items-center justify-center p-4">
+      <main className="min-h-screen flex items-center justify-center p-4 py-12">
         <FloatingParticles />
-        <OnboardingModal
-          userDisplayName={user?.displayName || "Student"}
-          onComplete={handleOnboardingComplete}
-        />
+        <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 w-full max-w-5xl">
+          <div className="w-full lg:w-[80%]">
+            <OnboardingModal
+              userDisplayName={user?.displayName || "Student"}
+              onComplete={handleOnboardingComplete}
+              onChoicesChange={setLiveChoices}
+            />
+          </div>
+          <div className="shrink-0 lg:sticky lg:top-12 lg:w-[20%]">
+            <SelectionSummary targetChoices={liveChoices} />
+          </div>
+        </div>
       </main>
     </AuroraBackground>
   );

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { UNIVERSITIES } from "@/app/data/universities";
+import { PROGRAMS } from "@/app/data/programs";
 import {
   Search,
   CheckCircle2,
@@ -10,10 +11,17 @@ import {
   Plus,
   Trash2,
   Sparkles,
+  X,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { db, auth } from "../services/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
+
+interface OnboardingModalProps {
+  onComplete: (data: UserProfileData) => void;
+  userDisplayName?: string;
+  onChoicesChange?: (choices: TargetChoice[]) => void;
+}
 
 export interface TargetChoice {
   university: string;
@@ -131,6 +139,7 @@ interface OnboardingModalProps {
 export default function OnboardingModal({
   onComplete,
   userDisplayName = "Student",
+  onChoicesChange,
 }: OnboardingModalProps) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [choiceIndex, setChoiceIndex] = useState<0 | 1 | 2>(0);
@@ -145,17 +154,11 @@ export default function OnboardingModal({
   const [courses, setCourses] = useState<CourseEntry[]>(DEFAULT_COURSES);
   const router = useRouter();
   const currentChoice = targetChoices[choiceIndex];
-
-  const updateCurrentChoice = (
-    field: "university" | "program",
-    value: string
-  ) => {
-    setTargetChoices((prev) => {
-      const updated = [...prev];
-      updated[choiceIndex] = { ...updated[choiceIndex], [field]: value };
-      return updated;
-    });
-  };
+  useEffect(() => {
+    if (onChoicesChange) {
+      onChoicesChange(targetChoices);
+    }
+  }, [targetChoices, onChoicesChange]);
 
   const PRESET_PROFILES: { label: string; data: UserProfileData }[] = [
     {
@@ -299,6 +302,8 @@ export default function OnboardingModal({
   const [hasOvsOrNightSchool, setHasOvsOrNightSchool] = useState(false);
   const [extracurriculars, setExtracurriculars] = useState("");
   const totalUnits = 6;
+  const [error, setError] = useState("");
+
   const currentUnit = step === 1 ? choiceIndex + 1 : 3 + (step - 1);
 
   const filteredUniversities = useMemo(() => {
@@ -311,6 +316,14 @@ export default function OnboardingModal({
   const calculatedAverage = useMemo(() => {
     return calculateOUACTop6(courses);
   }, [courses]);
+
+  const filteredPrograms = useMemo(() => {
+    const query = currentChoice.program;
+    if (!query.trim()) return PROGRAMS;
+    return PROGRAMS.filter((prog) =>
+      prog.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [currentChoice.program]);
 
   const handleCourseChange = (
     index: number,
@@ -402,8 +415,40 @@ export default function OnboardingModal({
     }
   };
 
+  const updateTargetChoice = (
+    field: "university" | "program",
+    value: string
+  ) => {
+    setTargetChoices((prev) => {
+      const updated = [...prev];
+      updated[choiceIndex] = {
+        ...updated[choiceIndex],
+        [field]: value,
+      };
+      return updated;
+    });
+  };
   const handleContinue = () => {
     if (step === 1) {
+      const current = targetChoices[choiceIndex];
+      const hasUni = Boolean(current?.university?.trim());
+      const hasProg = Boolean(current?.program?.trim());
+      if (choiceIndex === 0) {
+        if (!hasUni || !hasProg) {
+          setError(
+            "Please select both a university and program for your first choice."
+          );
+          return;
+        }
+      } else {
+        if ((hasUni && !hasProg) || (!hasUni && hasProg)) {
+          setError(
+            "Please complete both university and program fields, or clear both to skip."
+          );
+          return;
+        }
+      }
+      setError("");
       if (choiceIndex < 2) {
         setChoiceIndex((i) => (i + 1) as 0 | 1 | 2);
       } else {
@@ -422,8 +467,8 @@ export default function OnboardingModal({
     setStep((s) => (s > 1 ? ((s - 1) as any) : s));
   };
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 ">
-      <div className="relative w-full max-w-2xl bg-slate-50/95 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] mt-[50px] ">
+    <div className="w-full mt-[50px]">
+      <div className="relative w-full max-w-2xl bg-slate-50/95 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
         <div className="bg-slate-200/60 border-b border-slate-200/80 p-3 px-6">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2">
             Demo Presets:
@@ -484,10 +529,100 @@ export default function OnboardingModal({
                     : "Add another university and program you're considering."}
                 </p>
               </div>
-
+              {error && (
+                <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-600 text-xs font-semibold rounded-xl text-center">
+                  {error}
+                </div>
+              )}
               <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  {["First", "Second", "Third"][choiceIndex]} Choice University
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center justify-between">
+                  <span>
+                    {["First", "Second", "Third"][choiceIndex]} Choice
+                    University
+                  </span>
+                  {choiceIndex === 0 ? (
+                    <span className="text-red-500 font-bold">* Required</span>
+                  ) : (
+                    <span className="text-slate-400 font-normal normal-case">
+                      (Optional)
+                    </span>
+                  )}
+                </label>
+
+                <div className="relative">
+                  <Search
+                    className="absolute left-3.5 top-3.5 text-slate-400"
+                    size={18}
+                  />
+                  <input
+                    type="text"
+                    value={targetChoices[choiceIndex].university}
+                    onChange={(e) =>
+                      updateTargetChoice("university", e.target.value)
+                    }
+                    placeholder="Search over 40+ universities (e.g. Waterloo, UofT)..."
+                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 focus:border-slate-900 focus:ring-0 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none transition shadow-sm"
+                  />
+                </div>
+
+                <div className="max-h-36 overflow-y-auto border border-slate-200 rounded-xl bg-white p-1 shadow-inner">
+                  {filteredUniversities.length === 0 ? (
+                    <div className="p-3 text-xs text-slate-400 text-center">
+                      No matching university found. Type custom name above.
+                    </div>
+                  ) : (
+                    filteredUniversities.map((uni) => {
+                      const isSelected =
+                        targetChoices[choiceIndex].university === uni;
+                      return (
+                        <div
+                          key={uni}
+                          className={`w-full px-3 py-2 text-sm rounded-lg flex items-center justify-between transition ${
+                            isSelected
+                              ? "bg-slate-900 text-white font-semibold"
+                              : "text-slate-700 hover:bg-slate-100"
+                          }`}
+                        >
+                          <button
+                            type="button"
+                            onClick={() =>
+                              updateTargetChoice("university", uni)
+                            }
+                            className="flex-1 text-left"
+                          >
+                            {uni}
+                          </button>
+                          {isSelected && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateTargetChoice("university", "");
+                              }}
+                              className="ml-2 p-1 text-slate-400 hover:text-red-400 rounded-md transition"
+                              title="Remove choice"
+                            >
+                              <X size={16} />
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center justify-between">
+                  <span>
+                    {["First", "Second", "Third"][choiceIndex]} Choice Program
+                  </span>
+                  {choiceIndex === 0 ? (
+                    <span className="text-red-500 font-bold">* Required</span>
+                  ) : (
+                    <span className="text-slate-400 font-normal normal-case">
+                      (Optional)
+                    </span>
+                  )}
                 </label>
                 <div className="relative">
                   <Search
@@ -496,59 +631,58 @@ export default function OnboardingModal({
                   />
                   <input
                     type="text"
-                    value={currentChoice.university}
+                    value={targetChoices[choiceIndex].program}
                     onChange={(e) =>
-                      updateCurrentChoice("university", e.target.value)
+                      updateTargetChoice("program", e.target.value)
                     }
-                    placeholder="Search over 40+ universities (e.g. Waterloo, UofT)..."
+                    placeholder="Search programs (e.g. Computer Science, Business)..."
                     className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 focus:border-slate-900 focus:ring-0 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none transition shadow-sm"
                   />
                 </div>
                 <div className="max-h-36 overflow-y-auto border border-slate-200 rounded-xl bg-white p-1 shadow-inner">
-                  {filteredUniversities.length === 0 ? (
+                  {filteredPrograms.length === 0 ? (
                     <div className="p-3 text-xs text-slate-400 text-center">
-                      No matching university found. Type custom name above.
+                      No matching program found. Type custom program above.
                     </div>
                   ) : (
-                    filteredUniversities.map((uni) => (
-                      <button
-                        key={uni}
-                        type="button"
-                        onClick={() => updateCurrentChoice("university", uni)}
-                        className={`w-full text-left px-3 py-2 text-sm rounded-lg flex items-center justify-between transition ${
-                          currentChoice.university === uni
-                            ? "bg-slate-900 text-white font-semibold"
-                            : "text-slate-700 hover:bg-slate-100"
-                        }`}
-                      >
-                        <span>{uni}</span>
-                        {currentChoice.university === uni && (
-                          <CheckCircle2
-                            size={16}
-                            className="text-emerald-400"
-                          />
-                        )}
-                      </button>
-                    ))
+                    filteredPrograms.map((prog) => {
+                      const isSelected =
+                        targetChoices[choiceIndex].program === prog;
+                      return (
+                        <div
+                          key={prog}
+                          className={`w-full px-3 py-2 text-sm rounded-lg flex items-center justify-between transition ${
+                            isSelected
+                              ? "bg-slate-900 text-white font-semibold"
+                              : "text-slate-700 hover:bg-slate-100"
+                          }`}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => updateTargetChoice("program", prog)}
+                            className="flex-1 text-left"
+                          >
+                            {prog}
+                          </button>
+                          {isSelected && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateTargetChoice("program", "");
+                              }}
+                              className="ml-2 p-1 text-slate-400 hover:text-red-400 rounded-md transition"
+                              title="Remove choice"
+                            >
+                              <X size={16} />
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })
                   )}
                 </div>
               </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  {["First", "Second", "Third"][choiceIndex]} Choice Program
-                </label>
-                <input
-                  type="text"
-                  value={currentChoice.program}
-                  onChange={(e) =>
-                    updateCurrentChoice("program", e.target.value)
-                  }
-                  placeholder="e.g. Computer Science, Software Engineering, Health Sci"
-                  className="w-full px-4 py-2.5 bg-white border border-slate-200 focus:border-slate-900 focus:ring-0 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none transition shadow-sm"
-                />
-              </div>
-
               <div className="flex items-center gap-2 pt-1">
                 {[0, 1, 2].map((i) => (
                   <div
@@ -861,20 +995,32 @@ export default function OnboardingModal({
           >
             <ChevronLeft size={16} /> Back
           </button>
+          {error && (
+            <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-semibold rounded-xl text-center">
+              {error}
+            </div>
+          )}
           {step < 4 ? (
             <button
               type="button"
+              onClick={handleContinue}
               disabled={
                 step === 1 &&
-                (!currentChoice.university || !currentChoice.program)
+                choiceIndex === 0 &&
+                (!targetChoices[0].university.trim() ||
+                  !targetChoices[0].program.trim())
               }
-              onClick={handleContinue}
-              className="flex items-center gap-1.5 text-sm font-semibold
-              bg-slate-900 hover:bg-slate-800 disabled:opacity-40
-              disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-xl
-              transition shadow-md cursor-pointer"
+              className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center gap-1.5 ${
+                step === 1 &&
+                choiceIndex === 0 &&
+                (!targetChoices[0].university.trim() ||
+                  !targetChoices[0].program.trim())
+                  ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                  : "bg-slate-900 text-white hover:bg-slate-800 cursor-pointer shadow-md"
+              }`}
             >
-              Continue <ChevronRight size={16} />
+              <span>{step === 4 ? "Finish" : "Continue"}</span>
+              <ChevronRight size={16} />
             </button>
           ) : (
             <button
