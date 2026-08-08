@@ -3,6 +3,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useAuth } from "@/app/context/authContext";
 import { useRouter, useSearchParams } from "next/navigation";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../services/firebaseConfig";
 import Link from "next/link";
 
 function LoginContent() {
@@ -35,8 +37,14 @@ function LoginContent() {
     setError("");
     setIsSubmitting(true);
     try {
-      await signInWithGoogle();
-      router.push("/onboarding");
+      const result = await signInWithGoogle();
+      const userRef = doc(db, "users", result.user.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists() && userSnap.data()?.onboardingCompleted) {
+        router.push("/dashboard");
+      } else {
+        router.push("/onboarding");
+      }
     } catch (err: any) {
       setIsSubmitting(false);
       if (err?.code === "auth/popup-closed-by-user") {
@@ -66,10 +74,19 @@ function LoginContent() {
     try {
       if (isSignUp) {
         await signUpWithEmail(email, password, fullName);
+        // New signups always go to onboarding
+        router.push("/onboarding");
       } else {
-        await signInWithEmail(email, password);
+        const cred = await signInWithEmail(email, password);
+        const userRef = doc(db, "users", cred.user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists() && userSnap.data()?.onboardingCompleted) {
+          router.push("/dashboard");
+        } else {
+          router.push("/onboarding");
+        }
       }
-      router.push("/onboarding");
     } catch (err: any) {
       setIsSubmitting(false);
       if (
@@ -87,7 +104,6 @@ function LoginContent() {
       }
     }
   };
-
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       <div className="md:w-1/2 bg-[#090D16] text-white p-8 md:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1E293B]">
@@ -249,7 +265,8 @@ function LoginContent() {
           </form>
 
           <p className="text-xs text-center text-slate-600 mt-6">
-            {isSignUp ? "Already have an account?" : "Don't have an account?"} &nbsp;
+            {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
+            &nbsp;
             <button
               type="button"
               onClick={() => {

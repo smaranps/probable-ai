@@ -12,7 +12,7 @@ import Navbar from "./navbar";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import CreditCounter from "@/app/components/limits";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConfig";
 
 const googleSansFlex = Google_Sans_Flex({
@@ -128,6 +128,7 @@ export default function OverviewDashboard({
         university: prog.university,
         program: prog.program,
       };
+
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -136,27 +137,55 @@ export default function OverviewDashboard({
           mode: selectedMode,
         }),
       });
+
       const data = await res.json();
+      const currentUser = auth.currentUser;
+
       if (data.estimatedMin !== undefined) {
         setAiResult(data);
         setHasRun(true);
         setUserCredits((prev) => Math.max(0, prev - 1));
-        setTargetPrograms((prev) =>
-          prev.map((p) =>
-            p.id === prog.id
-              ? {
-                  ...p,
-                  minOdds: data.estimatedMin,
-                  maxOdds: data.estimatedMax,
-                  tier: data.tier || p.tier,
-                }
-              : p
-          )
+
+        const updatedTargets = targetPrograms.map((p) =>
+          p.id === prog.id
+            ? {
+                ...p,
+                minOdds: data.estimatedMin,
+                maxOdds: data.estimatedMax,
+                tier: data.tier || p.tier,
+              }
+            : p
         );
+        setTargetPrograms(updatedTargets);
+        if (currentUser) {
+          await setDoc(
+            doc(db, "users", currentUser.uid),
+            {
+              targetPrograms: updatedTargets,
+              lastAnalysis: data,
+              lastAnalyzedProgramId: prog.id,
+              lastAnalyzedMode: selectedMode,
+              updatedAt: new Date().toISOString(),
+            },
+            { merge: true }
+          );
+        }
       } else if (data.result) {
         setRawTextResponse(data.result);
         setHasRun(true);
         setUserCredits((prev) => Math.max(0, prev - 1));
+        if (currentUser) {
+          await setDoc(
+            doc(db, "users", currentUser.uid),
+            {
+              lastRawAnalysis: data.result,
+              lastAnalyzedProgramId: prog.id,
+              lastAnalyzedMode: selectedMode,
+              updatedAt: new Date().toISOString(),
+            },
+            { merge: true }
+          );
+        }
       } else {
         setRawTextResponse("Could not generate analysis at this time.");
         setHasRun(true);

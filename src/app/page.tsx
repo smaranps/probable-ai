@@ -82,15 +82,9 @@ export default function Home() {
         className="bg-slate-200 text-slate-900 py-20 px-6 w-full flex-grow overflow-hidden"
       >
         <div className="max-w-3xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="font-heading text-2xl font-extrabold mb-8 text-slate-900"
-          >
+          <h2 className="font-heading text-2xl font-extrabold mb-8 text-slate-900">
             About our application:
-          </motion.h2>
+          </h2>
           <motion.div
             variants={containerVariants}
             initial="hidden"

@@ -16,39 +16,21 @@ export default function Home() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          const docRef = doc(db, "user_profiles", user.uid);
+          const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
 
-          if (docSnap.exists()) {
+          if (docSnap.exists() && docSnap.data()?.onboardingCompleted) {
             setUserProfile(docSnap.data() as UserProfileData);
-            setShowModal(false);
-          } else {
-            const saved = localStorage.getItem("ouac_user_profile");
-            if (saved) {
-              setUserProfile(JSON.parse(saved));
-              setShowModal(false);
-            } else {
-              setShowModal(true);
-            }
-          }
-        } catch (error) {
-          console.error("Firestore read error:", error);
-          const saved = localStorage.getItem("ouac_user_profile");
-          if (saved) {
-            setUserProfile(JSON.parse(saved));
             setShowModal(false);
           } else {
             setShowModal(true);
           }
-        }
-      } else {
-        const saved = localStorage.getItem("ouac_user_profile");
-        if (saved) {
-          setUserProfile(JSON.parse(saved));
-          setShowModal(false);
-        } else {
+        } catch (error) {
+          console.error("Firestore read error:", error);
           setShowModal(true);
         }
+      } else {
+        setShowModal(true);
       }
       setIsLoading(false);
     });
