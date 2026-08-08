@@ -13,6 +13,11 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+export interface TargetChoice {
+  university: string;
+  program: string;
+}
+
 export interface CourseEntry {
   code: string;
   grade: number | "";
@@ -24,6 +29,7 @@ export interface CourseEntry {
 export interface UserProfileData {
   university: string;
   program: string;
+  targetChoices: TargetChoice[];
   applicantType: "101" | "105";
   courses: CourseEntry[];
   top6Average: number;
@@ -125,11 +131,29 @@ export default function OnboardingModal({
   userDisplayName = "Student",
 }: OnboardingModalProps) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [choiceIndex, setChoiceIndex] = useState<0 | 1 | 2>(0);
+  const [targetChoices, setTargetChoices] = useState<TargetChoice[]>([
+    { university: "", program: "" },
+    { university: "", program: "" },
+    { university: "", program: "" },
+  ]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUniversity, setSelectedUniversity] = useState("");
   const [program, setProgram] = useState("");
   const [courses, setCourses] = useState<CourseEntry[]>(DEFAULT_COURSES);
   const router = useRouter();
+  const currentChoice = targetChoices[choiceIndex];
+
+  const updateCurrentChoice = (
+    field: "university" | "program",
+    value: string
+  ) => {
+    setTargetChoices((prev) => {
+      const updated = [...prev];
+      updated[choiceIndex] = { ...updated[choiceIndex], [field]: value };
+      return updated;
+    });
+  };
 
   const PRESET_PROFILES: { label: string; data: UserProfileData }[] = [
     {
@@ -137,6 +161,14 @@ export default function OnboardingModal({
       data: {
         university: "University of Waterloo",
         program: "Software Engineering",
+        targetChoices: [
+          {
+            university: "University of Waterloo",
+            program: "Software Engineering",
+          },
+          { university: "", program: "" },
+          { university: "", program: "" },
+        ],
         applicantType: "101",
         top6Average: 96.2,
         courses: [
@@ -194,6 +226,14 @@ export default function OnboardingModal({
       data: {
         university: "University of Toronto - St. George",
         program: "Computer Science",
+        targetChoices: [
+          {
+            university: "University of Toronto - St. George",
+            program: "Computer Science",
+          },
+          { university: "", program: "" },
+          { university: "", program: "" },
+        ],
         applicantType: "101",
         top6Average: 92.5,
         courses: [
@@ -256,13 +296,16 @@ export default function OnboardingModal({
 
   const [hasOvsOrNightSchool, setHasOvsOrNightSchool] = useState(false);
   const [extracurriculars, setExtracurriculars] = useState("");
+  const totalUnits = 6;
+  const currentUnit = step === 1 ? choiceIndex + 1 : 3 + (step - 1);
 
   const filteredUniversities = useMemo(() => {
-    if (!searchQuery.trim()) return UNIVERSITIES;
+    const query = currentChoice.university;
+    if (!query.trim()) return UNIVERSITIES;
     return UNIVERSITIES.filter((uni) =>
-      uni.toLowerCase().includes(searchQuery.toLowerCase())
+      uni.toLowerCase().includes(query.toLowerCase())
     );
-  }, [searchQuery]);
+  }, [currentChoice.university]);
   const calculatedAverage = useMemo(() => {
     return calculateOUACTop6(courses);
   }, [courses]);
@@ -290,10 +333,21 @@ export default function OnboardingModal({
       },
     ]);
   };
+
   const applyPreset = (presetData: UserProfileData) => {
-    setSelectedUniversity(presetData.university);
-    setSearchQuery(presetData.university);
-    setProgram(presetData.program);
+    setTargetChoices(
+      presetData.targetChoices?.length === 3
+        ? presetData.targetChoices
+        : [
+            { university: presetData.university, program: presetData.program },
+            {
+              university: "University of Waterloo",
+              program: "Software Engineering",
+            },
+            { university: "McMaster University", program: "Computer Science" },
+          ]
+    );
+    setChoiceIndex(0);
     setApplicantType(presetData.applicantType);
     setCourses(presetData.courses);
     setContests(presetData.contests);
@@ -309,8 +363,9 @@ export default function OnboardingModal({
 
   const handleFinish = () => {
     const profileData: UserProfileData = {
-      university: selectedUniversity,
-      program,
+      university: targetChoices[0].university,
+      program: targetChoices[0].program,
+      targetChoices,
       applicantType,
       courses,
       top6Average: calculatedAverage,
@@ -319,13 +374,29 @@ export default function OnboardingModal({
       extracurriculars,
     };
     localStorage.setItem("ouac_user_profile", JSON.stringify(profileData));
-
-    if (onComplete) {
-      onComplete(profileData);
-    }
+    if (onComplete) onComplete(profileData);
     router.push("/dashboard");
   };
 
+  const handleContinue = () => {
+    if (step === 1) {
+      if (choiceIndex < 2) {
+        setChoiceIndex((i) => (i + 1) as 0 | 1 | 2);
+      } else {
+        setStep(2);
+      }
+      return;
+    }
+    setStep((s) => (s < 4 ? ((s + 1) as any) : s));
+  };
+
+  const handleBack = () => {
+    if (step === 1) {
+      if (choiceIndex > 0) setChoiceIndex((i) => (i - 1) as 0 | 1 | 2);
+      return;
+    }
+    setStep((s) => (s > 1 ? ((s - 1) as any) : s));
+  };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <div className="relative w-full max-w-2xl bg-slate-50/95 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
@@ -350,10 +421,15 @@ export default function OnboardingModal({
         <div className="px-6 pt-4 pb-4 border-b border-slate-200/80 bg-white/50">
           <div className="flex items-center justify-between mb-3">
             <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-600 flex items-center gap-1.5">
-              <Sparkles size={13} /> Step {step} of 4
+              <Sparkles size={13} />
+              {step === 1
+                ? `Choice ${choiceIndex + 1} of 3`
+                : `Step ${step} of 4`}
             </span>
             <span className="text-xs font-semibold text-slate-500">
-              {step === 1 && "Target Program"}
+              {step === 1 && choiceIndex === 0 && "First Choice Program"}
+              {step === 1 && choiceIndex === 1 && "Second Choice Program"}
+              {step === 1 && choiceIndex === 2 && "Third Choice Program"}
               {step === 2 && "Grades & Courses"}
               {step === 3 && "Contests & Applicant Pool"}
               {step === 4 && "Additional Background"}
@@ -363,7 +439,7 @@ export default function OnboardingModal({
           <div className="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-slate-900 transition-all duration-300 ease-out"
-              style={{ width: `${(step / 4) * 100}%` }}
+              style={{ width: `${(currentUnit / totalUnits) * 100}%` }}
             />
           </div>
         </div>
@@ -372,16 +448,22 @@ export default function OnboardingModal({
             <div className="space-y-5">
               <div>
                 <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-                  Nice to meet you, {userDisplayName}!
+                  {choiceIndex === 0
+                    ? `Nice to meet you, ${userDisplayName}!`
+                    : choiceIndex === 1
+                    ? "What's your second choice?"
+                    : "Last one — your third choice"}
                 </h2>
                 <p className="text-sm text-slate-500 mt-1">
-                  Select your target university and program to start your
-                  analysis.
+                  {choiceIndex === 0
+                    ? "Select your first-choice university and program to start your analysis."
+                    : "Add another university and program you're considering."}
                 </p>
               </div>
+
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  Target University
+                  {["First", "Second", "Third"][choiceIndex]} Choice University
                 </label>
                 <div className="relative">
                   <Search
@@ -390,8 +472,10 @@ export default function OnboardingModal({
                   />
                   <input
                     type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={currentChoice.university}
+                    onChange={(e) =>
+                      updateCurrentChoice("university", e.target.value)
+                    }
                     placeholder="Search over 60+ universities (e.g. Waterloo, UofT)..."
                     className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 focus:border-slate-900 focus:ring-0 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none transition shadow-sm"
                   />
@@ -406,18 +490,15 @@ export default function OnboardingModal({
                       <button
                         key={uni}
                         type="button"
-                        onClick={() => {
-                          setSelectedUniversity(uni);
-                          setSearchQuery(uni);
-                        }}
+                        onClick={() => updateCurrentChoice("university", uni)}
                         className={`w-full text-left px-3 py-2 text-sm rounded-lg flex items-center justify-between transition ${
-                          selectedUniversity === uni
+                          currentChoice.university === uni
                             ? "bg-slate-900 text-white font-semibold"
                             : "text-slate-700 hover:bg-slate-100"
                         }`}
                       >
                         <span>{uni}</span>
-                        {selectedUniversity === uni && (
+                        {currentChoice.university === uni && (
                           <CheckCircle2
                             size={16}
                             className="text-emerald-400"
@@ -431,15 +512,32 @@ export default function OnboardingModal({
 
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  Target Program
+                  {["First", "Second", "Third"][choiceIndex]} Choice Program
                 </label>
                 <input
                   type="text"
-                  value={program}
-                  onChange={(e) => setProgram(e.target.value)}
+                  value={currentChoice.program}
+                  onChange={(e) =>
+                    updateCurrentChoice("program", e.target.value)
+                  }
                   placeholder="e.g. Computer Science, Software Engineering, Health Sci"
                   className="w-full px-4 py-2.5 bg-white border border-slate-200 focus:border-slate-900 focus:ring-0 rounded-xl text-sm text-slate-900 placeholder-slate-400 outline-none transition shadow-sm"
                 />
+              </div>
+
+              <div className="flex items-center gap-2 pt-1">
+                {[0, 1, 2].map((i) => (
+                  <div
+                    key={i}
+                    className={`h-1.5 flex-1 rounded-full transition-colors ${
+                      i < choiceIndex
+                        ? "bg-emerald-500"
+                        : i === choiceIndex
+                        ? "bg-slate-900"
+                        : "bg-slate-200"
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           )}
@@ -729,8 +827,8 @@ export default function OnboardingModal({
         <div className="px-6 py-4 border-t border-slate-200/80 bg-white/50 flex items-center justify-between">
           <button
             type="button"
-            onClick={() => setStep((s) => (s > 1 ? ((s - 1) as any) : s))}
-            disabled={step === 1}
+            onClick={handleBack}
+            disabled={step === 1 && choiceIndex === 0}
             className={`flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-xl transition ${
               step === 1
                 ? "opacity-0 cursor-default"
@@ -742,9 +840,15 @@ export default function OnboardingModal({
           {step < 4 ? (
             <button
               type="button"
-              disabled={step === 1 && (!selectedUniversity || !program)}
-              onClick={() => setStep((s) => (s < 4 ? ((s + 1) as any) : s))}
-              className="flex items-center gap-1.5 text-sm font-semibold bg-slate-900 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-xl transition shadow-md cursor-pointer"
+              disabled={
+                step === 1 &&
+                (!currentChoice.university || !currentChoice.program)
+              }
+              onClick={handleContinue}
+              className="flex items-center gap-1.5 text-sm font-semibold
+              bg-slate-900 hover:bg-slate-800 disabled:opacity-40
+              disabled:cursor-not-allowed text-white px-5 py-2.5 rounded-xl
+              transition shadow-md cursor-pointer"
             >
               Continue <ChevronRight size={16} />
             </button>

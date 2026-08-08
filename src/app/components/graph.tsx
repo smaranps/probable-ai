@@ -16,6 +16,7 @@ import { Users, Sparkles, TrendingUp } from "lucide-react";
 
 interface DashboardChartsProps {
   profile: UserProfileData;
+  
 }
 
 interface BenchmarkData {
@@ -72,7 +73,7 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
   ];
 
   return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 w-full max-w-[769px] md:w-1/   h-[500]">
+    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 w-full max-w-[769px] md:w-1/  md:h-[600]/ max-h-[500]">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
         <div>
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">

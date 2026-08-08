@@ -1,5 +1,3 @@
-// Source: Skills UI for liquid background, Claude/Gemini for styling/icons
-
 "use client";
 import React, { useEffect, useRef } from "react";
 
@@ -51,11 +49,31 @@ class SimplexNoise {
     return 70 * (n0 + n1 + n2);
   }
 }
-const BLOBS = [
-  { color: "110, 231, 183", scale: 0.9, speed: 0.012, radius: 0.42 },
-  { color: "94, 234, 212", scale: 1.3, speed: 0.009, radius: 0.38 },
-  { color: "165, 180, 252", scale: 0.7, speed: 0.01, radius: 0.42 },
-  { color: "240, 171, 252", scale: 1.1, speed: 0.007, radius: 0.32 },
+const RIBBONS = [
+  {
+    color: "16, 185, 129",
+    speed: 0.011,
+    radiusX: 0.5,
+    radiusY: 0.18,
+    angle: -0.35,
+    yPos: 0.28,
+  },
+  {
+    color: "20, 184, 166",
+    speed: 0.008,
+    radiusX: 0.55,
+    radiusY: 0.2,
+    angle: 0.22,
+    yPos: 0.55,
+  },
+  {
+    color: "6, 78, 59",
+    speed: 0.006,
+    radiusX: 0.45,
+    radiusY: 0.16,
+    angle: -0.15,
+    yPos: 0.78,
+  },
 ];
 
 export const LiquidBackground = () => {
@@ -67,7 +85,7 @@ export const LiquidBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const noises = BLOBS.map((_, i) => new SimplexNoise(i * 13.7 + 1));
+    const noises = RIBBONS.map((_, i) => new SimplexNoise(i * 17.3 + 1));
     let raf = 0;
     let elapsed = 0;
     let lastTime = 0;
@@ -99,22 +117,34 @@ export const LiquidBackground = () => {
       ctx.fillRect(0, 0, width, height);
       ctx.globalCompositeOperation = "multiply";
 
-      BLOBS.forEach((blob, i) => {
+      RIBBONS.forEach((ribbon, i) => {
         const n = noises[i];
-        const nx = n.noise(elapsed * blob.speed, 0);
-        const ny = n.noise(0, elapsed * blob.speed);
-        const cx = width * (0.5 + nx * 0.4 * blob.scale);
-        const cy = height * (0.5 + ny * 0.4 * blob.scale);
-        const r = Math.max(width, height) * blob.radius;
+        const drift = n.noise(elapsed * ribbon.speed, 0);
+        const cx = width * (0.5 + drift * 0.35);
+        const cy = height * ribbon.yPos;
+        const rx = width * ribbon.radiusX;
+        const ry = height * ribbon.radiusY;
 
-        const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-        gradient.addColorStop(0, `rgba(${blob.color}, 0.32)`);
-        gradient.addColorStop(0.6, `rgba(${blob.color}, 0.14)`);
-        gradient.addColorStop(1, `rgba(${blob.color}, 0)`);
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(ribbon.angle + drift * 0.15);
+        const gradient = ctx.createRadialGradient(
+          0,
+          0,
+          0,
+          0,
+          0,
+          Math.max(rx, ry)
+        );
+        gradient.addColorStop(0, `rgba(${ribbon.color}, 0.34)`);
+        gradient.addColorStop(0.55, `rgba(${ribbon.color}, 0.16)`);
+        gradient.addColorStop(1, `rgba(${ribbon.color}, 0)`);
         ctx.fillStyle = gradient;
+        ctx.scale(1, ry / rx);
         ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.arc(0, 0, rx, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
       });
 
       ctx.globalCompositeOperation = "source-over";
@@ -138,10 +168,17 @@ export const LiquidBackground = () => {
     <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-[#F8FAFC]">
       <canvas
         ref={canvasRef}
-        className="w-full h-full filter blur-[70px]"
+        className="w-full h-full filter blur-[90px] saturate-[1.3]"
         style={{ width: "100%", height: "100%" }}
       />
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03] mix-blend-multiply pointer-events-none">
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 40%, rgba(15,23,42,0.03) 100%)",
+        }}
+      />
+      <svg className="absolute inset-0 w-full h-full opacity-[0.035] mix-blend-multiply pointer-events-none">
         <filter id="noise-light">
           <feTurbulence
             type="fractalNoise"

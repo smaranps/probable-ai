@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import DetailedReportModal from "./detailedReport";
 import Navbar from "./navbar";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -46,30 +48,99 @@ interface AIAnalysisResult {
   reasoning?: string;
   radarMetrics?: RadarMetrics;
 }
+export interface TargetChoice {
+  university: string;
+  program: string;
+}
+
+export interface TargetProgramOption {
+  id: string;
+  university: string;
+  program: string;
+  tier: "Safety" | "Match" | "Target" | "Reach";
+  minOdds: number;
+  maxOdds: number;
+}
+
+const TIER_BADGE_STYLES: Record<string, string> = {
+  Safety: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  Match: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  Target: "bg-amber-50 text-amber-700 border-amber-200",
+  Reach: "bg-rose-50 text-rose-700 border-rose-200",
+};
+
+const buildInitialTargets = (
+  profile: UserProfileData
+): TargetProgramOption[] => {
+  const choices =
+    profile.targetChoices && profile.targetChoices.length > 0
+      ? profile.targetChoices
+      : [{ university: profile.university, program: profile.program }];
+
+  return choices.slice(0, 3).map((choice, idx) => ({
+    id: `target-${idx}`,
+    university: choice.university || "Untitled Choice",
+    program: choice.program || "—",
+    tier: "Match" as const,
+    minOdds: 0,
+    maxOdds: 0,
+  }));
+};
 
 export default function OverviewDashboard({
   profile,
   onResetModal,
 }: OverviewDashboardProps) {
+  const [targetPrograms, setTargetPrograms] = useState<TargetProgramOption[]>(
+    () => buildInitialTargets(profile)
+  );
+  const [activeProgramId, setActiveProgramId] = useState<string>("primary");
   const [mode, setMode] = useState<"advisor" | "roast">("advisor");
   const [aiResult, setAiResult] = useState<AIAnalysisResult | null>(null);
   const [rawTextResponse, setRawTextResponse] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [hasRun, setHasRun] = useState<boolean>(false);
 
-  const handleRunAnalysis = async (selectedMode = mode) => {
+  const activeProgram =
+    targetPrograms.find((p) => p.id === activeProgramId) || targetPrograms[0];
+
+  const handleRunAnalysis = async (
+    selectedMode = mode,
+    prog = activeProgram
+  ) => {
     setLoading(true);
     try {
+      const activeProfileContext = {
+        ...profile,
+        university: prog.university,
+        program: prog.program,
+      };
+
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profile, mode: selectedMode }),
+        body: JSON.stringify({
+          profile: activeProfileContext,
+          mode: selectedMode,
+        }),
       });
       const data = await res.json();
 
       if (data.estimatedMin !== undefined) {
         setAiResult(data);
         setHasRun(true);
+        setTargetPrograms((prev) =>
+          prev.map((p) =>
+            p.id === prog.id
+              ? {
+                  ...p,
+                  minOdds: data.estimatedMin,
+                  maxOdds: data.estimatedMax,
+                  tier: data.tier || p.tier,
+                }
+              : p
+          )
+        );
       } else if (data.result) {
         setRawTextResponse(data.result);
         setHasRun(true);
@@ -86,12 +157,20 @@ export default function OverviewDashboard({
     }
   };
 
+  const handleProgramSwitch = (prog: TargetProgramOption) => {
+    setActiveProgramId(prog.id);
+    if (hasRun) {
+      handleRunAnalysis(mode, prog);
+    }
+  };
+
   const handleModeChange = (newMode: "advisor" | "roast") => {
     setMode(newMode);
     if (hasRun) {
-      handleRunAnalysis(newMode);
+      handleRunAnalysis(newMode, activeProgram);
     }
   };
+
   const router = useRouter();
 
   return (
@@ -102,20 +181,22 @@ export default function OverviewDashboard({
       <FloatingParticles />
       <div className="relative z-10 w-full max-w-5xl mx-auto p-4 sm:p-6 space-y-6 flex-grow pb-16">
         <LiquidBackground />
+
+        {/* Top Target Program Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 mt-20">
           <div>
             <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-1 block">
-              Target Program Evaluation
+              Active Evaluation Target
             </span>
             <h1 className="text-xl font-semibold text-slate-900">
-              {profile.university}
+              {activeProgram.university}
             </h1>
             <p className="text-xs text-slate-500 mt-1">
-              Program:
+              Program:{" "}
               <span className="text-slate-700 font-medium">
-                {profile.program}
+                {activeProgram.program}
               </span>
-              <span className="mx-1.5 text-slate-300">|</span> Pool:
+              <span className="mx-1.5 text-slate-300">|</span> Pool:{" "}
               <span className="text-slate-700 font-medium">
                 OUAC {profile.applicantType}
               </span>
@@ -123,7 +204,7 @@ export default function OverviewDashboard({
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <button
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm cursor-pointer"
               onClick={() => router.push("/details")}
             >
               <Sparkles size={16} /> Detailed Report
@@ -132,7 +213,7 @@ export default function OverviewDashboard({
               <button
                 type="button"
                 onClick={() => handleModeChange("advisor")}
-                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-medium px-4 py-1.5 rounded-lg transition-all duration-200 ${
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-medium px-4 py-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
                   mode === "advisor"
                     ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
                     : "text-slate-500 hover:text-slate-800 hover:bg-white/70"
@@ -143,7 +224,7 @@ export default function OverviewDashboard({
               <button
                 type="button"
                 onClick={() => handleModeChange("roast")}
-                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-medium px-4 py-1.5 rounded-lg transition-all duration-200 ${
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-medium px-4 py-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
                   mode === "roast"
                     ? "bg-rose-50 text-rose-600 border border-rose-200"
                     : "text-slate-500 hover:text-slate-800 hover:bg-white/70"
@@ -155,11 +236,72 @@ export default function OverviewDashboard({
             <button
               type="button"
               onClick={() => router.push("/onboarding")}
-              className="p-2 text-slate-500 hover:text-slate-800 hover:bg-white/70 rounded-xl transition-colors border border-transparent hover:border-slate-200"
+              className="p-2 text-slate-500 hover:text-slate-800 hover:bg-white/70 rounded-xl transition-colors border border-transparent hover:border-slate-200 cursor-pointer"
               title="Edit Profile Data"
             >
               <RotateCcw size={16} />
             </button>
+          </div>
+        </div>
+
+        {/* Multi-Program Comparison Switcher Grid */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">
+              Application Targets Comparison
+            </span>
+            <span className="text-[11px] text-slate-400">
+              Click a target to switch primary AI benchmark
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {targetPrograms.map((prog) => {
+              const isSelected = prog.id === activeProgramId;
+              const badgeClass =
+                TIER_BADGE_STYLES[prog.tier] ||
+                "bg-slate-100 text-slate-700 border-slate-200";
+
+              return (
+                <motion.button
+                  key={prog.id}
+                  type="button"
+                  onClick={() => handleProgramSwitch(prog)}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`relative text-left p-4 rounded-xl border transition-all cursor-pointer backdrop-blur-xl ${
+                    isSelected
+                      ? "bg-white/90 border-emerald-500/50 shadow-md ring-2 ring-emerald-500/20"
+                      : "bg-white/50 border-slate-200/80 hover:bg-white/80 hover:border-slate-300"
+                  }`}
+                >
+                  {isSelected && (
+                    <span className="absolute top-0 left-0 right-0 h-1 bg-emerald-500 rounded-t-xl" />
+                  )}
+                  <div className="flex items-start justify-between gap-2 mb-1.5">
+                    <p className="text-[11px] font-semibold text-slate-500 truncate">
+                      {prog.university}
+                    </p>
+                    <span
+                      className={`text-[9px] font-bold px-2 py-0.5 rounded-md border shrink-0 ${badgeClass}`}
+                    >
+                      {prog.tier}
+                    </span>
+                  </div>
+                  <h3 className="text-sm font-semibold text-slate-900 truncate">
+                    {prog.program}
+                  </h3>
+                  <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                    <span>Est. Range</span>
+                    <span className="font-bold text-slate-800">
+                      {prog.minOdds === 0 && prog.maxOdds === 0
+                        ? "Not yet evaluated"
+                        : `${prog.minOdds}% – ${prog.maxOdds}%`}
+                    </span>
+                  </div>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
         <div
@@ -175,12 +317,12 @@ export default function OverviewDashboard({
                 {mode === "advisor" ? (
                   <>
                     <Bot size={14} className="text-emerald-500" /> Primary AI
-                    Acceptance Odds Range
+                    Acceptance Odds Range ({activeProgram.university})
                   </>
                 ) : (
                   <>
                     <Flame size={14} className="text-rose-500" /> Admissions
-                    Roast Probability
+                    Roast Probability ({activeProgram.university})
                   </>
                 )}
               </span>
@@ -189,7 +331,7 @@ export default function OverviewDashboard({
               <div>
                 <button
                   type="button"
-                  onClick={() => router.push("/dashboard")}
+                  onClick={() => handleRunAnalysis(mode, activeProgram)}
                   disabled={loading}
                   className="text-[11px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white/70 hover:bg-white text-slate-600 transition-colors cursor-pointer border border-slate-200"
                 >
@@ -206,7 +348,7 @@ export default function OverviewDashboard({
           {loading ? (
             <div className="py-10 flex items-center justify-center gap-3 text-sm text-slate-500">
               <Sparkles size={16} className="animate-pulse text-emerald-500" />
-              Analyzing {profile.university} historical markers...
+              Analyzing {activeProgram.university} historical markers...
             </div>
           ) : hasRun ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
@@ -214,7 +356,7 @@ export default function OverviewDashboard({
                 {aiResult?.estimatedMin !== undefined ? (
                   <div>
                     <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 inline-block mb-3">
-                      {aiResult.tier || "Evaluated"}
+                      {aiResult.tier || activeProgram.tier}
                     </span>
                     <div className="text-4xl font-light tracking-tight text-slate-900 mb-1">
                       {aiResult.estimatedMin}%{" "}
@@ -226,8 +368,18 @@ export default function OverviewDashboard({
                     </span>
                   </div>
                 ) : (
-                  <div className="text-lg text-slate-700 font-medium">
-                    Analysis Complete
+                  <div>
+                    <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200 inline-block mb-3">
+                      {activeProgram.tier}
+                    </span>
+                    <div className="text-4xl font-light tracking-tight text-slate-900 mb-1">
+                      {activeProgram.minOdds}%{" "}
+                      <span className="text-slate-400 font-serif">–</span>{" "}
+                      {activeProgram.maxOdds}%
+                    </div>
+                    <span className="text-xs text-slate-500 font-medium block">
+                      Estimated Probability Range
+                    </span>
                   </div>
                 )}
               </div>
@@ -252,26 +404,33 @@ export default function OverviewDashboard({
                 />
                 <span className="text-left leading-relaxed">
                   Calculates an estimated acceptance range factoring in Waterloo
-                  Euclid weighting, school flags, and top 6 averages.
+                  Euclid weighting, school flags, and top 6 averages for{" "}
+                  <strong>{activeProgram.university}</strong>.
                 </span>
               </div>
               <button
                 type="button"
-                onClick={() => handleRunAnalysis()}
+                onClick={() => handleRunAnalysis(mode, activeProgram)}
                 className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm flex items-center gap-2 cursor-pointer ${
                   mode === "advisor"
                     ? "bg-emerald-500 hover:bg-emerald-400 text-white"
                     : "bg-rose-500 hover:bg-rose-400 text-white"
                 }`}
               >
-                <Sparkles size={16} /> Run
+                <Sparkles size={16} /> Run{" "}
                 {mode === "advisor" ? "Advisor" : "Roast"} Evaluation
               </button>
             </div>
           )}
         </div>
         <div id="graph-container" className="space-y-6">
-          <DashboardCharts profile={profile} />
+          <DashboardCharts
+            profile={{
+              ...profile,
+              university: activeProgram.university,
+              program: activeProgram.program,
+            }}
+          />
           <CompetitivenessRadar
             metrics={aiResult?.radarMetrics}
             isLoading={loading}
@@ -298,6 +457,7 @@ export default function OverviewDashboard({
                 <GraduationCap size={28} strokeWidth={1.5} />
               </div>
             </div>
+
             <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/70 space-y-5 shadow-sm shadow-slate-200/50">
               <div className="flex items-center justify-between">
                 <h2 className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest flex items-center gap-2">
@@ -344,6 +504,7 @@ export default function OverviewDashboard({
               </div>
             </div>
           </div>
+
           <div className="space-y-6">
             <div className="bg-white/70 backdrop-blur-xl p-6 rounded-2xl border border-slate-200/70 space-y-6 shadow-sm shadow-slate-200/50">
               <h2 className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">

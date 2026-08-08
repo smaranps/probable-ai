@@ -59,6 +59,13 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
             >
               How It Works
             </Link>
+
+            <Link
+              href="#faq"
+              className="text-slate-600 hover:text-slate-900 transition"
+            >
+              FAQ
+            </Link>
             {user ? (
               <div className="flex items-center gap-3">
                 <Link
@@ -86,7 +93,7 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
                 </button>
                 <button
                   type="button"
-                  onClick={() => router.push("/login")}
+                  onClick={() => router.push("/login?mode=login")}
                   className="px-4 py-1.5 bg-[#10B981] hover:bg-[#14B8A6] text-white font-semibold rounded-lg transition cursor-pointer shadow-sm"
                 >
                   Sign In
@@ -149,7 +156,7 @@ export default function Navbar({ user = null, onSignOut }: NavbarProps) {
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    router.push("/login");
+                    router.push("/login?mode=login");
                   }}
                   className="w-full px-4 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-white font-semibold rounded-lg transition cursor-pointer shadow-sm text-center"
                 >
