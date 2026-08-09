@@ -378,7 +378,7 @@ export default function OnboardingModal({
   };
 
   const removeCourseRow = (index: number) => {
-    if (courses.length <= 1) return;
+    if (courses.length <= 6) return;
     setCourses(courses.filter((_, i) => i !== index));
   };
 
@@ -820,7 +820,12 @@ export default function OnboardingModal({
                       <button
                         type="button"
                         onClick={() => removeCourseRow(i)}
-                        className="text-slate-400 hover:text-red-500 p-1 transition"
+                        disabled={courses.length <= 6}
+                        className={`p-1 transition ${
+                          courses.length <= 6
+                            ? "text-slate-200 cursor-not-allowed"
+                            : "text-slate-400 hover:text-red-500"
+                        }`}
                       >
                         <Trash2 size={15} />
                       </button>
