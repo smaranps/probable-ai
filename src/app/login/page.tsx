@@ -8,6 +8,7 @@ import { db } from "../services/firebaseConfig";
 import Link from "next/link";
 import { Plus_Jakarta_Sans, Inter, Google_Sans_Flex } from "next/font/google";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { getGuestMode, GUEST_MODE_EVENT } from "@/app/services/guestMode";
 import { setGuestMode } from "@/app/services/guestMode";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -84,6 +85,7 @@ function LoginContent() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user, loading } = useAuth();
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
   const router = useRouter();
 

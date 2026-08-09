@@ -9,6 +9,12 @@ import Navbar from "@/app/components/navbar";
 import { motion } from "framer-motion";
 import AdmissionMythsSection from "./components/faq";
 import HeroPreviewCards from "@/app/components/previewCard";
+import { useEffect, useState } from "react";
+import {
+  getGuestMode,
+  GUEST_MODE_EVENT,
+  setGuestMode,
+} from "@/app/services/guestMode";
 
 // Animations proivded by Google Gemini
 const containerVariants = {
@@ -47,7 +53,21 @@ const inter = Inter({
 
 export default function Home() {
   const router = useRouter();
-  const { user, signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle, loading } = useAuth();
+  const [isGuest, setIsGuest] = useState(false);
+  const [checkedGuest, setCheckedGuest] = useState(false);
+
+  useEffect(() => {
+    setIsGuest(getGuestMode());
+    setCheckedGuest(true);
+    const handleGuestChange = () => setIsGuest(getGuestMode());
+    window.addEventListener(GUEST_MODE_EVENT, handleGuestChange);
+    return () =>
+      window.removeEventListener(GUEST_MODE_EVENT, handleGuestChange);
+  }, []);
+
+  const authResolved = checkedGuest && !loading;
+  const isLoggedIn = !!user || isGuest;
 
   return (
     <div
@@ -66,19 +86,33 @@ export default function Home() {
             Canadian admissions, decoded in seconds.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
-            <button
-              onClick={() => router.push("/login?mode=login")}
-              className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20 cursor-pointer"
-              style={{ fontFamily: `var(${plusJakarta.variable})` }}
-            >
-              Analyze my profile!
-            </button>
-            <button
-              onClick={() => router.push("/login?mode=signup")}
-              className="w-full sm:w-auto px-7 py-3 bg-[#111827] hover:bg-[#1E293B] border border-[#1E293B] text-[#94A3B8] hover:text-white font-medium text-sm rounded-lg transition cursor-pointer"
-            >
-              Sign up
-            </button>
+            {!authResolved ? (
+              <div className="h-[46px]" />
+            ) : isLoggedIn ? (
+              <button
+                onClick={() => router.push("/dashboard")}
+                className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20 cursor-pointer"
+                style={{ fontFamily: `var(${plusJakarta.variable})` }}
+              >
+                Go to Dashboard
+              </button>
+            ) : (
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
+                <button
+                  onClick={() => router.push("/login?mode=login")}
+                  className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20 cursor-pointer"
+                  style={{ fontFamily: `var(${plusJakarta.variable})` }}
+                >
+                  Analyze my profile!
+                </button>
+                <button
+                  onClick={() => router.push("/login?mode=signup")}
+                  className="w-full sm:w-auto px-7 py-3 bg-[#111827] hover:bg-[#1E293B] border border-[#1E293B] text-[#94A3B8] hover:text-white font-medium text-sm rounded-lg transition cursor-pointer"
+                >
+                  Sign up
+                </button>
+              </div>
+            )}
           </div>
         </section>
       </AuroraBackground>
@@ -126,7 +160,7 @@ export default function Home() {
                   Powered by Real Outcomes
                 </h3>
                 <p className="text-slate-600 text-xs leading-relaxed">
-                  Built on thousands of crowd-sourced Ontario applicant records.
+                  Built on thousands of crowd sourced Ontario applicant records.
                   We look beyond official general cutoffs to show you the actual
                   historical averages, decision timelines, and real acceptance
                   trends.
