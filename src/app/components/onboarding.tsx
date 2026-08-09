@@ -12,10 +12,15 @@ import {
   Trash2,
   Sparkles,
   X,
+  Link,
+  Info,
+  Icon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { db, auth } from "../services/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
+import CourseInfoModal from "@/app/components/infoModal";
+import { kMaxLength } from "buffer";
 
 interface OnboardingModalProps {
   onComplete: (data: UserProfileData) => void;
@@ -152,6 +157,7 @@ export default function OnboardingModal({
   const [selectedUniversity, setSelectedUniversity] = useState("");
   const [program, setProgram] = useState("");
   const [courses, setCourses] = useState<CourseEntry[]>(DEFAULT_COURSES);
+  const [showCourseInfo, setShowCourseInfo] = useState(false);
   const router = useRouter();
   const currentChoice = targetChoices[choiceIndex];
   useEffect(() => {
@@ -520,8 +526,8 @@ export default function OnboardingModal({
                   {choiceIndex === 0
                     ? `Nice to meet you, ${userDisplayName}!`
                     : choiceIndex === 1
-                    ? "What's your second choice?"
-                    : "Last one — your third choice"}
+                    ? "What's your second choice University?"
+                    : "Last one — your third choice University"}
                 </h2>
                 <p className="text-sm text-slate-500 mt-1">
                   {choiceIndex === 0
@@ -709,6 +715,13 @@ export default function OnboardingModal({
                   </h2>
                   <p className="text-sm text-slate-500 mt-0.5">
                     Enter course codes and your projected or final grades.
+                    <button
+                      type="button"
+                      onClick={() => setShowCourseInfo(true)}
+                      className="inline-flex align-middle text-slate-400 hover:text-slate-700 transition cursor-pointer"
+                    >
+                      <Info size={16} />
+                    </button>
                   </p>
                 </div>
                 <div className="text-right px-3 py-1.5 rounded-xl bg-slate-900 text-white">
@@ -737,23 +750,35 @@ export default function OnboardingModal({
                           e.target.value.toUpperCase()
                         )
                       }
+                      maxLength={5}
                       placeholder="Course (e.g. MHF4U)"
                       className="w-full sm:w-32 px-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-slate-900 rounded-lg text-sm text-slate-900 uppercase font-mono outline-none"
                     />
                     <div className="flex items-center gap-1 w-full sm:w-28">
                       <input
                         type="number"
-                        min="0"
+                        onKeyDown={(event) => {
+                          if (["-", "e", "E", "+", "."].includes(event.key)) {
+                            event.preventDefault();
+                          }
+                        }}
+                        min="50"
                         max="100"
                         value={c.grade}
-                        onChange={(e) =>
-                          handleCourseChange(
-                            i,
-                            "grade",
-                            e.target.value === "" ? "" : Number(e.target.value)
-                          )
-                        }
-                        placeholder="Grade"
+                        onChange={(e) => {
+                          handleCourseChange(i, "grade", e.target.value);
+                        }}
+                        onBlur={(e) => {
+                          const val = e.target.value;
+                          if (val === "" || Number(val) < 50) {
+                            handleCourseChange(i, "grade", 50);
+                          } else if (Number(val) > 100) {
+                            handleCourseChange(i, "grade", 100);
+                          } else {
+                            handleCourseChange(i, "grade", Number(val));
+                          }
+                        }}
+                        placeholder="50"
                         className="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 focus:border-slate-900 rounded-lg text-sm text-slate-900 font-mono outline-none"
                       />
                       <span className="text-xs font-bold text-slate-400">
@@ -886,15 +911,27 @@ export default function OnboardingModal({
                     </span>
                     <input
                       type="number"
+                      min={0}
+                      max={100}
                       placeholder="e.g. 78"
                       value={contests.euclid}
-                      onChange={(e) =>
-                        setContests({
-                          ...contests,
-                          euclid:
-                            e.target.value === "" ? "" : Number(e.target.value),
-                        })
-                      }
+                      onKeyDown={(event) => {
+                        if (["-", "e", "E", "+", "."].includes(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "") {
+                          setContests({ ...contests, euclid: "" });
+                          return;
+                        }
+                        const clampedValue = Math.min(
+                          100,
+                          Math.max(0, Number(val))
+                        );
+                        setContests({ ...contests, euclid: clampedValue });
+                      }}
                       className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-slate-900 rounded-xl text-sm text-slate-900 outline-none shadow-sm"
                     />
                   </div>
@@ -905,15 +942,27 @@ export default function OnboardingModal({
                     </span>
                     <input
                       type="number"
+                      min={0}
+                      max={60}
                       placeholder="e.g. 45"
+                      onKeyDown={(event) => {
+                        if (event.key === "-") {
+                          event.preventDefault();
+                        }
+                      }}
                       value={contests.csmc}
-                      onChange={(e) =>
-                        setContests({
-                          ...contests,
-                          csmc:
-                            e.target.value === "" ? "" : Number(e.target.value),
-                        })
-                      }
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "") {
+                          setContests({ ...contests, csmc: "" });
+                          return;
+                        }
+                        const clampedValue = Math.min(
+                          60,
+                          Math.max(0, Number(val))
+                        );
+                        setContests({ ...contests, csmc: clampedValue });
+                      }}
                       className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-slate-900 rounded-xl text-sm text-slate-900 outline-none shadow-sm"
                     />
                   </div>
@@ -924,15 +973,27 @@ export default function OnboardingModal({
                     </span>
                     <input
                       type="number"
+                      min={0}
+                      max={75}
+                      onKeyDown={(event) => {
+                        if (["-", "e", "E", "+", "."].includes(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
                       placeholder="e.g. 52"
                       value={contests.ccc}
-                      onChange={(e) =>
-                        setContests({
-                          ...contests,
-                          ccc:
-                            e.target.value === "" ? "" : Number(e.target.value),
-                        })
-                      }
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "") {
+                          setContests({ ...contests, ccc: "" });
+                          return;
+                        }
+                        const clampedValue = Math.min(
+                          75,
+                          Math.max(0, Number(val))
+                        );
+                        setContests({ ...contests, ccc: clampedValue });
+                      }}
                       className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-slate-900 rounded-xl text-sm text-slate-900 outline-none shadow-sm"
                     />
                   </div>
@@ -1033,6 +1094,10 @@ export default function OnboardingModal({
           )}
         </div>
       </div>
+      <CourseInfoModal
+        isOpen={showCourseInfo}
+        onClose={() => setShowCourseInfo(false)}
+      />
     </div>
   );
 }

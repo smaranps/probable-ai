@@ -63,7 +63,7 @@ export default function Home() {
             className="text-[#94A3B8] sm:text-lg md:text-xl font-normal mb-8 max-w-xl"
             style={{ fontFamily: `var(${plusJakarta.variable})` }}
           >
-            Your academic profile, analyzed in seconds.
+            Canadian admissions, decoded in seconds.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
             <button
@@ -239,7 +239,11 @@ export default function Home() {
             </p>
 
             <div className="flex gap-4 text-slate-400 text-xs">
-              <a href="#" className="hover:text-white transition">
+              <a
+                href="https://docs.google.com/document/d/1GvWGK5GxRaZJv25wO5YI4629TlKCAXta1qEDet0ie7U/edit?usp=sharing"
+                target="_blank"
+                className="hover:text-white transition"
+              >
                 Privacy Policy
               </a>
               <a href="#" className="hover:text-white transition">

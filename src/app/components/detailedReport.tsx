@@ -400,7 +400,7 @@ export default function DetailedReportModal({
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-900 leading-tight">
-                Detailed Admissions Brief
+                Detailed Admissions Brief - Press Analyze to Properly Evaluate
               </h2>
               <p className="text-xs text-slate-500 font-medium">
                 {safeData.targetUniversity} • {safeData.targetProgram}

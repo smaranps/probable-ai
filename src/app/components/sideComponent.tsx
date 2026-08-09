@@ -41,14 +41,14 @@ export function SelectionSummary({
               <p className="font-semibold text-xs text-slate-900 truncate">
                 {choice.university || (
                   <span className="italic text-slate-400 font-normal">
-                    Select university...
+                    Your choice appears here...
                   </span>
                 )}
               </p>
               <p className="text-[11px] text-slate-500 truncate mt-0.5">
                 {choice.program || (
                   <span className="italic text-slate-300 font-normal">
-                    Select program...
+                    Your program choice appears here...
                   </span>
                 )}
               </p>

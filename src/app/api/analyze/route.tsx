@@ -129,7 +129,7 @@ export async function POST(req: Request) {
     - Euclid: ${profile.contests?.euclid || "N/A"}
     - CSMC: ${profile.contests?.csmc || "N/A"}
     - CCC: ${profile.contests?.ccc || "N/A"}
-
+    (Just remember these are very hard contests, so the average for Euclid is 50-65, and csmc is like between 30-40, and CCC is like 45/60)
     Courses:
     ${JSON.stringify(profile.courses || [], null, 2)}
     `;

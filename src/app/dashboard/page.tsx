@@ -95,7 +95,9 @@ export default function Home() {
       ) : (
         <div className="max-w-md mx-auto text-center pt-24 text-slate-400">
           <p className="text-sm font-medium">
-            Complete the steps to generate your admissions analysis.
+            Complete the steps to generate your admissions analysis. (If you
+            have completed this before, and logged in with Google, ignore this
+            message and refresh the page.)
           </p>
         </div>
       )}

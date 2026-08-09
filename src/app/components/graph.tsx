@@ -11,8 +11,15 @@ import {
   ResponsiveContainer,
   ReferenceLine,
   Cell,
+  LabelList,
 } from "recharts";
-import { Users, Sparkles, TrendingUp } from "lucide-react";
+import {
+  Users,
+  Sparkles,
+  TrendingUp,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 
 interface DashboardChartsProps {
   profile: UserProfileData;
@@ -22,6 +29,23 @@ interface BenchmarkData {
   sampleCount: number;
   benchmarkMean: number;
   isProgramSpecific: boolean;
+}
+
+function CustomTooltip({ active, payload }: any) {
+  if (active && payload && payload.length) {
+    const data = payload[0];
+    return (
+      <div className="bg-white/95 backdrop-blur-md p-3 rounded-xl shadow-xl border border-slate-200 text-xs flex flex-col gap-1 z-50">
+        <span className="font-medium text-slate-500">
+          {data.payload.category}
+        </span>
+        <span className="text-base font-extrabold font-mono text-slate-900">
+          {data.value}%
+        </span>
+      </div>
+    );
+  }
+  return null;
 }
 
 export default function DashboardCharts({ profile }: DashboardChartsProps) {
@@ -60,96 +84,131 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
     ? `${benchmark.sampleCount}+`
     : "0";
 
+  const diff = userAvg - benchmarkMean;
+  const isCompetitive = diff >= 0;
   const comparisonData = [
     {
-      category: "Your Top 6",
+      category: "Your Average",
       average: userAvg,
-      fill: "#10b981",
+      gradientId: "emeraldGrad",
     },
     {
-      category: `${profile.university} Offer Avg`,
+      category: `${profile.university || "Target"} Offer Avg`,
       average: benchmarkMean,
-      fill: "#6366f1",
+      gradientId: "indigoGrad",
     },
   ];
+  const minDomain = Math.max(
+    50,
+    Math.floor(Math.min(userAvg, benchmarkMean) - 10)
+  );
 
   return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 w-full max-w-[769px] md:w-1/  md:h-[600]/ max-h-[500]">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
+    <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5 w-full max-w-3xl transition-all duration-300 hover:shadow-md">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
         <div>
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-            <TrendingUp size={16} className="text-emerald-500" />
-            Top 6 Average vs. Historical Admissions Data
+            <div className="p-1.5 bg-emerald-100 rounded-md">
+              <TrendingUp size={16} className="text-emerald-600" />
+            </div>
+            Admissions Benchmark
           </h3>
-          <p className="text-xs text-slate-500">
-            Comparing your average directly against accepted applicants for
-            &nbsp;
+          <p className="text-xs text-slate-500 mt-1">
+            Comparing your standing against accepted applicants for{" "}
             <span className="font-semibold text-slate-800">
-              {profile.university}
+              {profile.university || "selected program"}
             </span>
           </p>
         </div>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">
-          <Users size={14} className="text-indigo-600" />
+
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600 shrink-0">
+          <Users size={14} className="text-indigo-500" />
           {loading ? (
-            <span className="animate-pulse">Loading dataset...</span>
+            <span className="animate-pulse">Loading data...</span>
           ) : (
             <span>
-              Sample Size: &nbsp;
-              <strong className="text-slate-900 font-mono">
+              Sample:{" "}
+              <strong className="text-slate-900 font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200">
                 {sampleCount}
               </strong>{" "}
-              &nbsp; entries
+              entries
             </span>
           )}
         </div>
       </div>
-      <div className="h-72 w-full pt-2">
+      <div className="h-72 w-full pt-4">
         {loading ? (
-          <div className="h-full flex items-center justify-center text-xs font-mono text-slate-400 animate-pulse gap-2">
-            <Sparkles size={16} className="animate-spin text-indigo-500" />
-            Filtering matching dataset records...
+          <div className="h-full flex flex-col items-center justify-center text-xs font-mono text-slate-400 animate-pulse gap-3">
+            <Sparkles size={20} className="animate-spin text-indigo-400" />
+            Analyzing admissions statistics...
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={comparisonData}
-              margin={{ top: 20, right: 30, left: -10, bottom: 10 }}
+              margin={{ top: 25, right: 30, left: -15, bottom: 5 }}
             >
+              <defs>
+                <linearGradient id="emeraldGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#34d399" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#059669" stopOpacity={1} />
+                </linearGradient>
+                <linearGradient id="indigoGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#818cf8" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#4f46e5" stopOpacity={1} />
+                </linearGradient>
+              </defs>
+
               <XAxis
                 dataKey="category"
-                tick={{ fontSize: 12, fontWeight: 600, fill: "#334155" }}
+                tickLine={false}
+                axisLine={{ stroke: "#f1f5f9" }}
+                tick={{ fontSize: 12, fontWeight: 600, fill: "#64748b" }}
               />
               <YAxis
-                domain={[70, 100]}
-                tick={{ fontSize: 11, fill: "#64748b" }}
+                domain={[minDomain, 100]}
+                tickLine={false}
+                axisLine={{ stroke: "#f1f5f9" }}
+                tick={{ fontSize: 11, fill: "#94a3b8" }}
                 unit="%"
               />
+
               <Tooltip
-                formatter={(value: any) => [`${value}%`, "Top 6 Average"]}
-                contentStyle={{
-                  backgroundColor: "#0f172a",
-                  borderColor: "#334155",
-                  borderRadius: "0.75rem",
-                  color: "#fff",
-                  fontSize: "12px",
-                }}
+                content={<CustomTooltip />}
+                cursor={{ fill: "#f8fafc" }}
               />
+
               <ReferenceLine
                 y={benchmarkMean}
-                stroke="#6366f1"
+                stroke="#818cf8"
                 strokeDasharray="4 4"
+                strokeWidth={1.5}
                 label={{
-                  value: `Benchmark: ${benchmarkMean}%`,
-                  fill: "#6366f1",
+                  value: `Target: ${benchmarkMean}%`,
+                  fill: "#4f46e5",
                   fontSize: 11,
                   fontWeight: 700,
                   position: "top",
                 }}
               />
-              <Bar dataKey="average" radius={[8, 8, 0, 0]} barSize={55}>
+
+              <Bar dataKey="average" radius={[6, 6, 0, 0]} barSize={60}>
+                <LabelList
+                  dataKey="average"
+                  position="top"
+                  formatter={(val: any) => (val ? `${val}%` : "")}
+                  style={{
+                    fill: "#334155",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    fontFamily: "monospace",
+                  }}
+                />
                 {comparisonData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={`url(#${entry.gradientId})`}
+                  />
                 ))}
               </Bar>
             </BarChart>
@@ -157,16 +216,41 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
         )}
       </div>
       {!loading && (
-        <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between text-xs">
-          <span className="text-slate-600">Difference from Accepted Mean:</span>
-          <span
-            className={`font-mono font-bold text-sm ${
-              userAvg >= benchmarkMean ? "text-emerald-600" : "text-amber-600"
-            }`}
-          >
-            {userAvg >= benchmarkMean ? "+" : ""}
-            {(userAvg - benchmarkMean).toFixed(1)}%
-          </span>
+        <div
+          className={`p-4 rounded-xl border flex items-center justify-between text-sm transition-colors mt-2 ${
+            isCompetitive
+              ? "bg-emerald-50/50 border-emerald-100 text-emerald-900"
+              : "bg-amber-50/50 border-amber-100 text-amber-900"
+          }`}
+        >
+          <div className="flex items-center gap-2.5">
+            {isCompetitive ? (
+              <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+            ) : (
+              <AlertCircle size={18} className="text-amber-500 shrink-0" />
+            )}
+            <span className="font-medium">
+              {isCompetitive
+                ? "Your average places you in a highly competitive range."
+                : "You are currently below the historical benchmark."}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs uppercase tracking-wide font-bold opacity-70">
+              Variance
+            </span>
+            <span
+              className={`font-mono font-bold px-2 py-1 rounded-md bg-white border ${
+                isCompetitive
+                  ? "text-emerald-600 border-emerald-100"
+                  : "text-amber-600 border-amber-100"
+              }`}
+            >
+              {diff >= 0 ? "+" : ""}
+              {diff.toFixed(1)}%
+            </span>
+          </div>
         </div>
       )}
     </div>

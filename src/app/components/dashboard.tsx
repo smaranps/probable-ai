@@ -373,48 +373,74 @@ export default function OverviewDashboard({
           </div>
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <CreditCounter remaining={userCredits} total={maxCredits} />
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm cursor-pointer"
-              onClick={() => router.push("/details")}
-            >
-              <Sparkles size={16} /> Detailed Report
-            </motion.button>
-            <div className="flex bg-slate-100/70 p-1 rounded-xl border border-slate-200/70 w-full sm:w-auto">
-              <button
-                type="button"
-                onClick={() => handleModeChange("advisor")}
-                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-medium px-4 py-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
-                  mode === "advisor"
-                    ? "bg-emerald-50 text-emerald-600 border border-emerald-200"
-                    : "text-slate-500 hover:text-slate-800 hover:bg-white/70"
-                }`}
-              >
-                <Bot size={14} /> Advisor
-              </button>
-              <button
-                type="button"
-                onClick={() => handleModeChange("roast")}
-                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-medium px-4 py-1.5 rounded-lg transition-all duration-200 cursor-pointer ${
-                  mode === "roast"
-                    ? "bg-rose-50 text-rose-600 border border-rose-200"
-                    : "text-slate-500 hover:text-slate-800 hover:bg-white/70"
-                }`}
-              >
-                <Flame size={14} /> Roast
-              </button>
+
+            <div className="w-full sm:w-auto flex flex-col items-center sm:items-start">
+              <div className="relative flex bg-slate-100/70 p-1 rounded-xl border border-slate-200/70 w-full sm:w-auto shadow-inner">
+                <motion.div
+                  layoutId="modeIndicator"
+                  className={`absolute top-1 bottom-1 rounded-lg ${
+                    mode === "advisor"
+                      ? "bg-emerald-500 shadow-md shadow-emerald-500/30"
+                      : "bg-rose-500 shadow-md shadow-rose-500/30"
+                  }`}
+                  style={{
+                    width: "calc(50% - 4px)",
+                    left: mode === "advisor" ? "4px" : "calc(50% + 0px)",
+                  }}
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleModeChange("advisor")}
+                  className={`relative z-10 flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-bold px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer ${
+                    mode === "advisor"
+                      ? "text-white"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
+                >
+                  <Bot size={14} /> Advisor
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleModeChange("roast")}
+                  className={`relative z-10 flex-1 sm:flex-none flex items-center justify-center gap-2 text-xs font-bold px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer ${
+                    mode === "roast"
+                      ? "text-white"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
+                >
+                  <Flame size={14} /> Roast
+                </button>
+              </div>
+              <span className="text-[10px] font-semibold text-slate-600 mt-1.5 text-center sm:text-left">
+                Toggle between Roast and Advisor mode
+              </span>
             </div>
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="button"
               onClick={() => router.push("/onboarding")}
-              className="p-2 text-slate-500 hover:text-slate-800 hover:bg-white/70 rounded-xl transition-colors border border-transparent hover:border-slate-200 cursor-pointer"
-              title="Edit Profile Data"
+              className="flex items-center gap-1.5 px-3 py-2 text-slate-500 hover:text-slate-800 hover:bg-white/70 rounded-xl transition-colors border border-transparent hover:border-slate-200 cursor-pointer text-xs font-medium"
+              title="Reconfigure Profile"
             >
               <RotateCcw size={16} />
+              <span className="hidden sm:inline">Reconfigure</span>
             </motion.button>
+
+            {creditsLoaded && userCredits > 0 && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                type="button"
+                onClick={() => handleRunAnalysis(mode, activeProgram)}
+                className="flex items-center gap-1.5 px-3 py-2 text-slate-500 hover:text-slate-800 hover:bg-white/70 rounded-xl transition-colors border border-transparent hover:border-slate-200 cursor-pointer text-xs font-medium"
+                title="Re-analyze"
+              >
+                <RotateCcw size={16} />
+                <span className="hidden sm:inline">Re-evaluate</span>
+              </motion.button>
+            )}
           </div>
         </motion.div>
         <motion.div variants={itemVariants} className="space-y-2">
@@ -510,23 +536,15 @@ export default function OverviewDashboard({
                 )}
               </span>
             </div>
-            {hasRun && (
-              <div>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="button"
-                  onClick={() => handleRunAnalysis(mode, activeProgram)}
-                  disabled={loading}
-                  className="text-[11px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5 bg-white/70 hover:bg-white text-slate-600 transition-colors cursor-pointer border border-slate-200"
-                >
-                  <RefreshCw
-                    size={12}
-                    className={loading ? "animate-spin" : ""}
-                  />
-                  Re-evaluate
-                </motion.button>
-              </div>
+            {hasRun && isGuest == false && (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="flex items-center gap-2 px-5 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold rounded-xl transition shadow-lg shadow-emerald-500/20 text-sm cursor-pointer"
+                onClick={() => router.push("/details")}
+              >
+                <Sparkles size={16} /> Detailed Report
+              </motion.button>
             )}
           </div>
           <AnimatePresence mode="wait">
@@ -616,6 +634,9 @@ export default function OverviewDashboard({
                     Waterloo Euclid weighting, school flags, and top 6 averages
                     for &nbsp;
                     <strong>{activeProgram.university}</strong>.
+                    <br />
+                    <strong>Note:</strong> &nbsp; All calculations shown are
+                    placeholders. Run the AI analysis to see the actual numbers.
                   </span>
                 </div>
                 <motion.button
