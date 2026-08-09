@@ -12,6 +12,7 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import CreditCounter from "@/app/components/limits";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConfig";
+import { NextRequest } from "next/server";
 
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
@@ -63,6 +64,15 @@ export interface TargetProgramOption {
   maxOdds: number;
 }
 
+interface CachedResult {
+  aiResult: AIAnalysisResult | null;
+  rawTextResponse: string;
+}
+type ResultsCache = Record<string, CachedResult>;
+
+const cacheKey = (programId: string, mode: "advisor" | "roast") =>
+  `${programId}::${mode}`;
+
 const TIER_BADGE_STYLES: Record<string, string> = {
   Safety: "bg-emerald-50 text-emerald-700 border-emerald-200",
   Match: "bg-emerald-50 text-emerald-700 border-emerald-200",
@@ -110,6 +120,8 @@ const itemVariants: Variants = {
   },
 };
 
+const GUEST_RESULTS_KEY = "guestResultsCache";
+
 export default function OverviewDashboard({
   profile,
   onResetModal,
@@ -126,15 +138,70 @@ export default function OverviewDashboard({
   const [isGuest, setIsGuest] = useState<boolean>(false);
   const [maxCredits, setMaxCredits] = useState<number>(5);
   const [userCredits, setUserCredits] = useState<number>(5);
+  function getClientIp(req: NextRequest): string {
+    const forwardedFor = req.headers.get("x-forwarded-for");
+    if (forwardedFor) {
+      return forwardedFor.split(",")[0].trim();
+    }
+    return req.headers.get("x-real-ip") ?? "unknown";
+  }
 
   const [creditsLoaded, setCreditsLoaded] = useState<boolean>(false);
   const [currentProfile, setCurrentProfile] = useState<UserProfileData | null>(
     null
   );
-
+  const [resultsCache, setResultsCache] = useState<ResultsCache>({});
   const getTodayKey = () => new Date().toISOString().split("T")[0];
   const activeProgram =
     targetPrograms.find((p) => p.id === activeProgramId) || targetPrograms[0];
+  const persistResultsCache = async (
+    nextCache: ResultsCache,
+    nextTargets: TargetProgramOption[] = targetPrograms
+  ) => {
+    if (isGuest) {
+      try {
+        localStorage.setItem(GUEST_RESULTS_KEY, JSON.stringify(nextCache));
+      } catch (err) {
+        console.error("Guest cache save error:", err);
+      }
+      return;
+    }
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      try {
+        await setDoc(
+          doc(db, "users", currentUser.uid),
+          {
+            resultsCache: nextCache,
+            targetPrograms: nextTargets,
+            activeProgramId,
+            mode,
+            updatedAt: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+      } catch (err) {
+        console.error("Results cache save error:", err);
+      }
+    }
+  };
+
+  const applyCachedOrEmpty = (
+    programId: string,
+    forMode: "advisor" | "roast",
+    cache: ResultsCache = resultsCache
+  ) => {
+    const cached = cache[cacheKey(programId, forMode)];
+    if (cached) {
+      setAiResult(cached.aiResult);
+      setRawTextResponse(cached.rawTextResponse);
+      setHasRun(true);
+    } else {
+      setAiResult(null);
+      setRawTextResponse("");
+      setHasRun(false);
+    }
+  };
 
   const handleRunAnalysis = async (
     selectedMode = mode,
@@ -157,6 +224,8 @@ export default function OverviewDashboard({
         university: prog.university,
         program: prog.program,
       };
+      const currentUser = auth.currentUser;
+      const idToken = currentUser ? await currentUser.getIdToken() : null;
 
       const res = await fetch("/api/analyze", {
         method: "POST",
@@ -164,12 +233,31 @@ export default function OverviewDashboard({
         body: JSON.stringify({
           profile: activeProfileContext,
           mode: selectedMode,
+          idToken,
         }),
       });
+      if (res.status === 429) {
+        const errData = await res.json();
+        setRawTextResponse(errData.error ?? "Daily limit reached.");
+        setHasRun(true);
+        setUserCredits(0);
+        setLoading(false);
+        return;
+      }
 
-      const data = await res.json();
-      const currentUser = auth.currentUser;
+      const rawBody = await res.text();
+      console.log("Raw response:", res.status, rawBody);
 
+      let data: any;
+      try {
+        data = JSON.parse(rawBody);
+      } catch (e) {
+        console.error("Failed to parse response as JSON:", rawBody);
+        setRawTextResponse("Error connecting to admissions AI.");
+        setHasRun(true);
+        setLoading(false);
+        return;
+      }
       if (data.estimatedMin !== undefined) {
         setAiResult(data);
         setHasRun(true);
@@ -187,36 +275,29 @@ export default function OverviewDashboard({
         );
         setTargetPrograms(updatedTargets);
 
-        if (currentUser && !isGuest) {
-          await setDoc(
-            doc(db, "users", currentUser.uid),
-            {
-              targetPrograms: updatedTargets,
-              lastAnalysis: data,
-              lastAnalyzedProgramId: prog.id,
-              lastAnalyzedMode: selectedMode,
-              updatedAt: new Date().toISOString(),
-            },
-            { merge: true }
-          );
-        }
+        const nextCache: ResultsCache = {
+          ...resultsCache,
+          [cacheKey(prog.id, selectedMode)]: {
+            aiResult: data,
+            rawTextResponse: "",
+          },
+        };
+        setResultsCache(nextCache);
+        await persistResultsCache(nextCache, updatedTargets);
       } else if (data.result) {
         setRawTextResponse(data.result);
         setHasRun(true);
         await spendCredit(currentUser?.uid);
 
-        if (currentUser && !isGuest) {
-          await setDoc(
-            doc(db, "users", currentUser.uid),
-            {
-              lastRawAnalysis: data.result,
-              lastAnalyzedProgramId: prog.id,
-              lastAnalyzedMode: selectedMode,
-              updatedAt: new Date().toISOString(),
-            },
-            { merge: true }
-          );
-        }
+        const nextCache: ResultsCache = {
+          ...resultsCache,
+          [cacheKey(prog.id, selectedMode)]: {
+            aiResult: null,
+            rawTextResponse: data.result,
+          },
+        };
+        setResultsCache(nextCache);
+        await persistResultsCache(nextCache);
       } else {
         setRawTextResponse("Could not generate analysis at this time.");
         setHasRun(true);
@@ -229,7 +310,6 @@ export default function OverviewDashboard({
       setLoading(false);
     }
   };
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       const isGuestUser =
@@ -249,6 +329,16 @@ export default function OverviewDashboard({
           localStorage.setItem("guestCreditsDate", today);
         }
         setCreditsLoaded(true);
+        try {
+          const storedResults = localStorage.getItem(GUEST_RESULTS_KEY);
+          if (storedResults) {
+            const parsed: ResultsCache = JSON.parse(storedResults);
+            setResultsCache(parsed);
+            applyCachedOrEmpty(activeProgramId, mode, parsed);
+          }
+        } catch (err) {
+          console.error("Guest cache load error:", err);
+        }
       } else if (user) {
         try {
           const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -256,6 +346,10 @@ export default function OverviewDashboard({
             const data = userDoc.data() as UserProfileData & {
               creditsRemaining?: number;
               creditsDate?: string;
+              resultsCache?: ResultsCache;
+              targetPrograms?: TargetProgramOption[];
+              activeProgramId?: string;
+              mode?: "advisor" | "roast";
             };
             setCurrentProfile(data);
             if (
@@ -271,6 +365,31 @@ export default function OverviewDashboard({
                 { merge: true }
               );
             }
+            const restoredTargets =
+              data.targetPrograms && data.targetPrograms.length > 0
+                ? data.targetPrograms
+                : targetPrograms;
+            if (data.targetPrograms && data.targetPrograms.length > 0) {
+              setTargetPrograms(data.targetPrograms);
+            }
+
+            const restoredProgramId =
+              data.activeProgramId &&
+              restoredTargets.some((p) => p.id === data.activeProgramId)
+                ? data.activeProgramId
+                : restoredTargets[0]?.id ?? activeProgramId;
+            const restoredMode = data.mode || mode;
+            setActiveProgramId(restoredProgramId);
+            setMode(restoredMode);
+
+            if (data.resultsCache) {
+              setResultsCache(data.resultsCache);
+              applyCachedOrEmpty(
+                restoredProgramId,
+                restoredMode,
+                data.resultsCache
+              );
+            }
           }
         } catch (err) {
           console.error("Dashboard fetch error:", err);
@@ -283,6 +402,7 @@ export default function OverviewDashboard({
     });
     return () => unsubscribe();
   }, []);
+
   const spendCredit = async (uid?: string) => {
     setUserCredits((prev) => {
       const next = Math.max(0, prev - 1);
@@ -301,16 +421,15 @@ export default function OverviewDashboard({
   };
   const handleProgramSwitch = (prog: TargetProgramOption) => {
     setActiveProgramId(prog.id);
-    if (hasRun) {
-      handleRunAnalysis(mode, prog);
-    }
+    applyCachedOrEmpty(prog.id, mode);
+    persistResultsCache(resultsCache).catch(() => {});
   };
   const handleModeChange = (newMode: "advisor" | "roast") => {
     setMode(newMode);
-    if (hasRun) {
-      handleRunAnalysis(newMode, activeProgram);
-    }
+    applyCachedOrEmpty(activeProgramId, newMode);
+    persistResultsCache(resultsCache).catch(() => {});
   };
+
   const router = useRouter();
   return (
     <div
@@ -456,6 +575,7 @@ export default function OverviewDashboard({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {targetPrograms.map((prog) => {
               const isSelected = prog.id === activeProgramId;
+              const isEmpty = prog.university === "Untitled Choice";
               const badgeClass =
                 TIER_BADGE_STYLES[prog.tier] ||
                 "bg-slate-100 text-slate-700 border-slate-200";
@@ -464,14 +584,17 @@ export default function OverviewDashboard({
                 <motion.button
                   key={prog.id}
                   type="button"
-                  onClick={() => handleProgramSwitch(prog)}
-                  whileHover={{ y: -3 }}
-                  whileTap={{ scale: 0.98 }}
+                  onClick={() => !isEmpty && handleProgramSwitch(prog)}
+                  disabled={isEmpty}
+                  whileHover={!isEmpty ? { y: -3 } : undefined}
+                  whileTap={!isEmpty ? { scale: 0.98 } : undefined}
                   transition={{ duration: 0.2 }}
-                  className={`relative text-left p-4 rounded-xl border transition-all cursor-pointer backdrop-blur-xl ${
-                    isSelected
-                      ? "bg-white/90 border-emerald-500/50 shadow-md ring-2 ring-emerald-500/20"
-                      : "bg-white/50 border-slate-200/80 hover:bg-white/80 hover:border-slate-300"
+                  className={`relative text-left p-4 rounded-xl border transition-all backdrop-blur-xl ${
+                    isEmpty
+                      ? "bg-slate-50/50 border-slate-200/60 opacity-50 cursor-not-allowed"
+                      : isSelected
+                      ? "bg-white/90 border-emerald-500/50 shadow-md ring-2 ring-emerald-500/20 cursor-pointer"
+                      : "bg-white/50 border-slate-200/80 hover:bg-white/80 hover:border-slate-300 cursor-pointer"
                   }`}
                 >
                   {isSelected && (

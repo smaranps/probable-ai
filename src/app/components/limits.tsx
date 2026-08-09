@@ -21,9 +21,16 @@ export default function CreditCounter({
           : "bg-emerald-50/80 border-emerald-200 text-emerald-700"
       }`}
     >
-      <Zap size={14} className={isLow ? "text-rose-500 fill-rose-500" : "text-emerald-500 fill-emerald-500"} />
+      <Zap
+        size={14}
+        className={
+          isLow
+            ? "text-rose-500 fill-rose-500"
+            : "text-emerald-500 fill-emerald-500"
+        }
+      />
       <span>
-        {remaining}/{total} Daily Analyses
+        {remaining}/{total} Daily Limit
       </span>
     </div>
   );
