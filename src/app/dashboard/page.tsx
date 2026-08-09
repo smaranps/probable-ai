@@ -4,9 +4,10 @@ import React, { useState, useEffect } from "react";
 import OnboardingModal, { UserProfileData } from "@/app/components/onboarding";
 import OverviewDashboard from "@/app/components/dashboard";
 import { db, auth } from "../services/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { isLoggingOut, setLoggingOut } from "@/app/services/authFlags";
+
 export default function Home() {
   const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -61,12 +62,29 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  const handleModalComplete = (data: UserProfileData) => {
+  const handleModalComplete = async (data: UserProfileData) => {
     setUserProfile(data);
     setShowModal(false);
-    localStorage.setItem("ouac_user_profile", JSON.stringify(data));
+    const currentUser = auth.currentUser;
+    const isGuest = localStorage.getItem("isGuestMode") === "true";
+    if (currentUser && !isGuest) {
+      try {
+        await setDoc(
+          doc(db, "users", currentUser.uid),
+          {
+            ...data,
+            onboardingCompleted: true,
+            updatedAt: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+      } catch (err) {
+        console.error("Failed to save onboarding profile:", err);
+      }
+    } else {
+      localStorage.setItem("ouac_user_profile", JSON.stringify(data));
+    }
   };
-
   const handleEditProfile = () => {
     setShowModal(true);
   };
