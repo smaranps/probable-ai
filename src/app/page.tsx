@@ -192,9 +192,9 @@ export default function Home() {
                   AI-Driven Profile Analysis
                 </h3>
                 <p className="text-slate-600 text-xs leading-relaxed">
-                  Our intelligent model evaluates your Top 6 average, target
-                  programs, and extra curriculars in context, giving you
-                  realistic, non-biased probability tiers in seconds.
+                  Our AI model evaluates your Top 6 average, target programs,
+                  and extra curriculars in context, giving you realistic, non
+                  biased probability tiers in seconds.
                 </p>
               </div>
             </motion.div>
@@ -225,8 +225,7 @@ export default function Home() {
                 <p className="text-slate-600 text-xs leading-relaxed">
                   Stop guessing where you stand. Discover whether a program is a
                   Safety, Match, or Reach for your specific stats, and get
-                  tailored insights to optimize your supplemental applications
-                  (AIF).
+                  tailored insights to optimize your supplemental applications.
                 </p>
               </div>
             </motion.div>
