@@ -76,11 +76,21 @@ const RIBBONS = [
   },
 ];
 
-export const LiquidBackground = () => {
+type LiquidBackgroundProps = {
+  contained?: boolean;
+  className?: string;
+};
+
+export const LiquidBackground = ({
+  contained = false,
+  className = "",
+}: LiquidBackgroundProps = {}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    const wrap = wrapRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -95,12 +105,21 @@ export const LiquidBackground = () => {
     ).matches;
 
     const resize = () => {
-      canvas.width = window.innerWidth * Math.min(window.devicePixelRatio, 1.5);
-      canvas.height =
-        window.innerHeight * Math.min(window.devicePixelRatio, 1.5);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      if (contained && wrap) {
+        const { clientWidth, clientHeight } = wrap;
+        canvas.width = Math.max(1, Math.floor(clientWidth * dpr));
+        canvas.height = Math.max(1, Math.floor(clientHeight * dpr));
+      } else {
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+      }
     };
     resize();
     window.addEventListener("resize", resize);
+    const resizeObserver =
+      contained && wrap ? new ResizeObserver(resize) : null;
+    resizeObserver?.observe(wrap!);
 
     const onVisibility = () => (visible = !document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
@@ -113,17 +132,19 @@ export const LiquidBackground = () => {
 
       const { width, height } = canvas;
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#F8FAFC";
-      ctx.fillRect(0, 0, width, height);
-      ctx.globalCompositeOperation = "multiply";
+      if (!contained) {
+        ctx.fillStyle = "#F8FAFC";
+        ctx.fillRect(0, 0, width, height);
+      }
+      ctx.globalCompositeOperation = contained ? "source-over" : "multiply";
 
       RIBBONS.forEach((ribbon, i) => {
         const n = noises[i];
         const drift = n.noise(elapsed * ribbon.speed, 0);
         const cx = width * (0.5 + drift * 0.35);
-        const cy = height * ribbon.yPos;
-        const rx = width * ribbon.radiusX;
-        const ry = height * ribbon.radiusY;
+        const cy = height * (contained ? 0.35 + i * 0.18 : ribbon.yPos);
+        const rx = width * (contained ? ribbon.radiusX * 0.7 : ribbon.radiusX);
+        const ry = height * (contained ? ribbon.radiusY * 1.4 : ribbon.radiusY);
 
         ctx.save();
         ctx.translate(cx, cy);
@@ -136,8 +157,12 @@ export const LiquidBackground = () => {
           0,
           Math.max(rx, ry)
         );
-        gradient.addColorStop(0, `rgba(${ribbon.color}, 0.34)`);
-        gradient.addColorStop(0.55, `rgba(${ribbon.color}, 0.16)`);
+        const alphaBoost = contained ? 1.35 : 1;
+        gradient.addColorStop(0, `rgba(${ribbon.color}, ${0.34 * alphaBoost})`);
+        gradient.addColorStop(
+          0.55,
+          `rgba(${ribbon.color}, ${0.16 * alphaBoost})`
+        );
         gradient.addColorStop(1, `rgba(${ribbon.color}, 0)`);
         ctx.fillStyle = gradient;
         ctx.scale(1, ry / rx);
@@ -160,26 +185,40 @@ export const LiquidBackground = () => {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      resizeObserver?.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, []);
+  }, [contained]);
+
+  const noiseFilterId = contained ? "noise-light-contained" : "noise-light";
 
   return (
-    <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-[#F8FAFC]">
+    <div
+      ref={wrapRef}
+      className={
+        contained
+          ? `absolute inset-0 pointer-events-none overflow-hidden ${className}`
+          : `fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-[#F8FAFC] ${className}`
+      }
+    >
       <canvas
         ref={canvasRef}
-        className="w-full h-full filter blur-[90px] saturate-[1.3]"
+        className={`w-full h-full saturate-[1.3] ${
+          contained ? "filter blur-[50px]" : "filter blur-[90px]"
+        }`}
         style={{ width: "100%", height: "100%" }}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(15,23,42,0.03) 100%)",
-        }}
-      />
+      {!contained && (
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 40%, rgba(15,23,42,0.03) 100%)",
+          }}
+        />
+      )}
       <svg className="absolute inset-0 w-full h-full opacity-[0.035] mix-blend-multiply pointer-events-none">
-        <filter id="noise-light">
+        <filter id={noiseFilterId}>
           <feTurbulence
             type="fractalNoise"
             baseFrequency="0.85"
@@ -187,7 +226,7 @@ export const LiquidBackground = () => {
             stitchTiles="stitch"
           />
         </filter>
-        <rect width="100%" height="100%" filter="url(#noise-light)" />
+        <rect width="100%" height="100%" filter={`url(#${noiseFilterId})`} />
       </svg>
     </div>
   );

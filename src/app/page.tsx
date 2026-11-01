@@ -1,61 +1,69 @@
 "use client";
 
-import Link from "next/link";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
-import { AuroraBackground } from "@/app/components/auroraBackground";
 import { useAuth } from "@/app/context/authContext";
 import { useRouter } from "next/navigation";
-import Navbar from "@/app/components/navbar";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import AdmissionMythsSection from "./components/faq";
-import HeroPreviewCards from "@/app/components/previewCard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import ScrollTiltDashboard from "@/app/components/scrollTiltBoard";
+import HowItWorks from "@/app/components/howitworks";
+import ProbabilityTeaser from "@/app/components/probabilityteaser";
+import ComparisonChart from "@/app/components/chart";
+import HeroBackground from "./components/auroraBackground";
+import Lenis from "lenis";
 import {
   getGuestMode,
   GUEST_MODE_EVENT,
-  setGuestMode,
 } from "@/app/services/guestMode";
 
-// Animations proivded by Google Gemini
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.18,
-    },
+const features = [
+  {
+    title: "Powered by real outcomes",
+    desc: "Built on thousands of crowd-sourced Ontario applicant records. We look beyond official cutoffs to show historical averages, decision timelines, and acceptance trends.",
   },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.21, 0.47, 0.32, 0.98] as const,
-    },
+  {
+    title: "AI-driven profile analysis",
+    desc: "Our model evaluates your Top 6 average, target programs, and extracurriculars in context — giving realistic, unbiased probability tiers in seconds.",
   },
-};
+  {
+    title: "Targeted application strategy",
+    desc: "See whether a program is a Safety, Match, or Reach for your stats, then get tailored insights to strengthen supplemental applications.",
+  },
+];
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-plus-jakarta",
-  display: "swap",
-});
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-});
+const rotatingWords = [
+  "decoded",
+  "simplified",
+  "structured",
+  "organized",
+  "modeled",
+];
 
 export default function Home() {
   const router = useRouter();
-  const { user, signInWithGoogle, loading } = useAuth();
+  const { user, loading } = useAuth();
   const [isGuest, setIsGuest] = useState(false);
   const [checkedGuest, setCheckedGuest] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     setIsGuest(getGuestMode());
@@ -66,228 +74,218 @@ export default function Home() {
       window.removeEventListener(GUEST_MODE_EVENT, handleGuestChange);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % rotatingWords.length);
+    }, 2200);
+    return () => clearInterval(interval);
+  }, []);
+
   const authResolved = checkedGuest && !loading;
   const isLoggedIn = !!user || isGuest;
 
+  const heroWrapRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroWrapRef,
+    offset: ["start start", "end start"],
+  });
+  const heroOpacity = useTransform(heroProgress, [0, 1], [1, 0]);
+  const heroY = useTransform(heroProgress, [0, 1], [0, -60]);
+  const heroScale = useTransform(heroProgress, [0, 1], [1, 0.96]);
+
   return (
-    <div
-      className={`${inter.variable} ${plusJakarta.variable} font-sans min-h-screen bg-[#090D16] text-white flex flex-col justify-between`}
+    <div className="min-h-screen bg-[var(--mist)] text-[var(--ink)] flex flex-col">
+      <div ref={heroWrapRef} className="relative">
+  <HeroBackground className="min-h-[88vh]" scrollProgress={heroProgress}>
+    <motion.section
+      style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
+      className="relative flex flex-col items-center justify-center px-6 text-center max-w-3xl mx-auto min-h-[88vh] pt-20 pb-16"
     >
-      <AuroraBackground className="h-[80vh] min-h-[600px] flex items-center justify-center pt-16">
-        <HeroPreviewCards />
-        <section className="flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto">
-          <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-4 leading-tight">
-            Probable<span className="text-[#10B981]">.ai</span>
-          </h1>
-          <p
-            className="text-[#94A3B8] sm:text-lg md:text-xl font-normal mb-8 max-w-xl"
-            style={{ fontFamily: `var(${plusJakarta.variable})` }}
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="mb-5 font-heading text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-white leading-[1.05]"
+      >
+        Probable<span className="text-[#34D399]">.ai</span>
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+        className="text-white/75 text-lg md:text-xl font-normal mb-10 max-w-md flex items-center justify-center flex-wrap gap-x-1.5"
+      >
+        <span>Canadian admissions,</span>
+        <span className="relative inline-flex h-[1.4em] w-[9ch] justify-center overflow-hidden align-bottom">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={rotatingWords[wordIndex]}
+              initial={{ y: 18, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -18, opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="absolute font-heading font-semibold text-[#34D399]"
+            >
+              {rotatingWords[wordIndex]}
+            </motion.span>
+          </AnimatePresence>
+        </span>
+        <span>in seconds.</span>
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none"
+      >
+        {!authResolved ? (
+          <div className="h-[46px]" />
+        ) : isLoggedIn ? (
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="w-full sm:w-auto px-7 py-3 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white font-semibold text-sm rounded-lg transition cursor-pointer"
           >
-            Canadian admissions, decoded in seconds.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
-            {!authResolved ? (
-              <div className="h-[46px]" />
-            ) : isLoggedIn ? (
-              <button
-                onClick={() => router.push("/dashboard")}
-                className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20 cursor-pointer"
-                style={{ fontFamily: `var(${plusJakarta.variable})` }}
-              >
-                Go to Dashboard
-              </button>
-            ) : (
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xs sm:max-w-none">
-                <button
-                  onClick={() => router.push("/login?mode=login")}
-                  className="w-full sm:w-auto px-7 py-3 bg-[#10B981] hover:bg-[#14B8A6] text-slate-950 font-bold text-sm rounded-lg transition shadow-lg shadow-emerald-500/20 cursor-pointer"
-                  style={{ fontFamily: `var(${plusJakarta.variable})` }}
-                >
-                  Analyze my profile!
-                </button>
-                <button
-                  onClick={() => router.push("/login?mode=signup")}
-                  className="w-full sm:w-auto px-7 py-3 bg-[#111827] hover:bg-[#1E293B] border border-[#1E293B] text-[#94A3B8] hover:text-white font-medium text-sm rounded-lg transition cursor-pointer"
-                >
-                  Sign up
-                </button>
-              </div>
-            )}
-          </div>
-        </section>
-      </AuroraBackground>
+            Go to Dashboard
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={() => router.push("/login?mode=login")}
+              className="w-full sm:w-auto px-7 py-3 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white font-semibold text-sm rounded-lg transition cursor-pointer"
+            >
+              Analyze my profile
+            </button>
+            <button
+              onClick={() => router.push("/login?mode=signup")}
+              className="w-full sm:w-auto px-7 py-3 bg-white/5 hover:bg-white/10 border border-white/20 text-white/80 hover:text-white font-medium text-sm rounded-lg transition cursor-pointer"
+            >
+              Sign up
+            </button>
+          </>
+        )}
+      </motion.div>
+    </motion.section>
+  </HeroBackground>
+</div>
+
+      <HowItWorks />
+
       <section
         id="about"
-        className="bg-slate-50 text-slate-900 py-20 px-6 w-full flex-grow overflow-hidden"
+        className="bg-[var(--paper)] text-[var(--ink)] py-24 px-6 w-full border-t border-[var(--border)]"
       >
-        <div className="max-w-3xl mx-auto">
-          <h2
-            className="text-2xl font-extrabold mb-8 text-slate-900 tracking-tight"
-            style={{ fontFamily: `var(${plusJakarta.variable})` }}
-          >
-            About our application:
-          </h2>
+        <div className="max-w-5xl mx-auto">
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            className="space-y-4"
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-14 max-w-xl"
           >
-            <motion.div
-              variants={cardVariants}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="bg-white border border-emerald-200/80 p-6 rounded-xl flex items-start gap-5 shadow-sm hover:shadow-md transition cursor-default"
-              style={{ fontFamily: `var(${plusJakarta.variable})` }}
-            >
-              <div className="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-xl shrink-0 flex items-center justify-center text-emerald-600 shadow-sm">
-                <svg
-                  className="w-7 h-7"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-bold text-slate-900 mb-1">
-                  Powered by Real Outcomes
-                </h3>
-                <p className="text-slate-600 text-xs leading-relaxed">
-                  Built on thousands of crowd sourced Ontario applicant records.
-                  We look beyond official general cutoffs to show you the actual
-                  historical averages, decision timelines, and real acceptance
-                  trends.
-                </p>
-              </div>
-            </motion.div>
-            <motion.div
-              variants={cardVariants}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="bg-white border border-emerald-200/80 p-6 rounded-xl flex items-start gap-5 shadow-sm hover:shadow-md transition cursor-default"
-            >
-              <div className="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-xl shrink-0 flex items-center justify-center text-emerald-600 shadow-sm">
-                <svg
-                  className="w-7 h-7"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-bold text-slate-900 mb-1">
-                  AI-Driven Profile Analysis
-                </h3>
-                <p className="text-slate-600 text-xs leading-relaxed">
-                  Our AI model evaluates your Top 6 average, target programs,
-                  and extra curriculars in context, giving you realistic, non
-                  biased probability tiers in seconds.
-                </p>
-              </div>
-            </motion.div>
-            <motion.div
-              variants={cardVariants}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="bg-white border border-emerald-200/80 p-6 rounded-xl flex items-start gap-5 shadow-sm hover:shadow-md transition cursor-default"
-            >
-              <div className="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-xl shrink-0 flex items-center justify-center text-emerald-600 shadow-sm">
-                <svg
-                  className="w-7 h-7"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0-6C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-bold text-slate-900 mb-1">
-                  Targeted Application Strategy
-                </h3>
-                <p className="text-slate-600 text-xs leading-relaxed">
-                  Stop guessing where you stand. Discover whether a program is a
-                  Safety, Match, or Reach for your specific stats, and get
-                  tailored insights to optimize your supplemental applications.
-                </p>
-              </div>
-            </motion.div>
+            <p className="font-heading text-[var(--accent)] text-xs font-semibold tracking-[0.18em] uppercase mb-3">
+              Why Probable
+            </p>
+            <h2 className="font-heading text-3xl sm:text-4xl font-semibold tracking-tight leading-tight">
+              Clarity built on real Canadian admissions data
+            </h2>
           </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mb-20">
+            {features.map((feature, i) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  duration: 0.5,
+                  delay: i * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <div className="mb-4 h-px w-10 bg-[var(--accent)]" />
+                <h3 className="font-heading text-lg font-semibold text-[var(--ink)] mb-2 tracking-tight">
+                  {feature.title}
+                </h3>
+                <p className="text-[var(--ink-soft)] text-[15px] leading-relaxed">
+                  {feature.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          <ScrollTiltDashboard />
+
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12 text-center"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-16"
+          >
+            <ComparisonChart />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.15 }}
+            className="text-center mt-10"
           >
             <button
               onClick={() => router.push("/login?mode=signup")}
-              className="text-slate-700 hover:text-slate-950 font-medium underline text-xs transition cursor-pointer"
+              className="text-[var(--ink-soft)] hover:text-[var(--accent)] font-medium underline underline-offset-4 text-sm transition cursor-pointer"
             >
-              Sign Up Now!
+              Sign up now
             </button>
           </motion.div>
         </div>
-        <br />
-        <br />
-        <hr />
-        <section id="faq">
-          <AdmissionMythsSection />
-        </section>
       </section>
 
-      <footer className="bg-[#090D16] border-t border-[#1E293B] py-10 px-6 text-xs text-[#94A3B8]">
-        <div className="max-w-5xl mx-auto space-y-6">
+      <AdmissionMythsSection />
+      <ProbabilityTeaser />
+
+      <footer className="bg-[var(--ink)] border-t border-white/10 py-12 px-6 text-sm text-white/55">
+        <div className="max-w-5xl mx-auto space-y-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded bg-[#10B981] flex items-center justify-center font-bold text-slate-950 text-[11px]">
+            <div className="flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-md bg-[var(--accent)] flex items-center justify-center font-heading font-bold text-white text-[11px]">
                 P
               </div>
-              <span className="font-heading font-bold text-white tracking-tight text-sm">
-                Probable<span className="text-[#10B981]">.ai</span>
+              <span className="font-heading font-semibold text-white tracking-tight">
+                Probable<span className="text-[var(--accent)]">.ai</span>
               </span>
             </div>
 
-            <p className="text-slate-400 text-xs">
-              Created by &nbsp;
-              <span className="text-white font-medium">Smaran Pinisetty</span>
-              &nbsp; &copy; 2026 Probable.ai. All rights reserved.
+            <p className="text-xs text-white/45">
+              Created by{" "}
+              <span className="text-white/80 font-medium">
+                Smaran Pinisetty
+              </span>{" "}
+              &copy; 2026 Probable.ai. All rights reserved.
             </p>
 
-            <div className="flex gap-4 text-slate-400 text-xs">
+            <div className="flex gap-5 text-xs">
               <a
-                href="https://docs.google.com/document/d/1GvWGK5GxRaZJv25wO5YI4629TlKCAXta1qEDet0ie7U/edit?usp=sharing"
-                target="_blank"
-                className="hover:text-white transition"
+                onClick={() => router.push("/privacy")}
+                className="hover:text-white transition cursor-pointer"
               >
                 Privacy Policy
               </a>
-              <a href="#" className="hover:text-white transition">
+              <a href="/terms" className="hover:text-white transition">
                 Terms of Service
               </a>
             </div>
           </div>
-          <hr className="border-[#1E293B]" />
-          <div className="text-[11px] text-slate-500 leading-relaxed space-y-2 text-center sm:text-left">
+
+          <div className="h-px bg-white/10" />
+
+          <div className="text-[11px] text-white/40 leading-relaxed space-y-2 text-center sm:text-left max-w-4xl">
             <p>
-              <strong className="text-slate-400">Disclaimer:</strong>{" "}
+              <strong className="text-white/55 font-medium">Disclaimer:</strong>{" "}
               Probable.ai is an independent, AI-driven evaluation tool intended
               for informational and planning purposes only. Estimated
               probabilities are generated using historical admission trends,
@@ -296,11 +294,11 @@ export default function Home() {
             </p>
             <p>
               Probable.ai is not officially affiliated with, endorsed by, or
-              connected to the Ontario Universities' Application Centre (OUAC)
-              or any university (such as the University of Waterloo, University
-              of Toronto, McMaster University, or UBC). Official admissions
-              decisions are made solely by individual university admissions
-              committees.
+              connected to the Ontario Universities&apos; Application Centre
+              (OUAC) or any university (such as the University of Waterloo,
+              University of Toronto, McMaster University, or UBC). Official
+              admissions decisions are made solely by individual university
+              admissions committees.
             </p>
           </div>
         </div>

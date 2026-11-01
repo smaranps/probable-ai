@@ -31,8 +31,23 @@ export function calculateAdmissionsOdds(
 ): BenchmarkMetrics {
   const avg = profile.top6Average || 0;
   const euclid = Number(profile.contests.euclid) || 0;
-  const ecLength = profile.extracurriculars?.length || 0;
-  const userECScore = Math.min(100, Math.max(40, ecLength * 12 + 40));
+  const ecs = profile.extracurriculars;
+  let ecCount = 0;
+  if (Array.isArray(ecs)) {
+    ecCount = ecs.filter((e) => {
+      const entry = e as { title?: string; impact?: string };
+      return Boolean(entry?.title?.trim() || entry?.impact?.trim());
+    }).length;
+  } else if (typeof ecs === "string" && ecs.trim()) {
+    ecCount = Math.min(
+      5,
+      ecs
+        .trim()
+        .split(/[,;]/)
+        .filter((part) => part.trim().length > 0).length
+    );
+  }
+  const userECScore = Math.min(100, Math.max(40, ecCount * 12 + 40));
 
   const benchmarkAverage = 95.5;
   const benchmarkEuclid = 75;

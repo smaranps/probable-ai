@@ -83,10 +83,15 @@ export async function POST(req: Request) {
 
     EVALUATION INSTRUCTIONS:
     1. Evaluate Extracurriculars:
-       - Grade EC leadership out of 100 based on quantifiable impact, scope, innovation, and leadership roles.
+       - Grade EC leadership out of 100 using the STRUCTURED extracurricular list below.
+       - Weigh: (a) role seniority, (b) category relevance to the target program, (c) quantified impact
+         (hours, people reached, awards, outcomes). Vague or empty impact = lower score.
+       - Do NOT treat a raw string dump as equal to structured role+impact entries.
     2. Evaluate Course & Contest Rigor:
        - Grade Course Rigor out of 100 based on Grade 12 AP, IB, or heavy STEM/Math course combinations.
+         Applicant may list 8+ courses; Top 6 already locks prerequisites then highest electives.
        - Grade Contest Rigor out of 100 based on STEM contest participation (Euclid, CSMC, CCC) and recorded scores.
+         Missing contests is common — score neutrally, do not punish absence heavily unless the program is known for contest weighting.
     3. Evaluate Adjustment Factor:
        - Score from 0 to 100. Deduct heavily if Non-Day School (OVS, Night School, Private) is detected for required courses.
     4. Generate Calculation Proof:
@@ -129,26 +134,46 @@ export async function POST(req: Request) {
     }
     `;
 
+    const formatECs = (ecs: unknown) => {
+      if (!ecs) return "None provided";
+      if (typeof ecs === "string") return ecs.trim() || "None provided";
+      if (!Array.isArray(ecs) || ecs.length === 0) return "None provided";
+      return ecs
+        .map((e: any, i: number) => {
+          if (typeof e === "string") return `${i + 1}. ${e}`;
+          return [
+            `${i + 1}. ${e.title || "Untitled"}`,
+            e.role ? `Role: ${e.role}` : null,
+            e.category ? `Category: ${e.category}` : null,
+            e.impact ? `Impact: ${e.impact}` : null,
+          ]
+            .filter(Boolean)
+            .join(" | ");
+        })
+        .join("\n");
+    };
+
     const userContext = `
     APPLICANT PROFILE DATA:
     Target University: ${profile.university || "Not Specified"}
     Target Program: ${profile.program || "Not Specified"}
     Applicant Pool Type: ${profile.applicantType || "OUAC 101"}
     Calculated Top 6 Average: ${profile.top6Average || 0}%
+    (Computed from prerequisites first, then highest electives among entered courses.)
     Has Non-Day School (OVS/Night School): ${
       profile.hasOvsOrNightSchool ? "Yes" : "No"
     }
 
-    Extracurriculars:
-    ${JSON.stringify(profile.extracurriculars || [], null, 2)}
+    Extracurriculars (structured for EC leadership scoring):
+    ${formatECs(profile.extracurriculars)}
 
-    STEM Contests:
-    ${JSON.stringify(profile.contests || profile.contestScores || [], null, 2)}
+    STEM Contests (optional — Euclid/CSMC/CCC):
+    ${JSON.stringify(profile.contests || profile.contestScores || {}, null, 2)}
 
-    Grade 11/12 Courses:
+    Grade 11/12 Courses (full list; Top 6 already computed):
     ${JSON.stringify(profile.courses || [], null, 2)}
     `;
-
+    
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: userContext,

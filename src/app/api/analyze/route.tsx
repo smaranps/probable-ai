@@ -72,34 +72,63 @@ export async function POST(req: Request) {
     }
 
     const systemPrompt = `
-    You are an admissions odds evaluation engine for Canadian Universities. 
-    
+    You are an admissions odds evaluation engine for Canadian Universities.
     BENCHMARK DATASET CONTEXT FOR THIS TARGET PROGRAM:
     ${programBenchmarkContext}
-    
-    CRITICAL ADMISSIONS EVALUATION RULES:
-    1. Compare the applicant's Top 6 average directly against the target program's historical mid-50 range.
-    2. Calculate realistic ACCEPTANCE PROBABILITY ODDS (0% - 100%).
-       - Waterloo CS/SE & UofT Eng with <97% Top 6 and missing/low contest scores (<60 on Euclid/CCC) MUST be assigned LOW acceptance probability odds (e.g., 10% - 35%).
-    3. Align the 'tier' strictly with the estimated probability range:
-       - 0% - 25%: "Low Chance" or "Reach"
-       - 26% - 60%: "Moderate Chance"
-       - 61% - 100%: "High Chance"
-    
-    MODE INSTRUCTIONS:
-    - Mode: "${mode.toUpperCase()}"
+    DATA + UNCERTAINTY RULES:
+    - Anchor estimates to programBenchmarkContext only. Never invent a median/cutoff not present
+      there -- if data is thin/missing, say so in "reasoning" instead of guessing.
+    - Minimum estimatedMin/estimatedMax gap: 15 points if dataConfidence is "verified", 20 if
+      "partial", 30 if "unverified". Cap estimatedMax at 90 always -- no result implies certainty.
+    - Tiers: 0-25 "Low Chance/Reach", 26-60 "Moderate Chance", 61-80 "Good Chance",
+      81-90 "Strong Chance, Not Guaranteed". Never use "High Chance."
+ 
+    EVALUATION FACTORS: applicant's Top 6 vs benchmark range/distribution; contest scores ONLY if
+    benchmark contest data exists (else treat as minor qualitative signal: strong/average/weak);
+    program competitiveness per benchmark; OVS/night-school/repeats as modest adjustments, not
+    hard overrides. Weigh together -- no single factor should force a narrow band.
+ 
+    REASONING LANGUAGE (both modes): never say "guaranteed/certain/lock/shoo-in/you're in."
+    Use hedged phrasing ("trends favor," "roughly in line with," "no guarantee given yearly
+    variance"). Always name one uncertainty source, even for strong applicants.
+ 
+    RADAR METRICS SCALE (critical): every field inside "radarMetrics" MUST be a number from
+    0 to 100, already normalized -- never a raw contest score, percentile, or grade. Convert as
+    follows:
+    - applicantTop6 / medianTop6: the Top 6 average itself, as-is (already 0-100).
+    - applicantContest / medianContest: normalize contest strength to 0-100, where 100 = elite
+      (e.g. Euclid 100+/150, CCC senior high scorer), 50 = average competitive applicant, 0 = no
+      contest data or weak result. If benchmark contest data is absent, estimate applicantContest
+      qualitatively on this same 0-100 scale (do not leave it at 0 unless truly no signal exists)
+      and set medianContest to a reasonable competitive-program baseline (e.g. 60-75).
+    - applicantEC / medianEC: normalize extracurricular/leadership strength to 0-100 based on
+      profile signals given; if no EC data was given, use 50 (neutral) rather than 0.
+    - applicantRigor / medianRigor: normalize course rigor (AP/IB/advanced course load and grades)
+      to 0-100.
+    - applicantAdjFactor / medianAdjFactor: normalize the net effect of adjustments (OVS/night
+      school, repeats, school flags) to 0-100, where 100 = no negative adjustments, lower = more
+      adjustment risk.
+    Every one of these 10 fields is REQUIRED in the output. Never omit "radarMetrics" or any of
+    its sub-fields, even under uncertainty -- give your best normalized estimate and reflect low
+    confidence in "reasoning" instead of leaving a field out.
+ 
+    MODE: "${mode.toUpperCase()}"
     ${
       mode === "roast"
-        ? "- Tone: Brutally honest, witty, sarcastic high school admissions roast."
-        : "- Tone: Supportive, constructive, encouraging admissions advisor."
+        ? "Tone: brutally honest, witty, sarcastic roast."
+        : "Tone: supportive, constructive advisor."
     }
-    
-    Output ONLY raw JSON matching this structure:
+    Mode changes "reasoning" TONE only -- never adjust estimatedMin/estimatedMax/tier/radarMetrics
+    for tone, and roast mode still follows the REASONING LANGUAGE rules above.
+
+    Output ONLY raw JSON:
     {
-      "estimatedMin": number, // Actual ACCEPTANCE PROBABILITY % (0-100), NOT high school grade average
-      "estimatedMax": number, // Actual ACCEPTANCE PROBABILITY % (0-100), NOT high school grade average
-      "tier": "High Chance" | "Moderate Chance" | "Low Chance" | "Reach",
-      "reasoning": "string (2-3 concise sentences explaining the probability using dataset stats)",
+      "estimatedMin": number,
+      "estimatedMax": number,
+      "tier": "Strong Chance, Not Guaranteed" | "Good Chance" | "Moderate Chance" | "Low Chance" | "Reach",
+      "reasoning": "string (2-3 sentences, hedged language, cite dataConfidence if thin)",
+      "dataConfidence": "verified" | "partial" | "unverified",
+      "disclaimer": "string -- rough estimate from limited historical data, not a guarantee; real decisions depend on factors this tool can't see",
       "radarMetrics": {
         "applicantTop6": number,
         "applicantContest": number,
@@ -115,25 +144,49 @@ export async function POST(req: Request) {
     }
     `;
 
-    const userContext = `
+const formatECs = (ecs: unknown) => {
+      if (!ecs) return "None provided";
+      if (typeof ecs === "string") return ecs.trim() || "None provided";
+      if (!Array.isArray(ecs) || ecs.length === 0) return "None provided";
+      return ecs
+        .map((e: any, i: number) => {
+          if (typeof e === "string") return `${i + 1}. ${e}`;
+          return [
+            `${i + 1}. ${e.title || "Untitled"}`,
+            e.role ? `Role: ${e.role}` : null,
+            e.category ? `Category: ${e.category}` : null,
+            e.impact ? `Impact: ${e.impact}` : null,
+          ]
+            .filter(Boolean)
+            .join(" | ");
+        })
+        .join("\n");
+    };
+
+const userContext = `
     APPLICANT PROFILE:
     Target University: ${profile.university}
     Target Program: ${profile.program}
     Applicant Pool: OUAC ${profile.applicantType}
     Calculated Top 6 Average: ${profile.top6Average}%
+    (Top 6 locks prerequisites first, then highest remaining electives from up to 8+ entered courses.)
     Has Non-Day School (OVS/Night School): ${
       profile.hasOvsOrNightSchool ? "Yes" : "No"
     }
-    
-    STEM Contests:
+
+    Extracurriculars (structured — weigh role, category, and stated impact for applicantEC):
+    ${formatECs(profile.extracurriculars)}
+
+    STEM Contests (raw scores -- interpret using only benchmark data provided in the system
+    prompt's programBenchmarkContext, not any assumed typical ranges):
     - Euclid: ${profile.contests?.euclid || "N/A"}
     - CSMC: ${profile.contests?.csmc || "N/A"}
     - CCC: ${profile.contests?.ccc || "N/A"}
-    (Just remember these are very hard contests, so the average for Euclid is 50-65, and csmc is like between 30-40, and CCC is like 45/60)
-    Courses:
+
+    Courses (full list entered; Top 6 already computed above):
     ${JSON.stringify(profile.courses || [], null, 2)}
     `;
-
+    
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: userContext,
@@ -148,6 +201,24 @@ export async function POST(req: Request) {
     }
 
     const parsedData = JSON.parse(response.text);
+    const radarFields = [
+      "applicantTop6", "applicantContest", "applicantEC", "applicantRigor", "applicantAdjFactor",
+      "medianTop6", "medianContest", "medianEC", "medianRigor", "medianAdjFactor",
+    ] as const;
+
+    if (!parsedData.radarMetrics || typeof parsedData.radarMetrics !== "object") {
+      console.error("Gemini response missing radarMetrics entirely:", response.text);
+      parsedData.radarMetrics = null;
+    } else {
+      const clamped: Record<string, number> = {};
+      for (const field of radarFields) {
+        const raw = parsedData.radarMetrics[field];
+        const num = typeof raw === "number" && !Number.isNaN(raw) ? raw : 0;
+        clamped[field] = Math.min(100, Math.max(0, Math.round(num)));
+      }
+      parsedData.radarMetrics = clamped;
+    }
+
     return NextResponse.json(parsedData);
   } catch (error) {
     console.error("Gemini API Error:", error);

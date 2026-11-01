@@ -75,6 +75,90 @@ const formFieldVariants: Variants = {
     },
   },
 };
+const GAUGE_PERCENT = 78;
+const GAUGE_PROGRAM = "Your University Program";
+
+function ChanceGauge() {
+  const cx = 110;
+  const cy = 110;
+  const r = 84;
+  const startAngle = 180;
+  const endAngle = 0;
+  const valueAngle = startAngle - (GAUGE_PERCENT / 100) * (startAngle - endAngle);
+
+  const polar = (angleDeg: number) => {
+    const rad = (angleDeg * Math.PI) / 180;
+    return { x: cx + r * Math.cos(rad), y: cy - r * Math.sin(rad) };
+  };
+
+  const start = polar(startAngle);
+  const end = polar(endAngle);
+  const valuePoint = polar(valueAngle);
+  const ticks = Array.from({ length: 11 }, (_, i) => {
+    const a = startAngle - i * ((startAngle - endAngle) / 10);
+    const inner = {
+      x: cx + (r - 8) * Math.cos((a * Math.PI) / 180),
+      y: cy - (r - 8) * Math.sin((a * Math.PI) / 180),
+    };
+    const outer = {
+      x: cx + (r + 2) * Math.cos((a * Math.PI) / 180),
+      y: cy - (r + 2) * Math.sin((a * Math.PI) / 180),
+    };
+    return { inner, outer, major: i % 5 === 0 };
+  });
+
+  return (
+    <svg viewBox="0 0 220 145" className="w-full max-w-[280px]" aria-hidden="true">
+      <path
+        d={`M ${start.x} ${start.y} A ${r} ${r} 0 0 1 ${end.x} ${end.y}`}
+        fill="none"
+        stroke="#1E2A3B"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+      <path
+        d={`M ${start.x} ${start.y} A ${r} ${r} 0 0 1 ${valuePoint.x} ${valuePoint.y}`}
+        fill="none"
+        stroke="#10B981"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
+      {ticks.map((t, i) => (
+        <line
+          key={i}
+          x1={t.inner.x}
+          y1={t.inner.y}
+          x2={t.outer.x}
+          y2={t.outer.y}
+          stroke={t.major ? "#3A4A5E" : "#25334524"}
+          strokeWidth={t.major ? 1.5 : 1}
+        />
+      ))}
+      <circle cx={valuePoint.x} cy={valuePoint.y} r="6" fill="#F5F7F5" stroke="#10B981" strokeWidth="3" />
+      <text
+        x={cx}
+        y={cy - 6}
+        textAnchor="middle"
+        fill="#F5F7F5"
+        fontSize="34"
+        fontWeight="800"
+        style={{ fontFamily: `var(${plusJakarta.variable})` }}
+      >
+        {GAUGE_PERCENT}%
+      </text>
+      <text
+        x={cx}
+        y={cy + 16}
+        textAnchor="middle"
+        fill="#7C8A9A"
+        fontSize="10"
+        style={{ fontFamily: `var(${inter.variable})` }}
+      >
+        estimated chance
+      </text>
+    </svg>
+  );
+}
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -221,94 +305,105 @@ function LoginContent() {
       }
     }
   };
+
   return (
-    <div className="min-h-screen flex flex-col md:flex-row overflow-hidden">
+    <div className="min-h-screen flex flex-col md:flex-row overflow-hidden bg-[#F5F7F5]">
+      {/* LEFT — brand + hero */}
       <motion.div
         variants={leftContentVariants}
         initial="hidden"
         animate="visible"
-        className="md:w-1/2 bg-[#090D16] text-white p-8 md:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1E293B]"
+        className="md:w-1/2 bg-[#0B1220] text-white px-8 py-10 md:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1E2A3B]"
+        style={{ fontFamily: `var(${inter.variable})` }}
       >
         <div>
-          <Link href="/" className="inline-flex items-center gap-2.5 mb-16">
-            <div className="w-8 h-8 rounded-lg bg-[#10B981] flex items-center justify-center font-bold text-[#090D16] text-base">
+          <Link href="/" className="inline-flex items-center gap-2.5 mb-14 md:mb-20">
+            <div className="w-8 h-8 rounded-md bg-[#10B981] flex items-center justify-center font-bold text-[#0B1220] text-base">
               P
             </div>
-            <span className="text-2xl font-bold tracking-tight">
+            <span
+              className="text-xl font-bold tracking-tight"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
+            >
               Probable<span className="text-[#10B981]">.ai</span>
             </span>
           </Link>
-          <div className="max-w-lg space-y-4">
-            <span
-              className="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-[#10B981] uppercase bg-[#064E3B]/30 border border-[#10B981]/20 rounded-full"
-              style={{ fontFamily: `var(${plusJakarta.variable})` }}
-            >
-              Admissions Expert
-            </span>
-            <h1
-              className="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight"
-              style={{ fontFamily: `var(${plusJakarta.variable})` }}
-            >
-              Calculate your University Chances.
-            </h1>
+
+          <div className="max-w-md space-y-5">
             <p
-              className="text-[#94A3B8] leading-relaxed pt-2"
+              className="flex items-center gap-2 text-sm text-[#8FA79B]"
               style={{ fontFamily: `var(${googleSansFlex.variable})` }}
             >
-              Our platform analyzes your Top 6 average, target programs,
-              extracurriculars, contest scores, and university-specific
-              factors/penalties, along with using historical Ontario admissions
-              data.
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              Admissions intelligence for Ontario applicants
+            </p>
+            <h1
+              className="text-3xl md:text-[2.6rem] font-bold tracking-tight leading-[1.15] text-white"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
+            >
+              Know your real odds before you apply.
+            </h1>
+            <p className="text-[#8FA79B] leading-relaxed text-[15px]">
+              We weigh your Top 6 average, target programs, extracurriculars,
+              contest scores, and school-specific factors against historical
+              Ontario admissions outcomes.
             </p>
           </div>
         </div>
-        <p
-          className="text-xs text-[#64748B] mt-12"
-          style={{ fontFamily: `var(${inter.variable})` }}
-        >
-          Powered by real Ontario applicant data & Gemini AI.
-        </p>
+
+        {/* Hero illustration — grounded in the product itself */}
+        <div className="hidden md:flex flex-col items-center py-4">
+          <ChanceGauge />
+          <p className="text-xs text-[#5C6E7E] mt-1">{GAUGE_PROGRAM}</p>
+        </div>
+
+        <div className="flex items-center justify-between text-xs text-[#5C6E7E] pt-8 md:pt-0">
+          <span>Built on real Ontario applicant data</span>
+          <span className="hidden sm:inline">Gemini-assisted analysis</span>
+        </div>
       </motion.div>
-      <div className="md:w-1/2 bg-slate-100 p-6 md:p-12 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute top-10 right-10 w-64 h-64 bg-emerald-300/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-teal-300/30 rounded-full blur-3xl pointer-events-none" />
+
+      {/* RIGHT — auth card */}
+      <div className="md:w-1/2 p-6 md:p-12 flex items-center justify-center">
         <motion.div
           variants={rightCardVariants}
           initial="hidden"
           animate="visible"
-          className="w-full max-w-md bg-white/70 backdrop-blur-xl border border-white/80 p-8 rounded-2xl shadow-2xl relative z-10"
+          className="w-full max-w-md bg-white border border-[#E3E8E4] p-8 rounded-2xl shadow-[0_1px_2px_rgba(15,23,20,0.04),0_12px_32px_-16px_rgba(15,23,20,0.12)]"
+          style={{ fontFamily: `var(${inter.variable})` }}
         >
-          <div className="mb-6">
+          <div className="mb-7">
             <motion.h2
               key={isSignUp ? "signup-title" : "login-title"}
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2 }}
-              className="text-2xl font-bold text-slate-900 tracking-tight mb-1"
+              className="text-2xl font-bold text-[#0B1220] tracking-tight mb-1.5"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
             >
-              {isSignUp ? "Create an account" : "Welcome back"}
+              {isSignUp ? "Create your account" : "Welcome back"}
             </motion.h2>
             <motion.p
               key={isSignUp ? "signup-sub" : "login-sub"}
               initial={{ opacity: 0, y: -4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2 }}
-              className="text-sm text-slate-600"
+              className="text-sm text-[#5B6B63]"
             >
               {isSignUp
-                ? "Sign up to start calculating your admissions odds"
-                : "Log in to access your dashboard"}
+                ? "Start calculating your admissions odds in minutes."
+                : "Log in to pick up where you left off."}
             </motion.p>
           </div>
-          <div className="space-y-3 mb-6">
+
+          <div className="space-y-2.5 mb-6">
             <motion.button
-              whileHover={{ scale: 1.01 }}
+              whileHover={{ y: -1 }}
               whileTap={{ scale: 0.98 }}
               type="button"
               disabled={isSubmitting}
               onClick={handleGoogleAuth}
-              className="w-full py-2.5 px-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-medium text-sm rounded-lg transition-colors shadow-sm flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
-              style={{ fontFamily: `var(${googleSansFlex.variable})` }}
+              className="w-full py-2.5 px-4 bg-white hover:bg-[#F5F7F5] border border-[#D8DEDA] text-[#111827] font-medium text-sm rounded-lg transition-colors flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -328,25 +423,26 @@ function LoginContent() {
                   d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.2-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"
                 />
               </svg>
-              {isSubmitting ? "Authenticating..." : "Continue with Google"}
+              {isSubmitting ? "Authenticating…" : "Continue with Google"}
             </motion.button>
             <motion.button
-              whileHover={{ scale: 1.01 }}
+              whileHover={{ y: -1 }}
               whileTap={{ scale: 0.98 }}
               type="button"
               onClick={handleGuestLogin}
-              className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-700 font-medium text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              style={{ fontFamily: `var(${googleSansFlex.variable})` }}
+              className="w-full py-2.5 px-4 bg-[#F5F7F5] hover:bg-[#EBEFEC] border border-[#D8DEDA] text-[#3F4A45] font-medium text-sm rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
-              Continue as Guest / Try Demo
+              Continue as guest
             </motion.button>
           </div>
+
           <div className="relative flex items-center justify-center my-6">
-            <div className="border-t border-slate-200 w-full"></div>
-            <span className="bg-white/80 px-3 text-xs text-slate-500 absolute font-mono rounded">
-              OR
+            <div className="border-t border-[#E3E8E4] w-full" />
+            <span className="bg-white px-3 text-xs text-[#8B978F] absolute">
+              or
             </span>
           </div>
+
           <form onSubmit={handleEmailAuth}>
             <AnimatePresence initial={false}>
               {isSignUp && (
@@ -358,21 +454,21 @@ function LoginContent() {
                   exit="exit"
                   className="overflow-hidden"
                 >
-                  <label className="block text-xs font-medium text-slate-700 mb-1.5">
-                    Full Name
+                  <label className="block text-xs font-medium text-[#3F4A45] mb-1.5">
+                    Full name
                   </label>
                   <input
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
+                    className="w-full bg-white border border-[#D8DEDA] focus:border-[#10B981] focus:ring-2 focus:ring-[#10B981]/15 text-[#0B1220] text-sm rounded-lg p-2.5 outline-none transition"
                   />
                 </motion.div>
               )}
             </AnimatePresence>
             <div className="mb-4">
-              <label className="block text-xs font-medium text-slate-700 mb-1.5">
+              <label className="block text-xs font-medium text-[#3F4A45] mb-1.5">
                 Email address
               </label>
               <input
@@ -380,11 +476,11 @@ function LoginContent() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
+                className="w-full bg-white border border-[#D8DEDA] focus:border-[#10B981] focus:ring-2 focus:ring-[#10B981]/15 text-[#0B1220] text-sm rounded-lg p-2.5 outline-none transition"
               />
             </div>
             <div className="mb-4">
-              <label className="block text-xs font-medium text-slate-700 mb-1.5">
+              <label className="block text-xs font-medium text-[#3F4A45] mb-1.5">
                 Password
               </label>
               <input
@@ -392,26 +488,26 @@ function LoginContent() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-white/80 border border-slate-200 focus:border-[#10B981] text-slate-900 text-sm rounded-lg p-2.5 outline-none transition shadow-sm"
+                className="w-full bg-white border border-[#D8DEDA] focus:border-[#10B981] focus:ring-2 focus:ring-[#10B981]/15 text-[#0B1220] text-sm rounded-lg p-2.5 outline-none transition"
               />
             </div>
-
             <motion.button
-              whileHover={{ scale: 1.01 }}
+              whileHover={{ y: -1 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2.5 bg-[#090D16] hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-colors mt-2 cursor-pointer shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full py-2.5 bg-[#0B1220] hover:bg-[#151F30] text-white font-semibold text-sm rounded-lg transition-colors mt-1 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
+              style={{ fontFamily: `var(${plusJakarta.variable})` }}
             >
               {isSubmitting ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Processing...
+                  Processing…
                 </>
               ) : isSignUp ? (
-                "Sign Up"
+                "Sign up"
               ) : (
-                "Log In"
+                "Log in"
               )}
             </motion.button>
             <AnimatePresence>
@@ -420,16 +516,15 @@ function LoginContent() {
                   initial={{ opacity: 0, height: 0, marginBottom: 0 }}
                   animate={{ opacity: 1, height: "auto", marginBottom: 24 }}
                   exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                  className="bg-red-500/10 border border-red-500/30 text-red-600 text-xs p-3 rounded-lg overflow-hidden mt-[10px]"
+                  className="bg-[#FDECEC] border border-[#F3C6C6] text-[#B3261E] text-xs p-3 rounded-lg overflow-hidden mt-[10px]"
                 >
                   {error}
                 </motion.div>
               )}
             </AnimatePresence>
           </form>
-          <p className="text-xs text-center text-slate-600 mt-6">
+          <p className="text-xs text-center text-[#5B6B63] mt-6">
             {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-            &nbsp;
             <button
               type="button"
               onClick={() => {
@@ -438,7 +533,7 @@ function LoginContent() {
               }}
               className="text-[#059669] hover:underline font-semibold ml-1 cursor-pointer"
             >
-              {isSignUp ? "Log In" : "Sign Up"}
+              {isSignUp ? "Log in" : "Sign up"}
             </button>
           </p>
         </motion.div>
@@ -448,7 +543,7 @@ function LoginContent() {
 }
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#090D16]" />}>
+    <Suspense fallback={<div className="min-h-screen bg-[#0B1220]" />}>
       <LoginContent />
     </Suspense>
   );

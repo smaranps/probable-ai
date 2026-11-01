@@ -90,7 +90,7 @@ export default function Home() {
   };
   if (isLoading) {
     return (
-      <main className="min-h-screen py-8 flex items-center justify-center bg-slate-950 text-white">
+      <main className="min-h-screen py-8 flex items-center justify-center text-black">
         <p className="text-sm font-medium text-slate-400 animate-pulse">
           Loading your dashboard...
         </p>

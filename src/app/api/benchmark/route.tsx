@@ -30,15 +30,16 @@ export async function POST(req: Request) {
         id.includes(targetUni)
       );
     });
-
     if (!matchedInst) {
       return NextResponse.json({
         university,
+        status: "no_data",
         sampleCount: 0,
-        benchmarkMean: 90.0,
+        benchmarkMean: null,
         isProgramSpecific: false,
       });
     }
+
     const programs: any[] = matchedInst.programs || [];
     const matchedProg = targetProg
       ? programs.find((p: any) => {
@@ -53,37 +54,61 @@ export async function POST(req: Request) {
       : programs[0];
 
     const targetProgramObj = matchedProg || programs[0];
-
     if (!targetProgramObj) {
+      if (matchedInst.verified && matchedInst.general_admission_minimum) {
+        return NextResponse.json({
+          university: matchedInst.name,
+          status: "floor_only",
+          sampleCount: 0,
+          benchmarkMean: null,
+          eligibilityFloor: matchedInst.general_admission_minimum,
+          isProgramSpecific: false,
+          note: "This is the university-wide minimum eligibility average, not a program-specific competitive average. We don't have verified program-level data for this school/program yet.",
+        });
+      }
       return NextResponse.json({
         university: matchedInst.name,
+        status: "no_data",
         sampleCount: 0,
-        benchmarkMean: 90.0,
+        benchmarkMean: null,
         isProgramSpecific: false,
       });
     }
-    let computedMean = 90.0;
+
+    let computedMean: number | null = null;
+    let sampleCount = 0;
     const dist = targetProgramObj.cudo_entering_distribution;
     const midRange = targetProgramObj.historical_mid_50_range;
-
     if (dist) {
       const p95 = dist["95_plus"] || 0;
       const p90 = dist["90_94.9"] || 0;
       const p85 = dist["85_89.9"] || 0;
       const pUnder = dist["under_85"] || 0;
       computedMean = Number(
-        ((p95 * 97.5 + p90 * 92.5 + p85 * 87.5 + pUnder * 81.0) / 100).toFixed(
-          1
-        )
+        ((p95 * 97.5 + p90 * 92.5 + p85 * 87.5 + pUnder * 81.0) / 100).toFixed(1)
       );
+      sampleCount = targetProgramObj.sample_count || 0;
     } else if (midRange && midRange.length === 2) {
       computedMean = Number(((midRange[0] + midRange[1]) / 2).toFixed(1));
+      sampleCount = targetProgramObj.sample_count || 0;
+    }
+
+    if (computedMean === null) {
+      return NextResponse.json({
+        university: matchedInst.name,
+        program: targetProgramObj.program_name,
+        status: "no_data",
+        sampleCount: 0,
+        benchmarkMean: null,
+        isProgramSpecific: Boolean(matchedProg),
+      });
     }
 
     return NextResponse.json({
       university: matchedInst.name,
       program: targetProgramObj.program_name,
-      sampleCount: 100,
+      status: "estimated",
+      sampleCount,
       benchmarkMean: computedMean,
       isProgramSpecific: Boolean(matchedProg),
       cutoffMinimum: targetProgramObj.cutoff_minimum,

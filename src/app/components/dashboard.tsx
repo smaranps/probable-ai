@@ -13,6 +13,7 @@ import CreditCounter from "@/app/components/limits";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConfig";
 import { NextRequest } from "next/server";
+import ReadinessChecklistCard from "../dashboard/checklist";
 
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
@@ -467,11 +468,11 @@ export default function OverviewDashboard({
         </AnimatePresence>
 
         <motion.div
-          variants={itemVariants}
-          className={`flex flex-col sm:flex-row items-start sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 ${
-            !isGuest && "mt-20"
-          }`}
-        >
+  variants={itemVariants}
+  className={`flex flex-col items-stretch sm:flex-row sm:items-center bg-white/70 backdrop-blur-xl justify-between gap-4 p-4 sm:p-5 rounded-2xl border border-slate-200/70 shadow-sm shadow-slate-200/50 ${
+    !isGuest && "mt-16 sm:mt-20"
+  }`}
+>
           <div>
             <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mb-1 block">
               Active Evaluation Target
@@ -490,7 +491,7 @@ export default function OverviewDashboard({
               </span>
             </p>
           </div>
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
             <CreditCounter remaining={userCredits} total={maxCredits} />
 
             <div className="w-full sm:w-auto flex flex-col items-center sm:items-start">
@@ -562,6 +563,7 @@ export default function OverviewDashboard({
             )}
           </div>
         </motion.div>
+        <ReadinessChecklistCard />
         <motion.div variants={itemVariants} className="space-y-2">
           <div className="flex items-center justify-between px-1">
             <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">
@@ -805,6 +807,7 @@ export default function OverviewDashboard({
             metrics={aiResult?.radarMetrics}
             isLoading={loading}
           />
+       
         </motion.div>
         <motion.div
           variants={itemVariants}

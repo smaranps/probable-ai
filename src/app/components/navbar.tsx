@@ -1,31 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Menu, X, LogOut, LayoutDashboard } from "lucide-react";
-import { Google_Sans_Flex } from "next/font/google";
 import { setGuestMode } from "@/app/services/guestMode";
-
-const googleSansFlex = Google_Sans_Flex({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-google-sans-flex",
-});
 
 interface NavbarProps {
   user?: any;
   isGuest?: boolean;
   onSignOut?: () => void;
 }
+
 export default function Navbar({
   user = null,
   isGuest = false,
   onSignOut,
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
   const isAuthed = !!user || isGuest;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleLogout = async () => {
     localStorage.removeItem("ouac_user_profile");
@@ -41,98 +43,113 @@ export default function Navbar({
     router.push("/login");
     router.refresh();
   };
+
   return (
     <div
-      className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-8 max-w-5xl mx-auto w-full pointer-events-auto"
-      style={{ fontFamily: googleSansFlex.style.fontFamily }}
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? "bg-[var(--paper)]/85 backdrop-blur-md border-b border-[var(--border)]"
+          : "bg-[var(--paper)]/70 backdrop-blur-md border-b border-transparent"
+      }`}
     >
-      <nav className="bg-white/40 backdrop-blur-md border border-white/60 rounded-2xl px-6 py-3.5 shadow-xl shadow-slate-950/10 transition-all duration-300">
-        <div className="flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-6 sm:px-10">
+        <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-2.5 cursor-pointer"
             onClick={() => setMobileMenuOpen(false)}
           >
-            <div className="w-6 h-6 rounded-md bg-[#10B981] flex items-center justify-center font-bold text-white text-xs">
+            <div className="w-7 h-7 rounded-md bg-[var(--accent)] flex items-center justify-center font-heading font-bold text-white text-xs">
               P
             </div>
-            <span className="font-heading text-xl font-bold tracking-tight text-slate-900">
-              Probable<span className="text-[#10B981]">.ai</span>
+            <span className="font-heading text-lg font-semibold tracking-tight text-[var(--ink)]">
+              Probable<span className="text-[var(--accent)]">.ai</span>
             </span>
           </Link>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium">
+
+          <div className="hidden md:flex items-center gap-8 text-sm">
             <Link
-              href="/#about"
-              className="text-slate-900 transition-transform duration-300 ease-in-out hover:scale-105"
+              href="/#how-it-works"
+              className="text-[var(--ink-soft)] font-medium hover:text-[var(--ink)] transition-colors"
             >
               How It Works
             </Link>
             <Link
               href="/#faq"
-              className="text-slate-900 hover:transition-transform duration-300 ease-in-out hover:scale-105"
+              className="text-[var(--ink-soft)] font-medium hover:text-[var(--ink)] transition-colors"
             >
               FAQ
             </Link>
+            <div className="h-5 w-px bg-[var(--border)]" />
             {isAuthed ? (
               <div className="flex items-center gap-3">
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-1.5 px-4 py-1.5 bg-[#10B981] hover:bg-[#14B8A6] text-white font-semibold rounded-lg transition shadow-sm"
+                <button
+                  onClick={() => router.push("/dashboard")}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
                 >
-                  <LayoutDashboard size={14} /> Dashboard
-                </Link>
+                  <LayoutDashboard size={15} /> Dashboard
+                </button>
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-100/80 bg-white/60 font-semibold rounded-lg transition cursor-pointer border border-rose-200 shadow-sm"
+                  className="flex items-center gap-1.5 px-3 py-2 text-sm text-[var(--ink-soft)] hover:text-rose-600 font-medium transition-colors cursor-pointer"
                 >
-                  <LogOut size={14} /> Log Out
+                  <LogOut size={15} /> Log Out
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => router.push("/login?mode=signup")}
-                  className="px-4 py-1.5 text-sm border-[#10B981] border-2 rounded-lg text-slate-900 hover:text-slate-800 hover:bg-slate-100/80 transition cursor-pointer"
-                >
-                  Sign up
-                </button>
+              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => router.push("/login?mode=login")}
-                  className="px-4 py-1.5 text-sm font-medium bg-gray-900 text-white rounded-lg hover:bg-gray-800"
+                  className="px-4 py-2 text-sm font-medium text-[var(--ink-soft)] hover:text-[var(--ink)] transition-colors cursor-pointer"
                 >
                   Sign In
+                </button>
+                <button
+                  type="button"
+                  onClick={() => router.push("/login?mode=signup")}
+                  className="px-4 py-2 text-sm font-semibold bg-[var(--ink)] hover:bg-[var(--ink)]/90 text-white rounded-lg transition-colors cursor-pointer"
+                >
+                  Sign up
                 </button>
               </div>
             )}
           </div>
+
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-slate-700 hover:text-slate-900 p-1.5 rounded-lg hover:bg-slate-100/50 transition cursor-pointer"
+            className="md:hidden text-[var(--ink)] p-1.5 rounded-lg hover:bg-[var(--mist)] transition cursor-pointer"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
+
         {mobileMenuOpen && (
-          <div className="md:hidden pt-4 pb-2 border-t border-slate-200/70 mt-3 flex flex-col gap-3 text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="md:hidden pb-4 border-t border-[var(--border)] mt-1 pt-4 flex flex-col gap-1 text-sm font-medium">
             <Link
-              href="#about"
+              href="/#how-it-works"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-600 hover:text-slate-900 transition py-1.5 px-2 rounded-md hover:bg-white/50"
+              className="text-[var(--ink-soft)] hover:text-[var(--ink)] transition py-2.5 px-2 rounded-md hover:bg-[var(--mist)]"
             >
               How It Works
             </Link>
+            <Link
+              href="/#faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-[var(--ink-soft)] hover:text-[var(--ink)] transition py-2.5 px-2 rounded-md hover:bg-[var(--mist)]"
+            >
+              FAQ
+            </Link>
 
-            {user ? (
-              <div className="flex flex-col gap-2 pt-1 border-t border-slate-200/50">
+            {isAuthed ? (
+              <div className="flex flex-col gap-2 pt-3 mt-2 border-t border-[var(--border)]">
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 bg-[#10B981] text-white font-semibold rounded-lg transition shadow-sm"
+                  className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 bg-[var(--accent)] text-white font-semibold rounded-lg transition"
                 >
                   <LayoutDashboard size={16} /> Dashboard
                 </Link>
@@ -142,32 +159,32 @@ export default function Navbar({
                     setMobileMenuOpen(false);
                     handleLogout();
                   }}
-                  className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 bg-rose-50/80 text-rose-600 hover:bg-rose-100/80 font-semibold rounded-lg transition border border-rose-200 cursor-pointer shadow-sm"
+                  className="flex items-center justify-center gap-2 w-full text-center px-4 py-2.5 text-rose-600 hover:bg-rose-50 font-semibold rounded-lg transition border border-rose-200 cursor-pointer"
                 >
                   <LogOut size={16} /> Log Out
                 </button>
               </div>
             ) : (
-              <div className="flex flex-col gap-2 pt-1 border-t border-slate-200/50">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    router.push("/login?mode=signup");
-                  }}
-                  className="w-full text-left py-2 px-2 text-slate-600 hover:text-slate-900 hover:bg-white/50 rounded-md transition cursor-pointer font-medium"
-                >
-                  Sign up
-                </button>
+              <div className="flex flex-col gap-2 pt-3 mt-2 border-t border-[var(--border)]">
                 <button
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     router.push("/login?mode=login");
                   }}
-                  className="w-full px-4 py-2.5 bg-[#10B981] hover:bg-[#14B8A6] text-white font-semibold rounded-lg transition cursor-pointer shadow-sm text-center"
+                  className="w-full text-left py-2.5 px-2 text-[var(--ink-soft)] hover:text-[var(--ink)] hover:bg-[var(--mist)] rounded-md transition cursor-pointer font-medium"
                 >
                   Sign In
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    router.push("/login?mode=signup");
+                  }}
+                  className="w-full px-4 py-2.5 bg-[var(--ink)] hover:bg-[var(--ink)]/90 text-white font-semibold rounded-lg transition cursor-pointer text-center"
+                >
+                  Sign up
                 </button>
               </div>
             )}

@@ -1,277 +1,91 @@
 {
   "metadata": {
-    "source": "Common University Data Ontario (CUDO), B.C. Education Data, & Official Institutional Reports",
-    "last_updated": "2026",
-    "total_institutions": 41
+    "source": "Compiled from individual institutions' own official admissions pages where verifiable (see 'source_url' per entry). Fields marked verified=false could not be confirmed against an official source in this pass and should be treated as unknown, not fact.",
+    "last_updated": "2026-08-28",
+    "total_institutions": 41,
+    "notes": [
+      "The original file's 'General Science / Computing' program, its 85-91 mid-50 range, 80% cutoff, and 15/35/35/15 entering-grade distribution were identical templated placeholders across 36 institutions and were not real data. No Canadian university publishes a program called 'General Science / Computing'.",
+      "Most Ontario/Canadian universities do NOT use a fixed hard 'cutoff'; official policy (e.g. University of Waterloo) is that admission averages fluctuate year to year with applicant pool size and are not guaranteed by any specific number.",
+      "Where a university publishes an official university-wide minimum admission average (the real, sourceable equivalent of a 'cutoff'), that figure is used instead, with a citation. Note this floor is an ELIGIBILITY minimum, not the competitive average needed to actually get an offer -- competitive programs routinely admit well above it.",
+      "'cudo_entering_distribution' and per-program 'historical_mid_50_range' for generic programs have been removed for non-flagship entries because this granularity is not publicly published by these institutions and could not be verified; presenting invented numbers here would repeat the original problem.",
+      "The 5 named, real flagship programs (McGill CS, McMaster Health Sci, UofT EngSci, UofT CS, Waterloo SE/CS/SYDE) are kept because they correspond to actual programs with some publicly reportable data, but competitive averages there reflect self-reported ranges (e.g. Uniscope), not official published cutoffs, and are labeled accordingly.",
+      "2026-08-28 research pass: newly verified official minimums for Brock University (70%), Toronto Metropolitan University (70%), and Western University (80%). All three are official university-wide eligibility floors from the institutions' own sites, not competitive program averages -- see per-entry source_url and notes. Western in particular publishes a much higher typical *entering* average (~88%) alongside its 80% eligibility floor; both figures are recorded separately below so they aren't conflated."
+    ]
   },
   "institutions": [
     {
       "id": "acadia_university",
       "name": "Acadia University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "acadia_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "No official minimum admission average could be confirmed from Acadia's own site in this pass. Do not treat prior '80.0' cutoff as fact."
     },
     {
       "id": "brock_university",
       "name": "Brock University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "brock_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": true,
+      "general_admission_minimum": 70.0,
+      "source_url": "https://brocku.ca/admissions/undergraduate/",
+      "note": "Brock's own admissions pages state a general minimum admission average of 70% (many programs require a higher average); early-offer candidates typically present averages in the high 80s or 90s. This is a university-wide eligibility floor, not a competitive program average."
     },
     {
       "id": "carleton_university",
       "name": "Carleton University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "carleton_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": true,
+      "general_admission_minimum": 70.0,
+      "source_url": "https://calendar.carleton.ca/undergrad/regulations/admissions/programs/",
+      "note": "Official Carleton undergraduate calendar: 'An overall average of at least 70% is normally required to be considered for admission.' This is a general floor, not a program-specific competitive average."
     },
     {
       "id": "concordia_university",
       "name": "Concordia University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "concordia_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "dalhousie_university",
       "name": "Dalhousie University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "dalhousie_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": true,
+      "general_admission_minimum": 70.0,
+      "source_url": "https://www.dal.ca/admissions/how-to-apply/undergraduate-admissions/admission-requirements.html",
+      "note": "Official Dalhousie general admission requirements. Meeting this minimum does not guarantee admission to competitive programs."
     },
     {
       "id": "kings_university_college_dalhousie",
       "name": "King's University College (Dalhousie)",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "kings_university_college_dalhousie-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "lakehead_university",
       "name": "Lakehead University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "lakehead_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "laurentian_university",
       "name": "Laurentian University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "laurentian_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "mcgill_university",
       "name": "McGill University",
       "country": "Canada",
-      "has_cudo_data": true,
+      "verified": true,
       "programs": [
         {
           "program_id": "mcgill-cs",
           "program_name": "Computer Science (BSc)",
           "faculty": "Faculty of Science",
-          "historical_mid_50_range": [
-            94.0,
-            97.5
-          ],
-          "cutoff_minimum": 92.0,
-          "competitiveness_tier": "Tier 1 (Strict Grade Cutoff)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 2.0,
-            "repeat_penalty": 3.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 78.0,
-            "90_94.9": 20.0,
-            "85_89.9": 2.0,
-            "under_85": 0.0
-          }
+          "note": "Retained from original file. Not re-verified against an official McGill source in this pass -- treat the 94.0-97.5 range and cudo distribution as unconfirmed pending direct McGill source check."
         }
       ]
     },
@@ -279,29 +93,15 @@
       "id": "mcmaster_university",
       "name": "McMaster University",
       "country": "Canada",
-      "has_cudo_data": true,
+      "verified": true,
+      "general_admission_minimum": 70.0,
+      "source_url": "https://registrar.mcmaster.ca/build-degree/university-transfer/",
       "programs": [
         {
           "program_id": "mac-healthsci",
           "program_name": "Health Sciences (BHSc)",
           "faculty": "Health Sciences",
-          "historical_mid_50_range": [
-            96.0,
-            99.0
-          ],
-          "cutoff_minimum": 90.0,
-          "competitiveness_tier": "Tier 1 (Ultra Competitive / Supp App Heavy)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.5,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 92.0,
-            "90_94.9": 8.0,
-            "85_89.9": 0.0,
-            "under_85": 0.0
-          }
+          "note": "Retained from original file, NOT independently re-verified against McMaster's own Health Sciences admissions page in this pass. McMaster Health Sci is known to be supplementary-application-heavy (not grades-only), so a single cutoff/mid-50 number is a simplification even if roughly directionally correct."
         }
       ]
     },
@@ -309,651 +109,164 @@
       "id": "mount_allison_university",
       "name": "Mount Allison University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "mount_allison_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "nipissing_university",
       "name": "Nipissing University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "nipissing_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "ocad_university",
       "name": "OCAD University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "ocad_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "OCAD admissions are portfolio/studio-based for most programs, not grade-cutoff driven; a single numeric cutoff is likely not representative even before verification."
     },
     {
       "id": "ontario_tech_university",
       "name": "Ontario Tech University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "ontario_tech_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified against an official source in this pass."
     },
     {
       "id": "queens_university",
       "name": "Queen's University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "queens_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": true,
+      "general_admission_minimum": 75.0,
+      "source_url": "https://www.queensu.ca/secretariat/policies/senate/policy-minimum-admission-average",
+      "note": "Official Senate-approved policy: 'The overall minimum admission average for all direct-entry undergraduate applicants to Queen's University is 75%.' University-wide floor, not a program-specific competitive average."
     },
     {
       "id": "royal_military_college_of_canada",
       "name": "Royal Military College of Canada",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "royal_military_college_of_canada-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "RMC admission involves a separate military/CAF selection process in addition to academics; a simple grade cutoff is likely not representative even before verification."
     },
     {
       "id": "saint_marys_university",
       "name": "Saint Mary's University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "saint_marys_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "seneca_polytechnic",
       "name": "Seneca Polytechnic",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "seneca_polytechnic-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Seneca is a polytechnic; degree-program admission structure differs from university intake models. Not independently verified in this pass."
     },
     {
       "id": "st._lawrence_college",
       "name": "St. Lawrence College",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "st._lawrence_college-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "College-level admission model differs from university admission averages. Not independently verified in this pass."
     },
     {
       "id": "toronto_metropolitan_university",
       "name": "Toronto Metropolitan University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "toronto_metropolitan_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": true,
+      "general_admission_minimum": 70.0,
+      "source_url": "https://www.torontomu.ca/admissions/undergraduate/requirements/ontario/",
+      "note": "TMU's own Senate policy and admissions pages state: 'The university minimum admission average is 70%.' Individual TMU programs may establish higher required averages due to competition (e.g. Chemistry & Biology department pages cite program-specific grade ranges in the high 70s). This is an eligibility floor, not a competitive average."
     },
     {
       "id": "trent_university",
       "name": "Trent University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "trent_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_alberta",
       "name": "University of Alberta",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_alberta-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_british_columbia___vancouver",
       "name": "University of British Columbia - Vancouver",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_british_columbia___vancouver-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_british_columbia___okanagan",
       "name": "University of British Columbia - Okanagan",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_british_columbia___okanagan-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_calgary",
       "name": "University of Calgary",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_calgary-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_new_brunswick",
       "name": "University of New Brunswick",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_new_brunswick-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_ottawa",
       "name": "University of Ottawa",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_ottawa-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_regina",
       "name": "University of Regina",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_regina-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_toronto___mississauga",
       "name": "University of Toronto - Mississauga",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_toronto___mississauga-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_toronto___scarborough",
       "name": "University of Toronto - Scarborough",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_toronto___scarborough-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_toronto___st._george",
       "name": "University of Toronto - St. George",
       "country": "Canada",
-      "has_cudo_data": true,
+      "verified": true,
       "programs": [
         {
           "program_id": "uoft-engsci",
           "program_name": "Engineering Science",
           "faculty": "Applied Science & Engineering",
-          "historical_mid_50_range": [
-            94.5,
-            98.0
-          ],
-          "cutoff_minimum": 91.0,
-          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 3.5,
-            "repeat_penalty": 4.0,
-            "contest_weight": "Moderate"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 80.0,
-            "90_94.9": 18.0,
-            "85_89.9": 2.0,
-            "under_85": 0.0
-          }
+          "note": "Retained from original file, NOT independently re-verified against UofT's own engineering admissions page in this pass."
         },
         {
           "program_id": "uoft-cs",
           "program_name": "Computer Science (St. George)",
           "faculty": "Arts & Science",
-          "historical_mid_50_range": [
-            95.0,
-            98.5
-          ],
-          "cutoff_minimum": 92.0,
-          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 2.0,
-            "repeat_penalty": 3.0,
-            "contest_weight": "Low"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 85.0,
-            "90_94.9": 13.0,
-            "85_89.9": 2.0,
-            "under_85": 0.0
-          }
+          "note": "Uniscope (self-reported, 2026) lists ~92% competitive average, 18% acceptance rate for UofT CS -- lower than the original file's 95.0-98.5 range. Original file's number appears overstated; use 92% as the better-sourced figure, but note this is a self-report aggregator, not an official UofT-published cutoff.",
+          "source_url": "https://uniscope.ca/university-of-toronto/computer-science"
         }
       ]
     },
@@ -961,103 +274,35 @@
       "id": "university_of_victoria",
       "name": "University of Victoria",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_victoria-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_waterloo",
       "name": "University of Waterloo",
       "country": "Canada",
-      "has_cudo_data": true,
+      "verified": true,
+      "general_admission_note": "University of Waterloo's own admissions FAQ states explicitly: 'there is no absolute grade cut-off for each engineering program' and that averages 'range from high 70s to mid-90s' depending on program, applicant pool, and year. Waterloo does NOT publish fixed numeric cutoffs the way the original file implied.",
+      "source_url": "https://uwaterloo.ca/engineering/future-students/applying/admission-requirements",
       "programs": [
         {
           "program_id": "waterloo-se",
           "program_name": "Software Engineering",
           "faculty": "Engineering",
-          "historical_mid_50_range": [
-            95.0,
-            98.5
-          ],
-          "cutoff_minimum": 92.0,
-          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 5.0,
-            "repeat_penalty": 5.0,
-            "contest_weight": "High (Euclid/CCC)"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 88.5,
-            "90_94.9": 10.5,
-            "85_89.9": 1.0,
-            "under_85": 0.0
-          }
+          "note": "No official fixed cutoff exists (see above). Self-reported data (Uniscope, 2026) shows a competitive average near 94% with median self-reported admit around 97.5% and ~14% acceptance rate. Original file's 'cutoff_minimum: 92.0' should be understood as an approximate competitive threshold from self-reports, not an official published cutoff.",
+          "source_url": "https://uniscope.ca/university-of-waterloo/software-engineering-co-op-only"
         },
         {
           "program_id": "waterloo-cs",
           "program_name": "Computer Science",
           "faculty": "Mathematics",
-          "historical_mid_50_range": [
-            94.5,
-            98.0
-          ],
-          "cutoff_minimum": 90.0,
-          "competitiveness_tier": "Tier 1 (Ultra Competitive)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 3.0,
-            "repeat_penalty": 4.0,
-            "contest_weight": "Very High (Euclid/CSMC)"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 82.0,
-            "90_94.9": 16.0,
-            "85_89.9": 2.0,
-            "under_85": 0.0
-          }
+          "note": "Retained from original file, NOT independently re-verified in this pass beyond the general 'no fixed cutoff' policy above."
         },
         {
           "program_id": "waterloo-syde",
           "program_name": "Systems Design Engineering",
           "faculty": "Engineering",
-          "historical_mid_50_range": [
-            93.5,
-            97.0
-          ],
-          "cutoff_minimum": 89.0,
-          "competitiveness_tier": "Tier 1 (Ultra Competitive / AIF Heavy)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 4.0,
-            "repeat_penalty": 4.0,
-            "contest_weight": "Moderate"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 70.0,
-            "90_94.9": 26.0,
-            "85_89.9": 4.0,
-            "under_85": 0.0
-          }
+          "note": "Retained from original file, NOT independently re-verified in this pass beyond the general 'no fixed cutoff' policy above."
         }
       ]
     },
@@ -1065,241 +310,138 @@
       "id": "university_of_windsor",
       "name": "University of Windsor",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_windsor-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "wilfrid_laurier_university",
       "name": "Wilfrid Laurier University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "wilfrid_laurier_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "university_of_guelph",
       "name": "University of Guelph",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_guelph-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": true,
+      "general_admission_minimum": 70.0,
+      "coop_admission_minimum": 80.0,
+      "source_url": "https://www.uoguelph.ca/admission/undergraduate/requirements/canadian/",
+      "note": "Official Guelph page: co-op programs normally require ~80% minimum; general (non-grad-context) minimum is around 70% (B-) equivalent, though Guelph notes actual cutoffs vary by program/pool and normally exceed these stated minimums."
     },
     {
       "id": "university_of_guelph_humber",
       "name": "University of Guelph-Humber",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "university_of_guelph_humber-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Only found scholarship-context references (70-75%), not a confirmed official general admission minimum. Do not treat as an admissions cutoff."
     },
     {
       "id": "western_university",
       "name": "Western University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "western_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": true,
+      "general_admission_minimum": 80.0,
+      "typical_entering_average": 88.0,
+      "source_url": "https://welcome.uwo.ca/next-steps/requirements/index.html",
+      "note": "Western's own admissions site: 'applicants must achieve a minimum 80% average on six Ontario Grade 12U- or M-level courses' to be considered eligible; many programs require higher. Separately, Western states its typical first-year class has an ENTERING average of around 88% -- that 88% is the realistic competitive figure, not the 80% eligibility floor, and the two should not be conflated. High-demand faculties (Ivey Business, Engineering, Health Sciences) typically run higher still (high-80s to low-90s per third-party aggregation, not officially itemized per-program by Western)."
     },
     {
       "id": "western_university___huron_university_college",
       "name": "Western University - Huron University College",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "western_university___huron_university_college-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "western_university___kings_university_college",
       "name": "Western University - King's University College",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "western_university___kings_university_college-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "Not independently verified in this pass."
     },
     {
       "id": "york_university",
       "name": "York University",
       "country": "Canada",
-      "has_cudo_data": true,
-      "programs": [
-        {
-          "program_id": "york_university-general-sci",
-          "program_name": "General Science / Computing",
-          "faculty": "Science / Arts & Science",
-          "historical_mid_50_range": [
-            85.0,
-            91.0
-          ],
-          "cutoff_minimum": 80.0,
-          "competitiveness_tier": "Tier 3 (Standard / Grade Based)",
-          "adjustment_sensitivity": {
-            "ovs_penalty": 1.0,
-            "repeat_penalty": 2.0,
-            "contest_weight": "None"
-          },
-          "cudo_entering_distribution": {
-            "95_plus": 15.0,
-            "90_94.9": 35.0,
-            "85_89.9": 35.0,
-            "under_85": 15.0
-          }
-        }
-      ]
+      "verified": false,
+      "note": "York's official Future Students requirements pages publish admission averages per-program (e.g. low-70s to high-80s ranges seen across programs) rather than a single university-wide numeric floor comparable to Carleton/Queen's/TMU/Western/Brock/Dalhousie/Guelph/McMaster. Could not confirm a single defensible university-wide minimum in this pass; treat as unverified rather than inventing one."
     }
-  ]
+  ],
+    "batch_2_research_notes": {
+      "date": "2026-09-02",
+      "scope_requested": "Computer Science, Engineering (general/Mechanical/Civil), Psychology/Life Sciences across all 41 institutions",
+      "honest_finding": "Per-program numeric cutoffs are, with very few exceptions (McGill CS, McMaster Health Sci, UofT EngSci/CS, Waterloo SE/CS/SYDE -- already in your file), NOT officially published by Canadian universities for these program areas. Official pages almost universally state either (a) a university-wide minimum floor, or (b) that competitive averages vary by year/pool with no fixed number. Where a genuinely useful program-specific figure exists, it typically comes from Uniscope (a self-report aggregator), which is labeled as such below -- never presented as an official cutoff.",
+      "methodology": "Each entry below was checked against the institution's own admissions/registrar site this session. Uniscope figures are cited separately and flagged as self-reported/unofficial."
+    },
+    "updated_institutions": [
+      {
+        "id": "university_of_windsor",
+        "verified": true,
+        "general_admission_minimum": 70.0,
+        "source_url": "https://www.ouinfo.ca/universities/windsor/offers-of-admission",
+        "note": "OUInfo (Ontario's official cross-university admissions info service, sourced from Windsor itself): 'All programs require a minimum admission average (typically 70%), which may change from year to year depending on the number of applicants and available seats.' This is a floor, not a competitive average -- no official per-program CS/Engineering/Psychology cutoff found."
+      },
+      {
+        "id": "wilfrid_laurier_university",
+        "verified": true,
+        "general_admission_minimum": 70.0,
+        "source_url": "https://help.wlu.ca/future-students/undergraduate/admissions/requirements/index.html",
+        "note": "Laurier's own site: 'If your admission average is below the minimum admission average required for your program (to a minimum of 70%)...' Science programs, BBA, and Economics factor required courses into the average; other programs use top-six 4U/M. No official fixed per-program CS/Engineering/Psychology cutoff published -- Laurier does not offer a general Engineering program (Physics/Computer Science are its closest STEM offerings)."
+      },
+      {
+        "id": "university_of_alberta",
+        "verified": true,
+        "general_admission_minimum": 70.0,
+        "source_url": "https://www.ualberta.ca/en/admissions/how-to-apply/admission-requirements/index.html",
+        "note": "U of A's own admissions pages: minimum general admission average of 70% on five required Grade 12-level subjects; individual faculties may require higher. U of A explicitly publishes rolling 'Competitive Requirements' trend data by faculty (not a fixed cutoff) at the source URL -- check that page directly for current-cycle Engineering/Science/Arts (Psychology) trend ranges, as it updates each cycle and pulling a static number here would go stale immediately."
+      },
+      {
+        "id": "ontario_tech_university",
+        "verified": true,
+        "general_admission_minimum": 70.0,
+        "source_url": "https://ontariotechu.ca/policy/policy-library/policies/academic/undergraduate-and-professional-admissions-policy.php/",
+        "note": "Ontario Tech's own admissions policy states minimum requirements are normal minimums only and 'the specific average of standing required for admission varies from year-to-year'; no fixed university-wide number is codified in policy. However, sample offer letters published by the university (e.g. Bachelor of Commerce) consistently show 70% as the minimum final admissions average in practice. Treat 70% as strongly evidenced but not a hard published policy floor the way Carleton/Queen's/TMU/Dal state theirs."
+      }
+    ],
+    "programs_researched_no_official_cutoff_found": [
+      {
+        "institution": "University of Ottawa",
+        "program": "Computer Science",
+        "finding": "No official CS-specific cutoff on uottawa.ca. General university minimum is 75% (OUInfo, official), with a note that 'many programs require a greater admission average.' A minimum combined 70% is required specifically in math/science prerequisite courses. Uniscope lists Computer Engineering (a related but distinct program) at ~86% competitive average / 46% acceptance rate -- self-reported, not official, and not the same program as CS.",
+        "source_url": "https://www.ouinfo.ca/programs/ottawa/orc"
+      },
+      {
+        "institution": "York University",
+        "program": "All (CS, Engineering, Psychology)",
+        "finding": "York does not publish one university-wide minimum. Like Waterloo, it publishes per-program bands directly on each program's admissions page (examples found range from low-70s to high-80s depending on program). A per-program number would need to be pulled individually from each program's own futurestudents.yorku.ca page rather than a single site-wide figure.",
+        "source_url": "https://futurestudents.yorku.ca/requirements"
+      }
+    ],
+    "still_unverified_this_pass": [
+      "University of British Columbia - Vancouver",
+      "University of British Columbia - Okanagan",
+      "University of Calgary",
+      "University of Guelph-Humber",
+      "Trent University",
+      "University of Regina",
+      "University of Victoria",
+      "University of New Brunswick",
+      "Acadia University",
+      "Concordia University",
+      "Saint Mary's University",
+      "Mount Allison University",
+      "Nipissing University",
+      "Laurentian University",
+      "Lakehead University",
+      "King's University College (Dalhousie)",
+      "Western University - Huron University College",
+      "Western University - King's University College",
+      "Seneca Polytechnic",
+      "St. Lawrence College",
+      "Royal Military College of Canada",
+      "OCAD University"
+    ]
+  
 }

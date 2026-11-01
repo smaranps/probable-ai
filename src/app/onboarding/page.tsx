@@ -10,16 +10,12 @@ import { useAuth } from "@/app/context/authContext";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 import { SelectionSummary } from "../components/sideComponent";
-import {
-  AuroraBackground,
-  FloatingParticles,
-} from "../components/auroraBackground";
+import HeroBackground from "../components/auroraBackground";
 
 export default function OnboardingPage() {
   const { user } = useAuth();
   const router = useRouter();
 
-  // State to hold choices passed up from the OnboardingModal
   const [liveChoices, setLiveChoices] = useState<TargetChoice[]>([
     { university: "", program: "" },
     { university: "", program: "" },
@@ -57,10 +53,10 @@ export default function OnboardingPage() {
   };
 
   return (
-    <AuroraBackground>
-      <main className="min-h-screen flex items-center justify-center p-4 py-12">
-        <FloatingParticles />
-        <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 w-full max-w-5xl">
+    <>
+      <HeroBackground> 
+      <main className="relative z-10 min-h-screen flex items-center justify-center p-4 py-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 w-full max-w-5xl">
           <div className="w-full lg:w-[80%]">
             <OnboardingModal
               userDisplayName={user?.displayName || "Student"}
@@ -73,6 +69,7 @@ export default function OnboardingPage() {
           </div>
         </div>
       </main>
-    </AuroraBackground>
+      </HeroBackground>
+    </>
   );
 }

@@ -1,0 +1,164 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { 
+  ArrowLeft, 
+  FileCheck, 
+  AlertTriangle, 
+  Scale, 
+  UserCheck, 
+  Ban, 
+  HelpCircle,
+  Globe
+} from "lucide-react";
+
+export default function TermsOfServicePage() {
+  const [activeSection, setActiveSection] = useState("acceptance");
+
+  const sections = [
+    { id: "acceptance", label: "1. Acceptance of Terms" },
+    { id: "description", label: "2. Description of Service" },
+    { id: "disclaimer", label: "3. Admissions & AI Disclaimer" },
+    { id: "user-obligations", label: "4. User Conduct & Obligations" },
+    { id: "intellectual-property", label: "5. Intellectual Property" },
+    { id: "limitation-liability", label: "6. Limitation of Liability" },
+    { id: "modifications", label: "7. Modifications to Service" },
+    { id: "governing-law", label: "8. Governing Law & Contact" },
+  ];
+
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans mt-[50px]">
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        <div className="bg-white border border-gray-200 rounded-2xl p-8 mb-8 shadow-sm">
+          <h1 className="text-3xl font-heading font-bold text-gray-900">
+            Terms of Service
+          </h1>
+          <div className="flex items-center gap-4 text-xs text-gray-500 mt-2 font-mono">
+            <span>Effective Date: August 8, 2026</span>
+            <span>•</span>
+            <span>Last Updated: August 8, 2026</span>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <aside className="hidden lg:block lg:col-span-1 space-y-1 sticky top-24 h-fit">
+            <p className="text-xs font-bold uppercase tracking-wider text-gray-400 px-3 mb-2">
+              On this page
+            </p>
+            {sections.map((sec) => (
+              <button
+                key={sec.id}
+                onClick={() => scrollToSection(sec.id)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                  activeSection === sec.id
+                    ? "bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200"
+                    : "text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                }`}
+              >
+                {sec.label}
+              </button>
+            ))}
+          </aside>
+          <div className="lg:col-span-3 space-y-10 bg-white p-8 sm:p-10 rounded-2xl border border-gray-200 shadow-sm text-sm text-gray-700 leading-relaxed">
+            <section id="acceptance" className="space-y-3">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2 border-gray-100 flex items-center gap-2">
+                <FileCheck className="w-4 h-4 text-emerald-600" /> 1. Acceptance of Terms
+              </h2>
+              <p>
+                By accessing, browsing, or utilizing the Probable.ai application and related services (collectively, the &quot;Service&quot;), you acknowledge that you have read, understood, and agree to be legally bound by these Terms of Service (&quot;Terms&quot;).
+              </p>
+              <p>
+                If you do not agree to these Terms in their entirety, you must immediately cease all access to and use of the Service.
+              </p>
+            </section>
+            <section id="description" className="space-y-3">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2 border-gray-100 flex items-center gap-2">
+                <Globe className="w-4 h-4 text-emerald-600" /> 2. Description of Service
+              </h2>
+              <p>
+                Probable.ai provides high school students with objective admissions probability estimations, extracurricular exploration tools, supplemental text evaluations, and academic planning analytics primarily targeted at secondary institutions (including Ontario university admissions logic).
+              </p>
+            </section>
+            <section id="disclaimer" className="space-y-4">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2 border-gray-100 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-500" /> 3. Admissions & AI Disclaimer
+              </h2>
+              <div className="p-4 bg-amber-50/60 border border-amber-200/80 rounded-xl space-y-2 text-amber-900">
+                <p className="font-semibold text-xs uppercase tracking-wide text-amber-800">
+                  Non-Binding Probability Estimates
+                </p>
+                <p className="text-xs text-amber-900/90 leading-relaxed">
+                  Calculations, scores, and admission odds generated by Probable.ai are for informational and educational planning purposes only. We are not affiliated with the Ontario Universities&apos; Application Centre (OUAC), the University of Waterloo, the University of Toronto, or any secondary or post-secondary institution. <strong>Possessing a high probability index does not guarantee university acceptance.</strong>
+                </p>
+              </div>
+              <p className="text-xs text-gray-600">
+                AI evaluation features (including essay reviews and chatbot responses) utilize probabilistic model outputs. You are solely responsible for reviewing and verifying all supplemental responses prior to submission to official admission portals.
+              </p>
+            </section>
+            <section id="user-obligations" className="space-y-3">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2 border-gray-100 flex items-center gap-2">
+                <UserCheck className="w-4 h-4 text-emerald-600" /> 4. User Conduct & Obligations
+              </h2>
+              <p>When using the Service, you agree not to:</p>
+              <ul className="list-disc list-inside space-y-1.5 pl-2 text-xs text-gray-600">
+                <li>Submit false, misleading, or fraudulent academic grades, course attempts, or extracurricular histories.</li>
+                <li>Attempt to bypass, disable, or interfere with security-related features or authentication mechanisms.</li>
+                <li>Scrape, index, or extract data from the platform via automated scripts, bots, or crawlers.</li>
+                <li>Use the platform for any unlawful purpose or to generate harmful or malicious content.</li>
+              </ul>
+            </section>
+            <section id="intellectual-property" className="space-y-3">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2 border-gray-100 flex items-center gap-2">
+                <Ban className="w-4 h-4 text-emerald-600" /> 5. Intellectual Property
+              </h2>
+              <p>
+                All software code, brand assets, proprietary scoring algorithms, page designs, trademarks, and logos associated with Probable.ai are the exclusive intellectual property of the Probable.ai development team.
+              </p>
+              <p className="text-xs text-gray-600">
+                You retain full ownership of any personal essays or academic inputs you submit to the Service.
+              </p>
+            </section>
+            <section id="limitation-liability" className="space-y-3">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2 border-gray-100">
+                6. Limitation of Liability
+              </h2>
+              <p className="text-xs text-gray-600">
+                To the maximum extent permitted by applicable law, Probable.ai and its developers shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your access to, use of, or inability to use the Service—including but not limited to university rejection decisions, application errors, or loss of data.
+              </p>
+            </section>
+            <section id="modifications" className="space-y-3">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2 border-gray-100">
+                7. Modifications to Service
+              </h2>
+              <p className="text-xs text-gray-600">
+                We reserve the right to modify, suspend, or discontinue any feature, API integration, or aspect of the Service at any time without prior notice. Continued use of the platform following updates to these Terms constitutes acceptance of the revised terms.
+              </p>
+            </section>
+            <section id="governing-law" className="space-y-3 pt-4 border-t border-gray-100">
+              <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-emerald-600" /> 8. Governing Law & Contact
+              </h2>
+              <p className="text-xs text-gray-600">
+                These Terms shall be governed by and construed in accordance with the laws of the Province of Ontario and the federal laws of Canada applicable therein.
+              </p>
+              <div className="bg-emerald-50/50 border border-emerald-200/60 p-4 rounded-xl text-xs space-y-1 font-mono text-emerald-900 mt-2">
+                <p><strong>Probable.ai Legal & Inquiries</strong></p>
+                <p>Project Lead: Smaran Pinisetty</p>
+                <p>URL: <a href="https://probableai-topaz.vercel.app" target="_blank" rel="noopener noreferrer" className="underline hover:text-emerald-700">probableai-topaz.vercel.app</a></p>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}

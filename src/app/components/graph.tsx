@@ -19,6 +19,8 @@ import {
   TrendingUp,
   CheckCircle2,
   AlertCircle,
+  HelpCircle,
+  Info,
 } from "lucide-react";
 
 interface DashboardChartsProps {
@@ -26,11 +28,18 @@ interface DashboardChartsProps {
 }
 
 interface BenchmarkData {
+  university?: string;
+  program?: string;
+  status: "estimated" | "floor_only" | "no_data";
   sampleCount: number;
-  benchmarkMean: number;
+  benchmarkMean: number | null;
+  eligibilityFloor?: number;
   isProgramSpecific: boolean;
+  note?: string;
+  cutoffMinimum?: number;
+  competitivenessTier?: string;
+  mid50Range?: [number, number];
 }
-
 function CustomTooltip({ active, payload }: any) {
   if (active && payload && payload.length) {
     const data = payload[0];
@@ -47,15 +56,16 @@ function CustomTooltip({ active, payload }: any) {
   }
   return null;
 }
-
 export default function DashboardCharts({ profile }: DashboardChartsProps) {
   const userAvg = profile.top6Average || 0;
   const [benchmark, setBenchmark] = useState<BenchmarkData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchBenchmark() {
       setLoading(true);
+      setError(false);
       try {
         const res = await fetch("/api/benchmark", {
           method: "POST",
@@ -65,46 +75,25 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
             program: profile.program,
           }),
         });
+        if (!res.ok) throw new Error("Benchmark request failed");
         const data = await res.json();
         setBenchmark(data);
       } catch (err) {
         console.error("Error fetching university benchmark:", err);
+        setError(true);
+        setBenchmark(null);
       } finally {
         setLoading(false);
       }
     }
-
     if (profile.university) {
       fetchBenchmark();
+    } else {
+      setLoading(false);
     }
   }, [profile.university, profile.program]);
-
-  const benchmarkMean = benchmark?.benchmarkMean ?? 92.5;
-  const sampleCount = benchmark?.sampleCount
-    ? `${benchmark.sampleCount}+`
-    : "0";
-
-  const diff = userAvg - benchmarkMean;
-  const isCompetitive = diff >= 0;
-  const comparisonData = [
-    {
-      category: "Your Average",
-      average: userAvg,
-      gradientId: "emeraldGrad",
-    },
-    {
-      category: `${profile.university || "Target"} Offer Avg`,
-      average: benchmarkMean,
-      gradientId: "indigoGrad",
-    },
-  ];
-  const minDomain = Math.max(
-    50,
-    Math.floor(Math.min(userAvg, benchmarkMean) - 10)
-  );
-
-  return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5 w-full max-w-3xl transition-all duration-300 hover:shadow-md">
+  function Header() {
+    return (
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
         <div>
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
@@ -114,145 +103,262 @@ export default function DashboardCharts({ profile }: DashboardChartsProps) {
             Admissions Benchmark
           </h3>
           <p className="text-xs text-slate-500 mt-1">
-            Comparing your standing against accepted applicants for{" "}
+            Comparing your standing against accepted applicants for &nbsp;
             <span className="font-semibold text-slate-800">
               {profile.university || "selected program"}
             </span>
           </p>
         </div>
-
-        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-600 shrink-0">
-          <Users size={14} className="text-indigo-500" />
-          {loading ? (
-            <span className="animate-pulse">Loading data...</span>
-          ) : (
+        {!loading && benchmark && (
+          <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50  border border-slate-200 text-xs font-semibold text-slate-600 shrink-0">
+            <Users size={14} className="text-indigo-500" />
             <span>
               Sample:{" "}
               <strong className="text-slate-900 font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200">
-                {sampleCount}
+                {benchmark.sampleCount > 0 ? `${benchmark.sampleCount}+` : "0"}
               </strong>{" "}
               entries
             </span>
-          )}
-        </div>
-      </div>
-      <div className="h-72 w-full pt-4">
-        {loading ? (
-          <div className="h-full flex flex-col items-center justify-center text-xs font-mono text-slate-400 animate-pulse gap-3">
-            <Sparkles size={20} className="animate-spin text-indigo-400" />
-            Analyzing admissions statistics...
           </div>
-        ) : (
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={comparisonData}
-              margin={{ top: 25, right: 30, left: -15, bottom: 5 }}
-            >
-              <defs>
-                <linearGradient id="emeraldGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#34d399" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#059669" stopOpacity={1} />
-                </linearGradient>
-                <linearGradient id="indigoGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#818cf8" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#4f46e5" stopOpacity={1} />
-                </linearGradient>
-              </defs>
-
-              <XAxis
-                dataKey="category"
-                tickLine={false}
-                axisLine={{ stroke: "#f1f5f9" }}
-                tick={{ fontSize: 12, fontWeight: 600, fill: "#64748b" }}
-              />
-              <YAxis
-                domain={[minDomain, 100]}
-                tickLine={false}
-                axisLine={{ stroke: "#f1f5f9" }}
-                tick={{ fontSize: 11, fill: "#94a3b8" }}
-                unit="%"
-              />
-
-              <Tooltip
-                content={<CustomTooltip />}
-                cursor={{ fill: "#f8fafc" }}
-              />
-
-              <ReferenceLine
-                y={benchmarkMean}
-                stroke="#818cf8"
-                strokeDasharray="4 4"
-                strokeWidth={1.5}
-                label={{
-                  value: `Target: ${benchmarkMean}%`,
-                  fill: "#4f46e5",
-                  fontSize: 11,
-                  fontWeight: 700,
-                  position: "top",
-                }}
-              />
-
-              <Bar dataKey="average" radius={[6, 6, 0, 0]} barSize={60}>
-                <LabelList
-                  dataKey="average"
-                  position="top"
-                  formatter={(val: any) => (val ? `${val}%` : "")}
-                  style={{
-                    fill: "#334155",
-                    fontSize: "12px",
-                    fontWeight: 700,
-                    fontFamily: "monospace",
-                  }}
-                />
-                {comparisonData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={`url(#${entry.gradientId})`}
-                  />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
         )}
       </div>
-      {!loading && (
+    );
+  }
+  if (loading) {
+    return (
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5 w-full max-w-3xl">
+        <Header />
+        <div className="h-72 w-full pt-4 flex flex-col items-center justify-center text-xs font-mono text-slate-400 animate-pulse gap-3">
+          <Sparkles size={20} className="animate-spin text-indigo-400" />
+          Analyzing admissions statistics...
+        </div>
+      </div>
+    );
+  }
+  if (error || !profile.university) {
+    return (
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5 w-full max-w-3xl">
+        <Header />
+        <div className="py-10 flex flex-col items-center justify-center text-center gap-2">
+          <AlertCircle size={22} className="text-slate-300" />
+          <p className="text-sm text-slate-500 max-w-sm">
+            {profile.university
+              ? "We couldn't load benchmark data right now. Try again in a moment."
+              : "Select a university and program to see how your average compares."}
+          </p>
+        </div>
+      </div>
+    );
+  }
+  if (!benchmark || benchmark.status === "no_data") {
+    return (
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5 w-full max-w-3xl">
+        <Header />
+        <div className="py-8 flex flex-col items-center justify-center text-center gap-3">
+          <div className="p-3 bg-slate-50 rounded-full border border-slate-200">
+            <HelpCircle size={22} className="text-slate-400" />
+          </div>
+          <div className="max-w-md space-y-1">
+            <p className="text-sm font-semibold text-slate-700">
+              No verified admissions data yet for{" "}
+              {benchmark?.program
+                ? `${benchmark.program} at ${benchmark.university}`
+                : profile.university}
+              .
+            </p>
+            <p className="text-xs text-slate-500">
+              We only show benchmarks we can back with a real source, so we'd
+              rather tell you we don't have this one yet than guess. Your own
+              average is <strong className="text-slate-700">{userAvg}%</strong>{" "}
+              . Please check back as we add more verified program data.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (benchmark.status === "floor_only" && benchmark.eligibilityFloor != null) {
+    const floor = benchmark.eligibilityFloor;
+    const aboveFloor = userAvg >= floor;
+    return (
+      <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5 w-full max-w-3xl">
+        <Header />
+        <div className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 flex gap-3">
+          <Info size={18} className="text-indigo-500 shrink-0 mt-0.5" />
+          <div className="text-sm text-indigo-900 space-y-1">
+            <p>
+              <strong>{benchmark.university}</strong> publishes a general
+              minimum admission average of{" "}
+              <strong className="font-mono">{floor}%</strong>. This is an{" "}
+              <strong>eligibility floor</strong>, not the average that
+              actually gets accepted — competitive programs typically require
+              well above this.
+            </p>
+            <p className="text-xs text-indigo-700/80">
+              We don't yet have a verified program-specific competitive
+              average for this program, so we're showing the honest floor
+              instead of an estimate.
+            </p>
+          </div>
+        </div>
         <div
-          className={`p-4 rounded-xl border flex items-center justify-between text-sm transition-colors mt-2 ${
-            isCompetitive
+          className={`p-4 rounded-xl border flex items-center justify-between text-sm ${
+            aboveFloor
               ? "bg-emerald-50/50 border-emerald-100 text-emerald-900"
               : "bg-amber-50/50 border-amber-100 text-amber-900"
           }`}
         >
           <div className="flex items-center gap-2.5">
-            {isCompetitive ? (
+            {aboveFloor ? (
               <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
             ) : (
               <AlertCircle size={18} className="text-amber-500 shrink-0" />
             )}
             <span className="font-medium">
-              {isCompetitive
-                ? "Your average places you in a highly competitive range."
-                : "You are currently below the historical benchmark."}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="text-xs uppercase tracking-wide font-bold opacity-70">
-              Variance
-            </span>
-            <span
-              className={`font-mono font-bold px-2 py-1 rounded-md bg-white border ${
-                isCompetitive
-                  ? "text-emerald-600 border-emerald-100"
-                  : "text-amber-600 border-amber-100"
-              }`}
-            >
-              {diff >= 0 ? "+" : ""}
-              {diff.toFixed(1)}%
+              {aboveFloor
+                ? `Your average (${userAvg}%) clears the published eligibility floor.`
+                : `Your average (${userAvg}%) is below the published eligibility floor of ${floor}%.`}
             </span>
           </div>
         </div>
+      </div>
+    );
+  }
+  const benchmarkMean = benchmark.benchmarkMean as number;
+  const diff = userAvg - benchmarkMean;
+  const isCompetitive = diff >= 0;
+  const comparisonData = [
+    {
+      category: "Your Average",
+      average: userAvg,
+      gradientId: "emeraldGrad",
+    },
+    {
+      category: `${benchmark.university || "Target"} Offer Avg`,
+      average: benchmarkMean,
+      gradientId: "indigoGrad",
+    },
+  ];
+  const minDomain = Math.max(50, Math.floor(Math.min(userAvg, benchmarkMean) - 10));
+  const lowSample = benchmark.sampleCount > 0 && benchmark.sampleCount < 25;
+
+  return (
+    <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5w-full max-w-3xl transition-all duration-300 hover:shadow-md">
+      <Header />
+
+      {lowSample && (
+        <div className="flex items-center gap-2 text-xs text-amber-700 bg-amber-50/60 border border-amber-100 rounded-lg px-3 py-2">
+          <Info size={14} className="shrink-0" />
+          <span>
+            This estimate is based on a small sample. Treat it as a rough
+            signal, not a precise cutoff.
+          </span>
+        </div>
       )}
+
+      <div className="h-72 w-full pt-4">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            data={comparisonData}
+            margin={{ top: 25, right: 30, left: -15, bottom: 5 }}
+          >
+            <defs>
+              <linearGradient id="emeraldGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#34d399" stopOpacity={1} />
+                <stop offset="100%" stopColor="#059669" stopOpacity={1} />
+              </linearGradient>
+              <linearGradient id="indigoGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#818cf8" stopOpacity={1} />
+                <stop offset="100%" stopColor="#4f46e5" stopOpacity={1} />
+              </linearGradient>
+            </defs>
+
+            <XAxis
+              dataKey="category"
+              tickLine={false}
+              axisLine={{ stroke: "#f1f5f9" }}
+              tick={{ fontSize: 12, fontWeight: 600, fill: "#64748b" }}
+            />
+            <YAxis
+              domain={[minDomain, 100]}
+              tickLine={false}
+              axisLine={{ stroke: "#f1f5f9" }}
+              tick={{ fontSize: 11, fill: "#94a3b8" }}
+              unit="%"
+            />
+
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: "#f8fafc" }} />
+
+            <ReferenceLine
+              y={benchmarkMean}
+              stroke="#818cf8"
+              strokeDasharray="4 4"
+              strokeWidth={1.5}
+              label={{
+                value: `Target: ${benchmarkMean}%`,
+                fill: "#4f46e5",
+                fontSize: 11,
+                fontWeight: 700,
+                position: "top",
+              }}
+            />
+
+            <Bar dataKey="average" radius={[6, 6, 0, 0]} barSize={60}>
+              <LabelList
+                dataKey="average"
+                position="top"
+                formatter={(val: any) => (val ? `${val}%` : "")}
+                style={{
+                  fill: "#334155",
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  fontFamily: "monospace",
+                }}
+              />
+              {comparisonData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={`url(#${entry.gradientId})`} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div
+        className={`p-4 rounded-xl border flex items-center justify-between text-sm transition-colors mt-2 ${
+          isCompetitive
+            ? "bg-emerald-50/50 border-emerald-100 text-emerald-900"
+            : "bg-amber-50/50 border-amber-100 text-amber-900"
+        }`}
+      >
+        <div className="flex items-center gap-2.5">
+          {isCompetitive ? (
+            <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          ) : (
+            <AlertCircle size={18} className="text-amber-500 shrink-0" />
+          )}
+          <span className="font-medium">
+            {isCompetitive
+              ? "Your average places you in a highly competitive range."
+              : "You are currently below the historical benchmark."}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="text-xs uppercase tracking-wide font-bold opacity-70">
+            Variance
+          </span>
+          <span
+            className={`font-mono font-bold px-2 py-1 rounded-md bg-white border ${
+              isCompetitive
+                ? "text-emerald-600 border-emerald-100"
+                : "text-amber-600 border-amber-100"
+            }`}
+          >
+            {diff >= 0 ? "+" : ""}
+            {diff.toFixed(1)}%
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
