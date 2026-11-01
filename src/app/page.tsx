@@ -19,11 +19,11 @@ import {
 const features = [
   {
     title: "Powered by real outcomes",
-    desc: "Built on thousands of crowd-sourced Ontario applicant records. We look beyond official cutoffs to show historical averages, decision timelines, and acceptance trends.",
+    desc: "Built on CUDO applicant records. We look beyond official cutoffs to show historical averages, decision timelines, and acceptance trends.",
   },
   {
-    title: "AI-driven profile analysis",
-    desc: "Our model evaluates your Top 6 average, target programs, and extracurriculars in context — giving realistic, unbiased probability tiers in seconds.",
+    title: "AI profile analysis",
+    desc: "Our model evaluates your Top 6 average, target programs, and extracurriculars in context, giving realistic, unbiased probability tiers in seconds.",
   },
   {
     title: "Targeted application strategy",
