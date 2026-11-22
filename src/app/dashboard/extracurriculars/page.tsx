@@ -18,15 +18,21 @@ interface Extracurricular {
   id: string;
   title: string;
   organization: string;
-  category: "STEM" | "Business" | "Volunteer" | "Leadership" | "Arts";
-  type: "Competition" | "Program" | "Volunteer" | "Club" | "Leadership";
-  section?: string;
+  category: string;
+  type: string;
   commitment: string;
   locationType: string;
+  cost: string;
   description: string;
   targetGrades: number[];
   officialUrl: string;
-  cost: string;
+  section?: string;
+  verificationNote?: string;
+  tags?: string[];
+  applicationUrl?: string | null;
+  instagramUrl?: string | null;
+  logoUrl?: string | null;
+  isVerified?: boolean | null;
 }
 
 const SECTION_ORDER = [
@@ -58,21 +64,23 @@ export default function ExtracurricularsPage() {
   const sections = ["All", ...SECTION_ORDER];
 
   const filteredData = useMemo(() => {
+    const query = searchQuery.toLowerCase();
     return (ecData as Extracurricular[]).filter((item) => {
       const matchesSearch =
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.organization.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase());
+        item.title.toLowerCase().includes(query) ||
+        item.organization.toLowerCase().includes(query) ||
+        (item.description || "").toLowerCase().includes(query) ||
+        (item.tags || []).some((tag) => tag.toLowerCase().includes(query));
       const matchesCategory =
         selectedCategory === "All" || item.category === selectedCategory;
       const matchesType =
         selectedType === "All" || item.type === selectedType;
+  
       const matchesSection =
         selectedSection === "All" ||
         (item.section || "Other") === selectedSection;
-      return (
-        matchesSearch && matchesCategory && matchesType && matchesSection
-      );
+  
+      return matchesSearch && matchesCategory && matchesType && matchesSection;
     });
   }, [searchQuery, selectedCategory, selectedType, selectedSection]);
 

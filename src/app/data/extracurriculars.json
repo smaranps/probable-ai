@@ -1,6 +1,3000 @@
 [
   {
+    "id": "1",
+    "title": "Dreams to Business",
+    "organization": "Dreams to Business",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Providing underprivileged children with tools to create, lead, and thrive in business.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.dreamstobusiness.org/",
+    "section": "Business",
+    "tags": [
+      "business",
+      "entrepreneurship",
+      "leadership"
+    ],
+    "applicationUrl": "https://linktr.ee/dreamstobusiness",
+    "instagramUrl": "https://www.instagram.com/dreamstobusiness/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1dOzd9ytUPB5HonjT83pfJi86CihOciGR",
+    "isVerified": true
+  },
+  {
+    "id": "2",
+    "title": "Girls On Campus",
+    "organization": "Girls On Campus",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://girlsoncampus.beehiiv.com/subscribe",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "leadership"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/girls.on.campus",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1zRCWX_LzVYsX7MIJIhPjV66cxbt_9LnK",
+    "isVerified": true
+  },
+  {
     "id": "3",
+    "title": "Business for Kids",
+    "organization": "Business for Kids",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering students through a youth-to-youth approach to business and financial literacy education.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.businessforkids.net/",
+    "section": "Business",
+    "tags": [
+      "business",
+      "entrepreneurship",
+      "mentorship"
+    ],
+    "applicationUrl": "https://www.businessforkids.net/join-our-team",
+    "instagramUrl": "https://www.instagram.com/businessforkids_",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1LM87AtrlMio_A1i-4krb04uSoilgorkz",
+    "isVerified": true
+  },
+  {
+    "id": "4",
+    "title": "Crackd",
+    "organization": "Crackd",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "A personalized prep platform with one-on-one tutoring that cracks the SAT and ACT.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://crackd.it/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "test-prep",
+      "mentorship"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/getcrackd",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1TnbvvhRQOffUwnirhyAHoQsIef90MBSM",
+    "isVerified": false
+  },
+  {
+    "id": "5",
+    "title": "Byte Budz",
+    "organization": "Byte Budz",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Student led organization introducing elementary school children to the exciting world of coding through interactive lessons.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.bytebudz.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "technology",
+      "coding",
+      "mentorship"
+    ],
+    "applicationUrl": "https://www.bytebudz.org/contact-us",
+    "instagramUrl": "https://www.instagram.com/byte.budz",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1oLZtloxdSUYmflCmkIFyXOFmYkqaJeaq",
+    "isVerified": true
+  },
+  {
+    "id": "6",
+    "title": "NeuroSphere",
+    "organization": "NeuroSphere",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "International Youth Organization focused on connecting and providing resources to members.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/neurosphere.ca?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnVP-ogWgZhWibuGJrX_Kifuu-nzEk51JZ55qNR2qU2jdBX9S1Jc_yv89Ua7o_aem_EMpyziWHemBLra0igneBgw",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "social-impact",
+      "stem"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSe7TKt4UaPjp0Q2jvE5DewZEHhraAomun8hMXwh8eB7hMxeeg/viewform?usp=header",
+    "instagramUrl": "https://www.instagram.com/neurosphere.intl/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=103UxKbvfv0eZbDBP6ReKQRNpPrGPc8ng",
+    "isVerified": true
+  },
+  {
+    "id": "7",
+    "title": "Pigtastic Health",
+    "organization": "Pigtastic Health",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Pigtastic Health creates magazines and resources focused on various health and wellness topics for youth.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://pigtastichealth.wixsite.com/pigtastichealth",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "community-service",
+      "social-impact"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeGY_B_hqLwWa-ZGeJtWD2Nbq9EWcpMK9Qn-1yJuOjJQnMDZw/viewform?usp=dialog",
+    "instagramUrl": "https://instagram.com/pigtastichealth",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1E5Y1_he1Hdt5KoJNpv33j5lpfm1U2upZ",
+    "isVerified": true
+  },
+  {
+    "id": "8",
+    "title": "Color in Dreams",
+    "organization": "Color in Dreams",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth organization lighting up lives of hospital patients and nursing home residents through art and crafts.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "http://linktr.ee/colorindreams",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "community-service",
+      "social-impact"
+    ],
+    "applicationUrl": "https://colorindreams.wixsite.com/color-in-dreams",
+    "instagramUrl": "https://www.instagram.com/thecolorindreams/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Mzm9Mneq3SBHSGV43yzPSbVkb47A058j",
+    "isVerified": true
+  },
+  {
+    "id": "9",
+    "title": "Lotus Minds",
+    "organization": "Lotus Minds",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Supporting neurodivergent individuals through stigma reduction, resources, and community building with bilingual guides.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLSe_d89gdRT0NOwM4G1k6hX3sc3bwT160t2gZKHSfNDJKqFF4A/viewform",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "community-service",
+      "mentorship"
+    ],
+    "applicationUrl": "https://linktr.ee/lotusminds_org",
+    "instagramUrl": "https://www.instagram.com/lotusminds_org/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=17Z4la130MxFlV_fkanUSEm-LLjlMJjzE",
+    "isVerified": true
+  },
+  {
+    "id": "10",
+    "title": "Neuro Notebook",
+    "organization": "Neuro Notebook",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Nonprofit promoting and publishing student research in neuroscience with semi-peer reviewed journal reaching thousands.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/NeuroNotebook",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "academics",
+      "stem"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/neuro.notebook/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1GqVNZIRfxXjHv1f42rgwFBn2Mv9ISGoL",
+    "isVerified": true
+  },
+  {
+    "id": "11",
+    "title": "Youth Research Exchange",
+    "organization": "Youth Research Exchange",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Provides rural high school students innovative platform to publish their STEM research and gain recognition.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://youthresearchexchange.com",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "social-impact"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLScYqd412d_yNkk8oFx7i_9VWwIZywOnbhpA7VF0LLxZHJgSAQ/viewform",
+    "instagramUrl": "https://www.instagram.com/youthresearchexchange/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Sd9-y6SqLpCSobyKOV1Jexea2vrV39Nq",
+    "isVerified": true
+  },
+  {
+    "id": "12",
+    "title": "Techfluences",
+    "organization": "Techfluences",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "High schoolers across five countries collaborating on computer science projects to innovate, inspire, and influence.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://techfluences.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "technology",
+      "coding",
+      "writing"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfCUnF_yS0iRpQanPN7PSpm7fqffA2iiM7Uf6ZYH3xzCyf7kg/viewform",
+    "instagramUrl": "https://www.instagram.com/techfluences/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1XvfGPtElRB72I-cgB5_sgJz0bU2DV55N",
+    "isVerified": true
+  },
+  {
+    "id": "13",
+    "title": "Everything Starts Small",
+    "organization": "Everything Starts Small",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "International youth-led environmental action and education organization operating in nineteen countries with verified service hours.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfdBHqcx6ptQV9ZPSqHW9I1OgmwBsO9LngJobV-nI3G3M5GGg/viewform",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "environment",
+      "community-service",
+      "sustainability"
+    ],
+    "applicationUrl": "https://www.everythingstartssmall.org/",
+    "instagramUrl": "https://www.instagram.com/everythingstartssmall/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1a2_R-mPb84ThK5F1_9a5B0yL32iIfou9",
+    "isVerified": true
+  },
+  {
+    "id": "14",
+    "title": "Future Female Scholars",
+    "organization": "Future Female Scholars",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Student-coded STEM site matching volunteer tutors with girls lacking private tutoring access, promoting STEM education.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/futurefemalescholars",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "mentorship",
+      "test-prep"
+    ],
+    "applicationUrl": "https://futurefemalescholars.com/",
+    "instagramUrl": "https://www.instagram.com/future.female.scholars/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1YLJJgSOZXMXSeNJnIHkAASBVPF-d9SfH",
+    "isVerified": true
+  },
+  {
+    "id": "15",
+    "title": "Palorah Capital",
+    "organization": "Palorah Capital",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Consulting agency connecting nonprofit organizations to free marketing, funding, and additional resources for growth.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/palorah",
+    "section": "Business",
+    "tags": [
+      "business",
+      "entrepreneurship",
+      "finance"
+    ],
+    "applicationUrl": "https://www.instagram.com/palorahcapital/",
+    "instagramUrl": "https://www.instagram.com/palorahcapital/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1HZdGYicsL1yebcWPT95nHFvcgoVY963S",
+    "isVerified": true
+  },
+  {
+    "id": "16",
+    "title": "Apricus Literary",
+    "organization": "Apricus Literary",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Multimedia magazine celebrating teen girl creatives globally.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://apricusliterary.substack.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/apricusliterary/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1yTfFsBKnApcQVxoanPWde87sHYkVoZha",
+    "isVerified": true
+  },
+  {
+    "id": "17",
+    "title": "evanescent",
+    "organization": "evanescent",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Digital youth magazine supporting teen voices through art.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://evanescentmagazine.crd.co/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "design"
+    ],
+    "applicationUrl": "https://forms.gle/bz4ThWE8m66c25Br5",
+    "instagramUrl": "https://www.instagram.com/evanescentmagazine",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1hh_q9K79vUPS4b_Qenj6v9C35ACRXJS4",
+    "isVerified": true
+  },
+  {
+    "id": "18",
+    "title": "The LuckedOut Zine",
+    "organization": "The LuckedOut Zine",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Zine for submissions and creative content.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/theluckedoutzine",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "design"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/theluckedoutzine",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=15LPDmUDt-dRRxTCRI40XZlGwk9A_62L7",
+    "isVerified": true
+  },
+  {
+    "id": "19",
+    "title": "jardinzine",
+    "organization": "jardinzine",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Explores aftermath, tenderness, and quiet longing themes.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdG8ZIlge1mjR3CD3CcNlIHK-lzltwU49zzrxyR5EqTQMUa2g/viewform",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "design"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdG8ZIlge1mjR3CD3CcNlIHK-lzltwU49zzrxyR5EqTQMUa2g/viewform",
+    "instagramUrl": "https://www.instagram.com/jardinzine/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=15kkT-8CTjmH-3Gs9tsLbo8lEipJL0MXl",
+    "isVerified": true
+  },
+  {
+    "id": "20",
+    "title": "yukii zine",
+    "organization": "yukii zine",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/yukiizine/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "design",
+      "writing"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/yukiizine/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=11zA1KiIknXjIV5o2ms0jS7E7BPk9wwrf",
+    "isVerified": true
+  },
+  {
+    "id": "21",
+    "title": "Chartium",
+    "organization": "Chartium",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "International multimedia magazine empowering youth creatives.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.chartium.org/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "music",
+      "social-impact"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd9zMrxwRbdShdaMqgbA4DjVO6JH3VeHGMsVvlE4WAugSP2oQ/viewform",
+    "instagramUrl": "https://www.instagram.com/thechartium",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1HumavjTJrNqA4mZ8l-UdRmDse_InkNHS",
+    "isVerified": true
+  },
+  {
+    "id": "22",
+    "title": "The Meadow Collective",
+    "organization": "The Meadow Collective",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Captures deepest echoes of soul through creative expression.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://themeadowcollective.substack.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "design"
+    ],
+    "applicationUrl": "https://forms.gle/KLtqembZuJ6vuQRa9",
+    "instagramUrl": "https://www.instagram.com/t.meadowcollective",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1RVtJ4ic6BpqRDRqezikswUWyhfU54rvJ",
+    "isVerified": true
+  },
+  {
+    "id": "23",
+    "title": "Fluorescent Magazine",
+    "organization": "Fluorescent Magazine",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-led magazine making publishing easier for young writers.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.fluorescentmagazine.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "design"
+    ],
+    "applicationUrl": "https://www.fluorescentmagazine.com/submit",
+    "instagramUrl": "https://www.instagram.com/fluorescent.magazine",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1soDKy3z63vYf2VA5eN5NR13pGCx_dYoc",
+    "isVerified": true
+  },
+  {
+    "id": "24",
+    "title": "Luxury Literature Magazine",
+    "organization": "Luxury Literature Magazine",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Publishes poetry, prose, creative nonfiction, and art.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://luxuryliteraturemagazine.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "design"
+    ],
+    "applicationUrl": "https://luxuryliteraturemagazine.com/submit-here",
+    "instagramUrl": "https://www.instagram.com/luxurylitmag/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1V_djIZcWQhTkS5sDxT4PWCdFpemEqnH7",
+    "isVerified": true
+  },
+  {
+    "id": "25",
+    "title": "styledbysakuranbo",
+    "organization": "styledbysakuranbo",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Lifestyle brand selling Sakuranbo magazines and products.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://styledbysakuranbo.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "design",
+      "business"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/styledbysakuranbo/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1I195tFOSsQrOiCyfr2FD6yPreAeqYnPx",
+    "isVerified": true
+  },
+  {
+    "id": "26",
+    "title": "sonder literary",
+    "organization": "sonder literary",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Supporting new voices in short stories and nonfiction.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://sonderlit.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "community-service"
+    ],
+    "applicationUrl": "https://sonderlit.com/?page_id=15",
+    "instagramUrl": "https://www.instagram.com/sonderliterary/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1nHpo9k2N2tExemgNm1zvHpyPQIXMxTJP",
+    "isVerified": true
+  },
+  {
+    "id": "27",
+    "title": "Vellichor Literary",
+    "organization": "Vellichor Literary",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Multimedia magazine for dissonant, tender, unbecoming voices.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://vellichorliterary.substack.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/vellichorliterary/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Jd_aQ1FKO3MbQJr9UHzlaKAStD2xCqbe",
+    "isVerified": true
+  },
+  {
+    "id": "28",
+    "title": "venomandverse",
+    "organization": "venomandverse",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Multimedia magazine where passion, intellect, creativity converge.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://venomandverse.substack.com/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "public-speaking"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/venomandverse/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Uz11YxEF9YOa1stFHnTAf1X7JeeyVkVx",
+    "isVerified": true
+  },
+  {
+    "id": "29",
+    "title": "Democrateens",
+    "organization": "Democrateens",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-led political engagement and civic education",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://democrats.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "social-impact",
+      "leadership"
+    ],
+    "applicationUrl": "https://democrats.org/volunteer-interest-form/",
+    "instagramUrl": "https://www.instagram.com/democrateensofficial/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1pP2y1G02NKcYxx4ONnVp4Dco4-9ukrlt",
+    "isVerified": true
+  },
+  {
+    "id": "30",
+    "title": "She's Business",
+    "organization": "She's Business",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering young women entrepreneurs and business leaders",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://sheinvestments.com/",
+    "section": "Business",
+    "tags": [
+      "business",
+      "entrepreneurship",
+      "leadership"
+    ],
+    "applicationUrl": "https://sheinvestments.com/apply-to-she/",
+    "instagramUrl": "https://www.instagram.com/shes.business/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=11sC1TjaFYfRL0WfKzGYTQef29VtNbgXP",
+    "isVerified": true
+  },
+  {
+    "id": "31",
+    "title": "Cyber For Youth",
+    "organization": "Cyber For Youth",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Educates children and parents about online safety",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.cyberforyouth.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "technology",
+      "coding",
+      "social-impact"
+    ],
+    "applicationUrl": "https://www.cyberforyouth.org/ambassadorprogram",
+    "instagramUrl": "https://www.instagram.com/cyberforyouth/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1MdEfQTjxPMP4FLFU_P9qviTKQuvb7EMO",
+    "isVerified": true
+  },
+  {
+    "id": "32",
+    "title": "Restoring Rainbows",
+    "organization": "Restoring Rainbows",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "International youth-led nonprofit making art accessible",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.restoringrainbows.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "environment",
+      "sustainability",
+      "arts",
+      "volunteering"
+    ],
+    "applicationUrl": "https://www.restoringrainbows.org/opportunities",
+    "instagramUrl": "https://www.instagram.com/restoring_rainbows_official/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=10PLI1FfcKkfg0jO0ShbZFhSWhWOgVuTh",
+    "isVerified": true
+  },
+  {
+    "id": "33",
+    "title": "YouthBizConnect",
+    "organization": "YouthBizConnect",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Connecting youth entrepreneurs with business resources",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://yacenter.org/yb-main/",
+    "section": "Business",
+    "tags": [
+      "business",
+      "entrepreneurship",
+      "mentorship"
+    ],
+    "applicationUrl": "https://yacenter.org/yb-main/",
+    "instagramUrl": "https://www.instagram.com/youthbizconnect/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1hg7qz9tNdLvchydTuXSvkwlpXsh_23a9",
+    "isVerified": true
+  },
+  {
+    "id": "34",
+    "title": "Stronger Than Cancer",
+    "organization": "Stronger Than Cancer",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Supporting cancer survivors and families with wellness",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://strongerthancancer.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "social-impact",
+      "volunteering"
+    ],
+    "applicationUrl": "https://strongerthancancer.org/",
+    "instagramUrl": "https://www.instagram.com/stcancer/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=19fYNx6pCOwVWMIY-vg-NfgEJpUx0_x6n",
+    "isVerified": true
+  },
+  {
+    "id": "35",
+    "title": "GLOW",
+    "organization": "GLOW",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Giving life opportunities to women through scholarships",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.glowfoundationglobal.org/",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "mentorship"
+    ],
+    "applicationUrl": "https://www.glowfoundationglobal.org/",
+    "instagramUrl": "https://www.instagram.com/glow_non.profit",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=10xIVk4XB5veyDg4qb88dRgw1TVpoW4xQ",
+    "isVerified": true
+  },
+  {
+    "id": "36",
+    "title": "Vital Care Kids",
+    "organization": "Vital Care Kids",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Crowdfunding for children's medical and educational needs",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://vitalcarefoundation.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "community-service",
+      "volunteering"
+    ],
+    "applicationUrl": "https://vitalcarefoundation.org/",
+    "instagramUrl": "https://www.instagram.com/vitalcarekids/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1qJl4--1edc8vI9iTBbKlQhFAPedtAiV6",
+    "isVerified": true
+  },
+  {
+    "id": "37",
+    "title": "Harmony For Hearts",
+    "organization": "Harmony For Hearts",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Bridging generations through music concerts and performances",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.harmony4hearts.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "social-impact",
+      "volunteering"
+    ],
+    "applicationUrl": "https://www.harmony4hearts.org/get-involved",
+    "instagramUrl": "https://www.instagram.com/harmonyforhearts/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1dZv3fjClEZ1lDMb6UlR1uCc4mKpmIP6V",
+    "isVerified": true
+  },
+  {
+    "id": "38",
+    "title": "ScienceHolic",
+    "organization": "ScienceHolic",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Student-led nonprofit STEM magazine with volunteering opportunities",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.scienceholic.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "writing"
+    ],
+    "applicationUrl": "https://forms.gle/ZUjkWxQqCMWdkLY1A",
+    "instagramUrl": "https://www.instagram.com/scienceholicofficial/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1eKLCgQf09fCw6Ium2facdBWzqSMcKat_",
+    "isVerified": true
+  },
+  {
+    "id": "39",
+    "title": "Project Pink",
+    "organization": "Project Pink",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Bridging gap between women and accessible mental health",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://projectpinkfoundation.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "social-impact",
+      "leadership"
+    ],
+    "applicationUrl": "https://my.cheddarup.com/c/project-pink-walkathon/items?cart",
+    "instagramUrl": "https://www.instagram.com/projectpinkfoundation/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1V_MB-dZpfcwVM1XVdhkr5KkysWhKLcpj",
+    "isVerified": true
+  },
+  {
+    "id": "40",
+    "title": "The Stemistry Project",
+    "organization": "The Stemistry Project",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "501(c)(3) nonprofit for STEM learning and mental health",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://thestemistryprojec.wixsite.com/site",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "mentorship"
+    ],
+    "applicationUrl": "http://tinyurl.com/tsp-sp24-apply",
+    "instagramUrl": "https://www.instagram.com/thestemistryproject/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=14j3xcHMporWdq8af48jRVaroDhkyhNvS",
+    "isVerified": true
+  },
+  {
+    "id": "41",
+    "title": "The World in Us",
+    "organization": "The World in Us",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Eliminating cultural ignorance through youth-for-youth education",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "http://theworldinus.org/",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "mentorship"
+    ],
+    "applicationUrl": "https://forms.gle/SvQ5gYXS4bEZWA4P7",
+    "instagramUrl": "https://www.instagram.com/the_world_in_us/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1NnXQZx-Yke8Ph6-nCU6hpa9vSY8GyBXI",
+    "isVerified": true
+  },
+  {
+    "id": "42",
+    "title": "United Speakers Global",
+    "organization": "United Speakers Global",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Building global community of youth leaders finding voice",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.unitedspeakers.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "public-speaking",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/unitedspeakers.global/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1RQ4drHD7lvSEpiHuYvIXiRpb_9DC1M1I",
+    "isVerified": true
+  },
+  {
+    "id": "43",
+    "title": "Art4Neurodiversity",
+    "organization": "Art4Neurodiversity",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Promoting art for neurodiverse individuals",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://forms.gle/2N35ER4bbKAMdRrm9",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "design",
+      "social-impact"
+    ],
+    "applicationUrl": "https://forms.gle/2N35ER4bbKAMdRrm9",
+    "instagramUrl": "https://www.instagram.com/art4nd_org/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1uXlBFwsGy80-Q5pdIwQqSyniThYQ-xGE",
+    "isVerified": true
+  },
+  {
+    "id": "44",
+    "title": "Mental Health Access",
+    "organization": "Mental Health Access",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Increasing mental health resource accessibility",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/mentalhealthaccess",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "community-service",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/mentalhealth_access/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=12skhWjsoGfvOIjBDa68GwlinJXbPM9_s",
+    "isVerified": true
+  },
+  {
+    "id": "45",
+    "title": "Pathway To Finance",
+    "organization": "Pathway To Finance",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth financial literacy education",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://forms.gle/SwD2irQtKSK7CUPbA",
+    "section": "Business",
+    "tags": [
+      "business",
+      "finance",
+      "investing"
+    ],
+    "applicationUrl": "https://forms.gle/SwD2irQtKSK7CUPbA",
+    "instagramUrl": "https://www.instagram.com/path_fi_/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1i6qBx2lbHP1iWQAsvvrFS3bLaYdfziGR",
+    "isVerified": true
+  },
+  {
+    "id": "46",
+    "title": "Teen Coalition 4 Climate",
+    "organization": "Teen Coalition 4 Climate",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Teen-led climate action advocacy",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/teencoalition4climate",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "environment",
+      "sustainability",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/teencoalition4climate/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Lel93Zqh47xMyqB7vAdlpwwna-VpQuQI",
+    "isVerified": true
+  },
+  {
+    "id": "47",
+    "title": "Bridge 2 Reach",
+    "organization": "Bridge 2 Reach",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Bridging educational opportunity gaps",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/bridge2reach",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "volunteering",
+      "mentorship"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/bridge2reach/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Qvc3ZE5Qk4s08VxJbkuRmR9VGU8ZrfWS",
+    "isVerified": true
+  },
+  {
+    "id": "48",
+    "title": "Youth Peace & Language Association",
+    "organization": "Youth Peace & Language Association",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth peace and language education",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/YPLAssociation",
+    "section": "Business",
+    "tags": [
+      "business",
+      "entrepreneurship",
+      "leadership"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/ypl.association/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1dpN7o_UiWXEiqAEGBbKsaRpYvWstBG_o",
+    "isVerified": true
+  },
+  {
+    "id": "49",
+    "title": "InsightMed",
+    "organization": "InsightMed",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Medical education outreach for youth",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/insightmed",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "academics",
+      "stem"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/insightmed.outreach/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1mB1i2GpzEA_0wwpkKi3gKuzR2eCu5ryO",
+    "isVerified": true
+  },
+  {
+    "id": "50",
+    "title": "Healing with Music",
+    "organization": "Healing with Music",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-led nonprofit using music for support",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.healingwmusic.org/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "music",
+      "social-impact"
+    ],
+    "applicationUrl": "https://www.healingwmusic.org/volunteer",
+    "instagramUrl": "https://www.instagram.com/healingwmusic/",
+    "logoUrl": null,
+    "isVerified": true
+  },
+  {
+    "id": "51",
+    "title": "Dear Asian Youth",
+    "organization": "Dear Asian Youth",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering Asian youth into intersectional activism",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://dearasianyouth.carrd.co",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "leadership"
+    ],
+    "applicationUrl": "https://docs.google.com/document/d/1XJAIrspsP96VyelVJM1X9IwmmRVNoMwy9iY2EUvHAtM/edit?usp=sharing",
+    "instagramUrl": "https://www.instagram.com/dearasianyouth",
+    "logoUrl": null,
+    "isVerified": true
+  },
+  {
+    "id": "52",
+    "title": "Youth Pioneers in STEM",
+    "organization": "Youth Pioneers in STEM",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "International 501(c)(3) educating future STEM leaders",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/ypstem",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "mentorship"
+    ],
+    "applicationUrl": "https://linktr.ee/ypstem",
+    "instagramUrl": "https://www.instagram.com/ypstem/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1OicvNrSJTVzGmeQeg85lIOKmrIfEcA57",
+    "isVerified": true
+  },
+  {
+    "id": "53",
+    "title": "Where Emotions Flow",
+    "organization": "Where Emotions Flow",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Raising awareness of emotional dysregulation in teens",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/whereemotionsflow",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "arts",
+      "social-impact"
+    ],
+    "applicationUrl": "https://linktr.ee/whereemotionsflow",
+    "instagramUrl": "https://www.instagram.com/whereemotionsflow/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1GK73mhkYoEKu0UKLtph_LpTzmW2BJtyP",
+    "isVerified": true
+  },
+  {
+    "id": "54",
+    "title": "Create for Kids",
+    "organization": "Create for Kids",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Inspiring children through art pursuing their dreams",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://bio.site/createforkids",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "design",
+      "community-service"
+    ],
+    "applicationUrl": "https://bio.site/createforkids",
+    "instagramUrl": "https://www.instagram.com/createforkidsorg/",
+    "logoUrl": null,
+    "isVerified": true
+  },
+  {
+    "id": "55",
+    "title": "Origami For Good",
+    "organization": "Origami For Good",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "501(c)(3) spreading joy one fold at time",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/origamiforgood",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "community-service",
+      "volunteering"
+    ],
+    "applicationUrl": "https://linktr.ee/origamiforgood",
+    "instagramUrl": "https://www.instagram.com/origami.forgood/",
+    "logoUrl": null,
+    "isVerified": true
+  },
+  {
+    "id": "56",
+    "title": "AudemyApp",
+    "organization": "AudemyApp",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering blind and visually impaired through AI",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://audemy.org",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "technology",
+      "coding",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/audemyapp",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1_IRlz3uzflsXyF05oq007SMY51RGDj4l",
+    "isVerified": true
+  },
+  {
+    "id": "57",
+    "title": "Project Engage NJ",
+    "organization": "Project Engage NJ",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Student-led 501(c)(3) providing free educational programs",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://projectengagenj.org",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "mentorship",
+      "volunteering"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/projectengagenj/",
+    "logoUrl": null,
+    "isVerified": false
+  },
+  {
+    "id": "58",
+    "title": "Project: Empower",
+    "organization": "Project: Empower",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Providing underprivileged youth with college opportunities",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/projectempower_",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "leadership",
+      "social-impact"
+    ],
+    "applicationUrl": "https://linktr.ee/projectempower_",
+    "instagramUrl": "https://www.instagram.com/project._.empower",
+    "logoUrl": null,
+    "isVerified": true
+  },
+  {
+    "id": "59",
+    "title": "Target Alpha Canada",
+    "organization": "Target Alpha Canada",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Canada's largest student-led financial literacy organization",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://targetalpha.ca/",
+    "section": "Business",
+    "tags": [
+      "business",
+      "finance",
+      "investing"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/targetalphacanada/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1cTaMc7RlhbgxIpE9ze4xKFd-bA0xTWT4",
+    "isVerified": false
+  },
+  {
+    "id": "60",
+    "title": "Marketyze",
+    "organization": "Marketyze",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Marketing opportunities and competitions for Canadian high schoolers",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.marketyze.org/",
+    "section": "Business",
+    "tags": [
+      "business",
+      "entrepreneurship",
+      "social-impact"
+    ],
+    "applicationUrl": "https://www.marketyze.org/join-us",
+    "instagramUrl": "https://www.instagram.com/marketyze.ca/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=18y6kuXxs-tZOjCp-u7PoULOXdgaGVeu0",
+    "isVerified": null
+  },
+  {
+    "id": "61",
+    "title": "FinTech Nexus",
+    "organization": "FinTech Nexus",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering next generation of FinTech leaders",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://fintechnexus.ca/",
+    "section": "Business",
+    "tags": [
+      "business",
+      "technology",
+      "finance"
+    ],
+    "applicationUrl": "https://fintechnexus.ca/tnf",
+    "instagramUrl": "https://www.instagram.com/fintech.nexus/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1dPCy87lq-cKt_WghD3i_T-FQ5I9thVop",
+    "isVerified": null
+  },
+  {
+    "id": "62",
+    "title": "ScienceHolic",
+    "organization": "ScienceHolic",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Student-led nonprofit STEM magazine and research platform",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.scienceholic.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "writing"
+    ],
+    "applicationUrl": "https://forms.gle/TRtbhNxMu6BuegcE7",
+    "instagramUrl": "https://www.instagram.com/scienceholicofficial/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1eKLCgQf09fCw6Ium2facdBWzqSMcKat_",
+    "isVerified": null
+  },
+  {
+    "id": "63",
+    "title": "Youth Activist",
+    "organization": "Youth Activist",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-led activism training and community organizing",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/anayaandbella?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnT9Kcf-YQcoo5JMffmBsbWc3eBy7M8u4PePR_27bt2InpI_10z6nLiOkmizs_aem_8gw_W5lt6J8ladcw7pGE9A",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "leadership"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/be_an_activist_/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1G8FjjzI5ghUKAe17eAC5n8I6zdQ9izXh",
+    "isVerified": null
+  },
+  {
+    "id": "64",
+    "title": "Project Pink Foundation",
+    "organization": "Project Pink Foundation",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Strengthening accessibility to women's mental health care",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://projectpinkfoundation.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "health-sciences",
+      "community-service",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/projectpinkfoundation/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1e8Cy3VM4K_Ys8Kcf-0T7lJ7pZtMoTgW1",
+    "isVerified": null
+  },
+  {
+    "id": "65",
+    "title": "The Stemistry Project",
+    "organization": "The Stemistry Project",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth STEM education and leadership development",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://thestemistryproject.carrd.co/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "mentorship"
+    ],
+    "applicationUrl": "https://docs.google.com/document/d/1pMYOxspfSgyGsvWiyT2yCEYrYDXRb-cjUNtfHTzYjJI/edit?tab=t.0",
+    "instagramUrl": "https://www.instagram.com/thestemistryproject/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=14j3xcHMporWdq8af48jRVaroDhkyhNvS",
+    "isVerified": null
+  },
+  {
+    "id": "66",
+    "title": "The World in Us",
+    "organization": "The World in Us",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Cultural diversity education through youth-for-youth programs",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.theworldinus.org/",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "writing"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLScN-tSRDI31XsTUHlnyVXc7Ho5vqxHImUuYfpBQBoDEl3Jllg/viewform",
+    "instagramUrl": "https://www.instagram.com/the_world_in_us/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1NnXQZx-Yke8Ph6-nCU6hpa9vSY8GyBXI",
+    "isVerified": null
+  },
+  {
+    "id": "67",
+    "title": "Women in STEM Organization",
+    "organization": "Women in STEM Organization",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering girls and women to pursue careers in STEM.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://womeninstem.org",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "technology",
+      "academics",
+      "stem"
+    ],
+    "applicationUrl": "https://linktr.ee/womeninstem_org?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnRwsM_nycxTh5A2w4yWL1BDc7F4M5XO4MmoKgm6lCU0doaN6dCHRFc6Uy_7A_aem_e8b_oWM59maDKt69YkLK9A",
+    "instagramUrl": "https://instagram.com/womeninstemorg",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1kZ9EfQwPs9mlprCBh-6AmxXk8400QtLN",
+    "isVerified": null
+  },
+  {
+    "id": "68",
+    "title": "Junior Philanthropists Foundation",
+    "organization": "Junior Philanthropists Foundation",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Engaging youth in philanthropy and community service initiatives.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://juniorphilanthropists.org",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "mentorship"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdN7zm3nCo22fukTqY54w-fnMS_FX3SahkRIoKnbiNhwJzTcw/viewform",
+    "instagramUrl": "https://instagram.com/the.jpf",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1R3Pcu-roEted6OA_K9P01as6zDgEdmCT",
+    "isVerified": null
+  },
+  {
+    "id": "69",
+    "title": "ISWorldLife",
+    "organization": "ISWorldLife",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Mentorship and academic support for first-generation and immigrant students.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://isworldlife.com",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "leadership"
+    ],
+    "applicationUrl": "https://www.isworldlife.com/get-involved",
+    "instagramUrl": "https://instagram.com/isworldlife",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1HJ5JgTbTog1lK5Tpo-HsubgXykwyvr6Q",
+    "isVerified": null
+  },
+  {
+    "id": "70",
+    "title": "Up Next Scientists",
+    "organization": "Up Next Scientists",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-led platform publishing and promoting student scientific research.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://upnextscientists.org",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "mentorship"
+    ],
+    "applicationUrl": "https://linktr.ee/UpNextScientists?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnA28R1q0rfgYKUmfdG9aEWyg5BdY9aQJXaGWtfsObkimm6Obtfd7OhCelYBs_aem_xAtqkeFpPqjdt-HWEtM_AQ",
+    "instagramUrl": "https://instagram.com/upnextscientists",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1hPH5BXQbzeAFjVpr-y9ty1cqdkMdi9MM",
+    "isVerified": null
+  },
+  {
+    "id": "71",
+    "title": "Los Altos Institution",
+    "organization": "Los Altos Institution",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-led platform publishing and promoting student scientific research.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://losaltosinstitution.org",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "writing",
+      "public-speaking"
+    ],
+    "applicationUrl": "https://www.losaltosinstitution.org/become-a-fellow?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnaBuAHvjYdfQQHbo6vHBYMA5q1cRv3z_B-3iunc2pUJ9d_w6cTDRC_syCAt0_aem_Jgj668K4E6BsOZxZJqcxlw",
+    "instagramUrl": "https://instagram.com/thelosaltosinstitution",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1GTQH6354Ii-5PbnXoaewRtkF7JsxcNfO",
+    "isVerified": null
+  },
+  {
+    "id": "72",
+    "title": "The Global Spotlight",
+    "organization": "The Global Spotlight",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering young leaders through student-led storytelling and action.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://diversifyournarrative.com",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "community-service",
+      "social-impact"
+    ],
+    "applicationUrl": "https://form.typeform.com/to/qJHmsQet?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn6ET7uMzFRxbMBFzMraUJGj9s19TCoDoiG6uFJPBmgbIHjWjpnFTTDEr0y3A_aem_qv3-7k5SEpeDj_4wKe3csg&typeform-source=l.instagram.com",
+    "instagramUrl": "https://instagram.com/diversifyournarrative",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=13NpR3FckEF4DLva735ykafUPLZCmerhX",
+    "isVerified": null
+  },
+  {
+    "id": "73",
+    "title": "Go Greenish",
+    "organization": "Go Greenish",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth initiative promoting environmental sustainability and climate action.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://gogreenish.org",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "leadership"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfcZP_zCLRHi2nAwWX12jNWEOkGfagAjBBKXkNSgdf-yBl4Dg/viewform",
+    "instagramUrl": "https://www.instagram.com/gogreenishca/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=11zcKB-Qxez3cnjsZsOl3C400EZPv8XDp",
+    "isVerified": null
+  },
+  {
+    "id": "74",
+    "title": "The Junior Economic Club of NYC",
+    "organization": "The Junior Economic Club of NYC",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Networking and economic education for New York high schoolers.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://jecnyc.org",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "public-speaking"
+    ],
+    "applicationUrl": "https://www.jecnyc.org/apply-now?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn8FjAcjOCOFWsgem7SHQ3caNZTemyOA_p00cSstujNkmGStzO01RQ7g1v4Bw_aem_cZ_-vFZcMZkvsHW2wIpngQ",
+    "instagramUrl": "https://www.instagram.com/jecnewyorkcity/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1cY7n9Nf8lo1AxervVjQlXAyc7SsC56u2",
+    "isVerified": null
+  },
+  {
+    "id": "75",
+    "title": "NY Parliamentary Debate League",
+    "organization": "NY Parliamentary Debate League",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Organizing parliamentary debate tournaments for high school students.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://nyparli.org",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "environment",
+      "sustainability",
+      "social-impact"
+    ],
+    "applicationUrl": "https://www.nyparli.org/contact",
+    "instagramUrl": "https://instagram.com/nyparli",
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "76",
+    "title": "Food4Philly Inc.",
+    "organization": "Food4Philly Inc.",
+    "category": "Business",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Reducing food waste and hunger through local rescue efforts.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://food4philly.org",
+    "section": "Business",
+    "tags": [
+      "business",
+      "finance",
+      "leadership"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSca4W5u8rE_paDpaF5nwt3ojhk6xGSDWvLZjikfR2m_L9n5lA/viewform",
+    "instagramUrl": "https://instagram.com/food4philly",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1S5zWjwjdo5hZcahrl9qhfCFw_gWEw6JU",
+    "isVerified": null
+  },
+  {
+    "id": "77",
+    "title": "Operation Period",
+    "organization": "Operation Period",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Fighting period poverty through advocacy and product distribution.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfpg1Fq99qMXTOhNSfkXwSBMqroHC_-HYy6wSlsD4ZT651OAg/viewform",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "design",
+      "social-impact"
+    ],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfpg1Fq99qMXTOhNSfkXwSBMqroHC_-HYy6wSlsD4ZT651OAg/viewform",
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "78",
+    "title": "Youth Against Sexual Violence",
+    "organization": "Youth Against Sexual Violence",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Student-led advocacy group preventing sexual violence through education.",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "jecatlanta.org",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "technology",
+      "coding",
+      "mentorship"
+    ],
+    "applicationUrl": "https://linktr.ee/stellarwonderz",
+    "instagramUrl": null,
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1TtDFv-mU8nkBii3-pw_qJCTAY1-ciY4N",
+    "isVerified": null
+  },
+  {
+    "id": "79",
+    "title": "Cherielle Code",
+    "organization": "Cherielle Code",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://cherielle.org/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/cherielle.code/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=100mR6lgTU97jaaqoV8QLELIUdEdzRKGA",
+    "isVerified": null
+  },
+  {
+    "id": "80",
+    "title": "Stellar Wonderz",
+    "organization": "Stellar Wonderz",
+    "category": "Arts",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Utilizing creativity to bring joy through paper crafts",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.stellarwonderz.org/",
+    "section": "Arts & Communication",
+    "tags": [
+      "arts",
+      "writing",
+      "social-impact"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/stellarwonderz/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Aq0O79hj-gBhKTBTIBB3oWMN79fpgpcl",
+    "isVerified": null
+  },
+  {
+    "id": "81",
+    "title": "Where Emotions Flow",
+    "organization": "Where Emotions Flow",
+    "category": "Volunteer",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/whereemotionsflow/",
+    "section": "Volunteer & Community",
+    "tags": [
+      "community-service",
+      "social-impact",
+      "mentorship"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/whereemotionsflow/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1GK73mhkYoEKu0UKLtph_LpTzmW2BJtyP",
+    "isVerified": null
+  },
+  {
+    "id": "82",
+    "title": "Mind Like Hers",
+    "organization": "Mind Like Hers",
+    "category": "STEM",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/mindlikehers/",
+    "section": "STEM Clubs & Activities",
+    "tags": [
+      "academics",
+      "stem",
+      "mentorship"
+    ],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/mindlikehers/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Kmv_vfABZM0HpqcKAgWgLjf_3FNwA_OH",
+    "isVerified": null
+  },
+  {
+    "id": "83",
+    "title": "Project EDSA",
+    "organization": "Project EDSA",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering schools to build awareness, prevention, peer support",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://projectedsa.wixsite.com/home",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLScVuGpG04baS85BbCDkHXNdrqUsAId3CWbF5wcM1NSYyN97Yg/viewform?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGndZz4-ZjJyLUh8EqQJeW2flJEq4BmGi-cN8C5jmhzTQs_jKrkjMchQtS0HNQ_aem_xLEX5-daMUhUxcN8jX44DQ",
+    "instagramUrl": "https://www.instagram.com/projectedsa/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1tkftfKPyFo2OnHyGmNzU9MRC4OJ5_Md3",
+    "isVerified": null
+  },
+  {
+    "id": "84",
+    "title": "CareLineFoundation",
+    "organization": "CareLineFoundation",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth cancer awareness organization spreading awareness",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://carelinefoundation.carrd.co/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://carelinefoundation.carrd.co/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnd6qCMOti4Kwa6Q-lxOdDRHk5yrhRaTFeD7-LAaKPEePAbb72Ag8hsZmWE-w_aem_SnVSdjF8w0DXGVHcdfB6kQ",
+    "instagramUrl": "https://www.instagram.com/carelinefoundation/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1OHUNpP8o5XMsiVp5p49DXJPQncknTt4i",
+    "isVerified": null
+  },
+  {
+    "id": "85",
+    "title": "The TEAL Project",
+    "organization": "The TEAL Project",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Tourette Syndrome and Neurodiversity advocacy GTA-based organization",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/the.teal.project/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/the.teal.project/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=19Yx5w02lR6rbPFHd7-OuUgZfAIU0jBTY",
+    "isVerified": null
+  },
+  {
+    "id": "86",
+    "title": "NextGen STEM",
+    "organization": "NextGen STEM",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Educating youth about the wonders of STEM",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.nexgenstem.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd21SY4oa8rIAlsZeP5PfpBWJr0LxtuFR5N3uibg42a9WxPNA/viewform?usp=sharing",
+    "instagramUrl": "https://www.instagram.com/nextgen.stem/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1XhcQ-dxo7maA1EgOAEnzeOOUsPp8We2Y",
+    "isVerified": null
+  },
+  {
+    "id": "87",
+    "title": "CARE",
+    "organization": "CARE",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-centered nonprofit dedicated to cancer awareness, research, education",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "http://curingwithcare.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://forms.gle/S2WH6htwdTTHK2gy9",
+    "instagramUrl": "https://www.instagram.com/curingwithcare/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1ZTel0dndu8LY9kYt7fsnhGfFzm8dvNxN",
+    "isVerified": null
+  },
+  {
+    "id": "88",
+    "title": "Light Up Project",
+    "organization": "Light Up Project",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "De-stigmatize mental health through peer connection",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://lightuproject.weebly.com/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://lightuproject.weebly.com/join-us.html",
+    "instagramUrl": "https://www.instagram.com/light.upproject/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Ypf3xxmo-ENHqRrMW5o766mTOFvFQ0UH",
+    "isVerified": null
+  },
+  {
+    "id": "89",
+    "title": "ANA STEM Foundation",
+    "organization": "ANA STEM Foundation",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering the next generation of girls in STEM",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://anastem.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/anastemfoundation/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=136thClk1xhyEUzLe9SIHSlEzAg_VsmIt",
+    "isVerified": null
+  },
+  {
+    "id": "90",
+    "title": "pathoscribe",
+    "organization": "pathoscribe",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Medical minds raising health awareness in engaging way",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://pathoscribe.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://pathoscribe.org/about-us/",
+    "instagramUrl": "https://www.instagram.com/pathoscribe/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1JbJDNetvqyCN0EVCT2ViMQGPD8NXqZLf",
+    "isVerified": null
+  },
+  {
+    "id": "91",
+    "title": "Dr. Interested",
+    "organization": "Dr. Interested",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Supporting youth finding their unique spark in healthcare",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.drinterested.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://discord.gg/pzbGRgsGXY",
+    "instagramUrl": "https://www.instagram.com/dr.interested/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1N4hwlGvErWz_DVeEJUHmfKDCcG7AamFG",
+    "isVerified": null
+  },
+  {
+    "id": "92",
+    "title": "Calm Minds Initiative",
+    "organization": "Calm Minds Initiative",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth-led advocating for youth mental health awareness",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://calmmindsinitiative.my.canva.site/#home",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/calm.minds.initiative/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=16OpCPyq99YNxsj5MynKbilAucwGBdJ5q",
+    "isVerified": null
+  },
+  {
+    "id": "93",
+    "title": "What's Up Docc",
+    "organization": "What's Up Docc",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/whatsupdocc?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnxE1Tvx2EyfA_4iGi00PGYQS8roFdyMIW-oQI8tk24SVDGZ1Oe9bHJQQi5ug_aem_TNNlDWU3sO5f6ZLh_nZDXQ",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfPhSgbo2uY4RFZViwuP-N-Su7uatFQU5nByD-kbygzG9n3FA/viewform",
+    "instagramUrl": "https://www.instagram.com/whats.up.docc/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1CB2CFiEvn0cgME8ZkfbHgjxB8pNR4Yyd",
+    "isVerified": null
+  },
+  {
+    "id": "94",
+    "title": "All The Same Organization",
+    "organization": "All The Same Organization",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Uplifting underserved communities with essential resources and support",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://allthesame.net/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLScRP67Yj8WdHLfiXESiRVXoytSym0sVdzQZ1RnB65zcXvpCuw/viewform",
+    "instagramUrl": "https://www.instagram.com/allthesameorg/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1fkVODNZ3M34nKMZecUQBxTf0prt66IGU",
+    "isVerified": null
+  },
+  {
+    "id": "95",
+    "title": "BioMedizone",
+    "organization": "BioMedizone",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Biomedical research opportunities and education globally",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.biomedizone.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/biomedizone_/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1W__Fv2jtIhmjlfD58zeP28CbZxSMy9XW",
+    "isVerified": null
+  },
+  {
+    "id": "96",
+    "title": "Booked for Charity",
+    "organization": "Booked for Charity",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth literacy and book donation organization",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://bookedforcharity.vercel.app/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnFFoDiw4RjuXJXXEL0jvRsLq0_1APXrqfWPCxqCCqTN2OFxMHt-8x4He6wTc_aem_DrnjAeAZv1qgR_a0ZcV4hw",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/bookedforcharity/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1QSQr6HkFmuNkDM3YxKIifD2iB4T47aWC",
+    "isVerified": null
+  },
+  {
+    "id": "97",
+    "title": "Health Horizon",
+    "organization": "Health Horizon",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth health awareness and education initiative",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/HealthHorizan?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn7uoaDSedwk-BKIWu8UWdyBeLCU8QHm2XJw8T6AnnQTll6iLq0CNFyojacOM_aem_p4MIjhVRt3icty-13pua6A",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://forms.gle/JzL4kDjkd26G3zgz7?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnIL-vjhfhsAc-0RuZ7BGS4FVkHCh15vK2chxNMY5Qdy38RmJ2NeejPlypQVs_aem__TRN5ZSSmhtPlmouap1wzA",
+    "instagramUrl": "https://www.instagram.com/hh_healthhorizon/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1miUzRYL4nugj0kw4S33EGDOauos5WCIb",
+    "isVerified": null
+  },
+  {
+    "id": "98",
+    "title": "Reignite Resumes",
+    "organization": "Reignite Resumes",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Free resume writing and job services",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.reigniteresumes.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLScOQ261W_FlOL3Osow6o4vglPRGDxzZVuy2at3zc9yjbX2fSA/viewform",
+    "instagramUrl": "https://www.instagram.com/reigniteresumes/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1Klz4Z7druaj1gr13A6oDvMLzgT4c9SwC",
+    "isVerified": null
+  },
+  {
+    "id": "99",
+    "title": "The Eczema Project",
+    "organization": "The Eczema Project",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Eczema information and community support",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/theeczemaproject?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnAfD-n7RpP8fnKhDwigfpT5YcEhM3LipfFjHj2s70MjlBjNYanVjq_G9RkWM_aem_yJh2pDRareBt_LnckluH4w",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdpP84UxqX7E87-RQ4iAQOY0PXwQJ1g8slB4rmkriHJ5rQOSA/viewform",
+    "instagramUrl": "https://www.instagram.com/the.eczema.project/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1XcTuANHZUL6Iw3rp0c3Myfn4fowlNdW-",
+    "isVerified": null
+  },
+  {
+    "id": "100",
+    "title": "The Neuro Journey",
+    "organization": "The Neuro Journey",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Neuroscience education and awareness",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://sites.google.com/view/theneurojourney?usp=sharing",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfuNrvQFHQRXFBsvBALGIRdqCvvHafEVb6-spi-b3POftjWbg/viewform",
+    "instagramUrl": "https://www.instagram.com/the_neuro.journey/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1l4PfAKjHiz9vOnpw8Pn2afdfEwD-E-1P",
+    "isVerified": null
+  },
+  {
+    "id": "101",
+    "title": "Project Pulmonary",
+    "organization": "Project Pulmonary",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth lung health awareness and education",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://docs.google.com/forms/d/1ozyfQ0EB1CHo-yMgzCIMyOmZ1Df-O7NJyY22K40L0c8/viewform?fbclid=PAZXh0bgNhZW0CMTEAAad7Sakeno5cftKa-CK4P-swoET8Umxnrdj8SuEvgFpR4s99yKApGo1BHYoR6g_aem_hl1UhWd2hAg0nMZHLcvrog&edit_requested=true",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/1ozyfQ0EB1CHo-yMgzCIMyOmZ1Df-O7NJyY22K40L0c8/viewform?fbclid=PAZXh0bgNhZW0CMTEAAad7Sakeno5cftKa-CK4P-swoET8Umxnrdj8SuEvgFpR4s99yKApGo1BHYoR6g_aem_hl1UhWd2hAg0nMZHLcvrog&edit_requested=true",
+    "instagramUrl": "https://www.instagram.com/projectpulmonary/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1npLhKllTw6TSh6Zs8Qq57kyd7eUJvcsC",
+    "isVerified": null
+  },
+  {
+    "id": "102",
+    "title": "Awaresy",
+    "organization": "Awaresy",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Using art and writing to combat eating disorders",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/awaresy?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnnXhnAf3J8vOzymK6-X5tk-J78VsiqvF4mWCib7ZS8Sho1r5XdTXyLReqYAg_aem_jVwgcyMgg3s71bPCKtTJMg",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfKHsqOH-Ol9p5OSG7aizTWTw_hYVirjJm6XIGILMyesZIWTg/viewform",
+    "instagramUrl": "https://www.instagram.com/awaresy_/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1guYCIdtrIQs1njQenrgk4CJZXAhgqv9m",
+    "isVerified": null
+  },
+  {
+    "id": "103",
+    "title": "Let's Talk Matcha Podcast",
+    "organization": "Let's Talk Matcha Podcast",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering high school students through conversation",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://l.instagram.com/?u=https%3A%2F%2Fyoutube.com%2Fplaylist%3Flist%3DPLmeZQsykKLL9Xrs4I2U-Ic8NPVcqUaILM%26si%3DrDsnn0jjYfH6u6JU%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnXU6ewgFL3MOMvINnNhl3_pZ5KdFf42IA5vnFVMaLOWMhpBtdyRiIIHxUyg8_aem_b878h5S1Ne8BXsQu5spjTA&e=AT0o3NzFNLTb4E4W4FaxCj5AtmuKWbXpjw6RLkDm-Et8tC9HFZFc_zjp8o-NMvJLMZwAIG2WCHQkw7ZAfYh8KGCglSI_tzvcmC_zzncOmA",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/letstalkmatchapodcast/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1UoiIhmhTuP7wYkeA5XkIf-mzXUEoxJMd",
+    "isVerified": null
+  },
+  {
+    "id": "104",
+    "title": "The Verelia Literary",
+    "organization": "The Verelia Literary",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Literary organization for youth writers",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://l.instagram.com/?u=https%3A%2F%2Flinktr.ee%2Ftheverelialiterary%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGneVhW_4u8ov4ZOsvaMsVDZiOg0hcz4iUz0SNO2fWFSoSGBkR_6cgXlwiGtBA_aem_0TBJo7IQyn-bnULq18ct_Q&e=AT0y5KKAjcFWhsKJN_OzD8EMnTiVceqKfWI7EEpGgcwggnE0ZjRpguz962Pt2KUNjonXmduYnLCNtup_01esFQgAxZT2RqRFkK1Vt06jLA",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://l.instagram.com/?u=https%3A%2F%2Fforms.gle%2FRcWZJZbkVyF2aNX4A%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGn63MlV9bzJcgudFJY3dJjargi2woNZJvprRSecA1OmH4mbXp6UaXBsyAv-Oc_aem_t5PymTh9aGsC9g5eqzJGHg&e=AT1422HC3EwI8scaOBLL6jPNM4xIQfpLN2FASeCZjDZQcI0CBS_e2a9cNvMsE-Cvb5cKSBJeVsauMP-pK3Veg8ZuYGVLmff9x3jQgCw-mA",
+    "instagramUrl": "https://www.instagram.com/theverelialiterary/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1lr4c2zqt4QlpeTJJ5GVwi25vp27mKm0S",
+    "isVerified": null
+  },
+  {
+    "id": "105",
+    "title": "Nothing in My Brain",
+    "organization": "Nothing in My Brain",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Mental wellness and accessible psychology education",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.nothinginmybrain.com/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://www.nothinginmybrain.com/join-our-team",
+    "instagramUrl": "https://www.instagram.com/nothinginmybrainpod/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1cIXJFf_8dUMCbhptBIEXbihWlRFIUUED",
+    "isVerified": null
+  },
+  {
+    "id": "106",
+    "title": "In Arms Reach",
+    "organization": "In Arms Reach",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Supporting children of incarcerated parents",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/inarms.reach/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/inarms.reach/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1XFaRr-tUyTcbN8BOHvd4SRopveKwArpP",
+    "isVerified": null
+  },
+  {
+    "id": "107",
+    "title": "Seraphic",
+    "organization": "Seraphic",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth empowerment and community engagement",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/seraphicofficial_/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/seraphicofficial_/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1yDc6a1VI3FZt4_bAE9sG-qsOa9IXvRlC",
+    "isVerified": null
+  },
+  {
+    "id": "108",
+    "title": "Omelora Project",
+    "organization": "Omelora Project",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Creating opportunities for children in Nigeria",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://linktr.ee/omelora?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnste3KycvKLsFoJtpznNZrj5i_pglm_dJgBzNxATz9oQFdzqSI5B3-YG0GyI_aem_9kKkXZ9VFn5owHYRtmSyfg",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeg2098KJYe4yq0qPFS2WWnEuxTXskMYDahOEfMwSDWgjWPDQ/viewform",
+    "instagramUrl": "https://www.instagram.com/omeloraproject/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1zm0tOpyHgq_RKEBV3RX4fTL_FNeULKI9",
+    "isVerified": null
+  },
+  {
+    "id": "109",
+    "title": "Girls in Data Science",
+    "organization": "Girls in Data Science",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Empowering girls in data and technology",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.girlsplusdata.org/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdO8ryH-idV4_Z08uaOD3BVOaCVjw0f_hPvjIHMeBpl1fsj_A/viewform?fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnLj4yucQ2wRhanpIPgR6jvjAVJfst70WpPtfJZp9puBlr3_tLudwZxZYb0DM_aem_Yi2lGbtdibTULqcdKdEuDg",
+    "instagramUrl": "https://www.instagram.com/girls.in.data.science/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1zRdN8z8r891crpvh064NQXrHAauMgbxX",
+    "isVerified": null
+  },
+  {
+    "id": "110",
+    "title": "NextSteps Journal",
+    "organization": "NextSteps Journal",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Youth entrepreneurship and career development",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://www.instagram.com/nextstepsjournal/",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": null,
+    "instagramUrl": "https://www.instagram.com/nextstepsjournal/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1HPC272msDdsM2xtTS2rKJvlzOF1tdxNO",
+    "isVerified": null
+  },
+  {
+    "id": "111",
+    "title": "STEMise",
+    "organization": "STEMise",
+    "category": "Leadership",
+    "type": "Club",
+    "commitment": "Varies",
+    "locationType": "Remote",
+    "cost": "Free",
+    "description": "Making STEM education fun and accessible",
+    "targetGrades": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "officialUrl": "https://stemise.wixsite.com/stemise?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnogbn-gNyaCnv4bwwY7pmorrypWtr_IJIqrqf2zpSLy7g5xP_abU5fgBbP2s_aem_vNTAb6wwb1XOAqZKFrxl8A",
+    "section": "Leadership",
+    "tags": [],
+    "applicationUrl": "https://l.instagram.com/?u=https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLScjG7wtCcd52K3lIIEtxgEkn2YdP7JDwNwRBa3y5KeSkADOwA%2Fviewform%3Fusp%3Ddialog%26utm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnnMfAFjZL0ckdi8zrPqR2a3aIlRoQXK--84y8Yzc0DwPkPS2VDyoCRxIOEIA_aem_TvnDMGplfdFQhKyVL7vPew&e=AT3OvvDJiOlrMCENchMll80nD--IP1wNcwC3eYqRCPsR-QeYO12Sn1pSdhzG2UkpTp9AknZpzzYU0eSMa7U8LS-GfWzDThNyJmw6rVHzvQ",
+    "instagramUrl": "https://www.instagram.com/stemise_official/",
+    "logoUrl": "https://drive.google.com/uc?export=view&id=1p7B26qItsHOz1ebslhxQEbzIuhfnvap5",
+    "isVerified": null
+  },
+  {
+    "id": "112",
     "title": "SHAD Canada",
     "organization": "SHAD Canada",
     "category": "STEM",
@@ -9,399 +3003,169 @@
     "locationType": "In Person",
     "cost": "~$2,400 CAD program fee (need-based financial aid and full bursaries available)",
     "description": "A month-long summer enrichment program hosted at Canadian universities where students tackle entrepreneurial STEM design challenges. Highly regarded by Canadian universities as a marker of academic excellence and initiative.",
-    "targetGrades": [
-      10,
-      11,
-      12
-    ],
+    "targetGrades": [10, 11, 12],
     "officialUrl": "https://www.shad.ca/",
-    "section": "Programs & Enrichment"
+    "section": "Programs & Enrichment",
+    "tags": ["stem", "entrepreneurship", "leadership"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
   },
   {
-    "id": "6",
-    "title": "Canada-Wide Science Fair",
-    "organization": "Youth Science Canada",
+    "id": "113",
+    "title": "Pascal Contest",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
     "category": "STEM",
-    "type": "Competition",
-    "commitment": "High (5+ hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Free to enter",
-    "description": "The pinnacle science fair in Canada where students present independent research projects to expert judges after qualifying through regional fairs. Offers scholarships and recognition valued by science and engineering faculties.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://youthscience.ca/cwsf/",
-    "section": "STEM Clubs & Activities"
-  },
-  {
-    "id": "4",
-    "title": "FIRST Robotics Competition",
-    "organization": "FIRST (For Inspiration and Recognition of Science and Technology)",
-    "category": "STEM",
-    "type": "Competition",
-    "commitment": "High (5+ hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Free",
-    "description": "Students design, build, and program industrial-size robots to compete in alliance-based matches. Builds engineering, teamwork, and project-management skills prized by engineering programs worldwide.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.firstinspires.org/robotics/frc",
-    "section": "STEM Clubs & Activities"
-  },
-  {
-    "id": "7",
-    "title": "HOSA - Future Health Professionals",
-    "organization": "HOSA Ontario",
-    "category": "STEM",
-    "type": "Club",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "Hybrid",
-    "cost": "~$25\u2013$40 CAD annual membership, plus competition/conference fees",
-    "description": "A career and technical student organization for students interested in health sciences, offering competitive events, leadership roles, and healthcare-focused learning. Valuable for students pursuing pre-med or health science pathways.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://hosacanada.org/home/",
-    "verificationNote": "Confirm current chapter/registration process directly with HOSA Ontario before relying on this \u2014 provincial HOSA chapter structures can change year to year.",
-    "section": "STEM Clubs & Activities"
-  },
-  {
-    "id": "10",
-    "title": "Canadian Business Ethics Case Competition",
-    "organization": "Various Canadian universities (hosted on a rotating basis)",
-    "category": "Business",
-    "type": "Competition",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Varies by School",
-    "description": "High school teams analyze real-world business ethics dilemmas and present solutions to judges from academia and industry. Sharpens critical thinking and persuasive presentation skills for business applicants.",
-    "targetGrades": [
-      11,
-      12
-    ],
-    "officialUrl": "https://www.rotman.utoronto.ca/",
-    "verificationNote": "I could not confirm a currently-active, standing 'Canadian Business Ethics Case Competition' at the high school level under this exact name \u2014 the Rotman link is a general faculty homepage, not a program page. Recommend verifying this listing exists and finding its actual event page before publishing, or replacing it.",
-    "section": "Business"
-  },
-  {
-    "id": "8",
-    "title": "DECA Ontario",
-    "organization": "DECA Inc.",
-    "category": "Business",
-    "type": "Competition",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "~$40\u2013$60 CAD membership + conference/competition fees (often $100+ for regional/provincial events)",
-    "description": "Students compete in case-study and roleplay events covering marketing, finance, hospitality, and entrepreneurship. Develops business acumen and public speaking skills highly relevant for business school applications.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://deca.ca/v2/",
-    "section": "Business"
-  },
-  {
-    "id": "9",
-    "title": "JA Company Program",
-    "organization": "JA Canada (Junior Achievement)",
-    "category": "Business",
-    "type": "Program",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "Hybrid",
-    "cost": "Free to students",
-    "description": "Students launch and run a real micro-business over the school year, learning finance, marketing, and operations from volunteer mentors. Provides hands-on entrepreneurial experience for business-minded students.",
-    "targetGrades": [
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://jacanada.org/",
-    "section": "Business"
-  },
-  {
-    "id": "12",
-    "title": "National Economics Challenge",
-    "organization": "Council for Economic Education",
-    "category": "Business",
-    "type": "Competition",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Free - Low Cost to Enter",
-    "description": "A quiz-style competition testing microeconomics, macroeconomics, and current events, culminating in a national championship. Highly respected by economics and business programs.",
-    "targetGrades": [
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.councilforeconed.org/national-economics-challenge/",
-    "verificationNote": "This is a U.S. competition (Council for Economic Education is American). Ontario students can sometimes participate, but confirm eligibility before including it as a Canadian-focused option.",
-    "section": "Business"
-  },
-  {
-    "id": "11",
-    "title": "Wall Street Survivor Investment Trading Challenge",
-    "organization": "Wall Street Survivor",
-    "category": "Business",
     "type": "Competition",
     "commitment": "Low (<2 hrs/wk)",
-    "locationType": "Remote",
-    "cost": "Free",
-    "description": "Students manage a simulated stock portfolio using real market data to compete for the best investment returns. Builds financial literacy and market analysis skills for finance-track applicants.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.wallstreetsurvivor.com/",
-    "verificationNote": "Removed the TMX/Toronto Stock Exchange co-attribution \u2014 I could not confirm TMX currently co-runs a 'Knowledge Bowl' with Wall Street Survivor; this looks like it may have conflated two separate programs. TMX does run its own investor education initiatives, which may be a better link \u2014 worth checking tmx.com directly.",
-    "section": "Business"
-  },
-  {
-    "id": "17",
-    "title": "Model United Nations (Ontario circuit, e.g. TDSBMUN)",
-    "organization": "Various university and school-hosted MUN conferences",
-    "category": "Leadership",
-    "type": "Club",
-    "commitment": "Medium (2-5 hrs/wk)",
     "locationType": "In Person",
-    "cost": "$20\u2013$100+ CAD per conference (delegate fee), varies by conference",
-    "description": "Students role-play as diplomats debating global issues in simulated UN committees, honing negotiation, research, and public speaking skills. Widely respected as evidence of leadership and global awareness.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.un.org/en/mun",
-    "verificationNote": "The original link (una.org.uk) is the UK's national UN association, not an Ontario-specific resource \u2014 kept as general background on 'what is MUN' but you'll want to swap in a specific conference's page (e.g. a TDSBMUN or NAIMUN registration page) once you pick one, since these run on their own sites and change yearly.",
-    "section": "Leadership"
+    "cost": "Varies by school (school-administered registration fee)",
+    "description": "A Waterloo math contest for Grade 9 students (and younger) that tests problem-solving beyond the regular curriculum. A good first step into the Waterloo contest sequence leading to Cayley, Fermat, and Euclid.",
+    "targetGrades": [9],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/pascal.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
   },
   {
-    "id": "19",
-    "title": "Shad Valley Entrepreneurship Program",
-    "organization": "SHAD Canada",
-    "category": "Leadership",
-    "type": "Program",
-    "commitment": "High (5+ hrs/wk)",
-    "locationType": "In Person",
-    "cost": "~$2,400 CAD program fee (need-based financial aid and full bursaries available)",
-    "description": "An extension of the SHAD program focused on entrepreneurial leadership, pitching business ideas to real judges. Combines innovation and leadership development highly valued in top-tier applications.",
-    "targetGrades": [
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.shad.ca/",
-    "verificationNote": "This appears to duplicate entry #3 (SHAD Canada) \u2014 SHAD's program is a single unified program rather than having a separately-branded 'Shad Valley Entrepreneurship' track today. Consider merging these two entries.",
-    "section": "Leadership"
-  },
-  {
-    "id": "18",
-    "title": "Student Trustee / School Board Representative",
-    "organization": "Ontario District School Boards",
-    "category": "Leadership",
-    "type": "Club",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Free",
-    "description": "Elected students represent the student body at official school board meetings, voicing concerns and shaping policy. A high-visibility leadership role recognized by Ontario universities.",
-    "targetGrades": [
-      11,
-      12
-    ],
-    "officialUrl": "https://www.tdsb.on.ca/high-school/tdsb-student-senate",
-    "verificationNote": "This is applied for through your own school board (not a single national body) \u2014 direct students to their local school board's website for the actual application process.",
-    "section": "Leadership"
-  },
-  {
-    "id": "16",
-    "title": "Canadian Red Cross Youth Program",
-    "organization": "Canadian Red Cross",
-    "category": "Volunteer",
-    "type": "Volunteer",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "Hybrid",
-    "cost": "Free (Some courses have a fee)",
-    "description": "Replaces the discontinued 'Free the Children / WE Schools' entry (WE Charity wound down its Canadian school operations in September 2020 and no longer runs active school programming). The Canadian Red Cross Youth program offers structured volunteering, disaster-response training, and community campaigns for high school students, and is a currently active, well-recognized alternative for social-action-focused volunteer experience.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.redcross.ca/how-we-help/youth",
-    "section": "Volunteer & Community"
-  },
-  {
-    "id": "14",
-    "title": "Duke of Edinburgh's International Award",
-    "organization": "The Duke of Edinburgh's International Award \u2013 Canada",
-    "category": "Volunteer",
-    "type": "Program",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "Hybrid",
-    "cost": "Approx. $110\u2013$130 CAD registration fee per level (Bronze/Silver/Gold), plus optional equipment/expedition costs",
-    "description": "A globally recognized self-development framework combining volunteering, physical activity, skill-building, and an expedition. Bronze, Silver, and Gold levels are recognized internationally as evidence of well-rounded character.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://dukeofed.org/",
-    "section": "Volunteer & Community"
-  },
-  {
-    "id": "15",
-    "title": "Habitat for Humanity Youth Program",
-    "organization": "Habitat for Humanity Canada",
-    "category": "Volunteer",
-    "type": "Volunteer",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Free",
-    "description": "Students volunteer on home-building projects and fundraising initiatives supporting affordable housing in their communities. Provides tangible, hands-on service experience with a well-known international organization.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.habitat.ca/",
-    "section": "Volunteer & Community"
-  },
-  {
-    "id": "13",
-    "title": "Ontario Youth Volunteer Challenge",
-    "organization": "Ontario Volunteer Centre Network",
-    "category": "Volunteer",
-    "type": "Volunteer",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Free",
-    "description": "Students engage in structured community service projects that count toward Ontario's mandatory 40 volunteer hours while building civic engagement. Demonstrates sustained community commitment to admissions committees.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.ontario.ca/page/community-involvement-graduation-requirement",
-    "verificationNote": "I could not confirm a specific, currently-active program called the 'Ontario Youth Volunteer Challenge.' The URL provided is Ontario's general community-involvement graduation requirement page, not a distinct program. Recommend either verifying this program name and finding a real program page, or reframing this entry simply as 'Ontario's 40-Hour Community Involvement Requirement.'",
-    "section": "Volunteer & Community"
-  },
-  {
-    "id": "20",
-    "title": "Canadian Improv Games",
-    "organization": "Canadian Improv Games",
-    "category": "Arts",
-    "type": "Competition",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "Team registration fee, Varies by Year",
-    "description": "A national high school improv theatre competition where teams perform unscripted scenes judged on creativity and teamwork. Builds confidence, collaboration, and performance skills for arts-focused applicants.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://improv.ca/",
-    "section": "Arts & Communication"
-  },
-  {
-    "id": "23",
-    "title": "Canadian Student Debating Federation Nationals",
-    "organization": "Canadian Student Debating Federation",
-    "category": "Arts",
-    "type": "Competition",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "$20\u2013$50 CAD + travel costs",
-    "description": "The national championship for competitive high school debate, testing rhetorical skill, argumentation, and critical thinking. A prestigious credential demonstrating communication ability across disciplines.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://csdf-fcde.ca/",
-    "section": "Arts & Communication"
-  },
-  {
-    "id": "21",
-    "title": "Kiwanis Music Festival",
-    "organization": "Federation of Canadian Music Festivals / Local Kiwanis Clubs",
-    "category": "Arts",
-    "type": "Competition",
-    "commitment": "Medium (2-5 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "$20\u2013$50 CAD per class/entry, varies by local festival",
-    "description": "A long-running regional music competition where students perform solo or ensemble pieces before adjudicators for feedback and awards. A respected credential for students pursuing music conservatory or arts programs.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://kiwanismusictoronto.org/",
-    "verificationNote": "Kiwanis Music Festivals are run locally by city (e.g. Kiwanis Music Festival of Greater Toronto), not one national site \u2014 confirm the correct local festival URL for your area.",
-    "section": "Arts & Communication"
-  },
-  {
-    "id": "22",
-    "title": "Ontario Arts Council Youth & Community Arts Programs",
-    "organization": "Ontario Arts Council",
-    "category": "Arts",
+    "id": "114",
+    "title": "Cayley Contest",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
     "type": "Competition",
     "commitment": "Low (<2 hrs/wk)",
-    "locationType": "Hybrid",
-    "cost": "Free to apply (grants program, not an entry-fee competition)",
-    "description": "The Ontario Arts Council mainly funds artists, organizations, and projects through grants rather than running a single youth art 'competition' \u2014 students are more likely to encounter it via school- or organization-led grant-funded exhibitions than as a direct entry competition.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.arts.on.ca/",
-    "verificationNote": "Renamed from 'Ontario Provincial Art Competitions' \u2014 I could not confirm a program specifically named 'Ontario Youth Arts' currently run by the Ontario Arts Council. If a student is looking for an actual student art competition, consider Ontario Society of Artists' student exhibitions or a school board art show instead.",
-    "section": "Arts & Communication"
-  },
-  {
-    "id": "24",
-    "title": "TIFF Next Wave Committee",
-    "organization": "TIFF (Toronto International Film Festival)",
-    "category": "Arts",
-    "type": "Volunteer",
-    "commitment": "Medium (2-5 hrs/wk)",
     "locationType": "In Person",
-    "cost": "Free to join the committee",
-    "description": "Students join a youth advisory committee that programs and promotes a film festival for teens, gaining exposure to the film industry. Offers unique arts-administration and event-organizing experience.",
-    "targetGrades": [
-      10,
-      11,
-      12
-    ],
-    "officialUrl": "https://www.tiff.net/next-wave",
-    "verificationNote": "Confirm the committee is currently recruiting when a student applies \u2014 TIFF youth programs periodically pause or restructure between seasons.",
-    "section": "Arts & Communication"
+    "cost": "Varies by school (school-administered registration fee)",
+    "description": "A Waterloo math contest for Grade 10 students (and younger) that emphasizes creative problem solving. Strong results help students build toward the senior contests.",
+    "targetGrades": [10],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/cayley.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
   },
   {
-    "id": "5",
+    "id": "115",
+    "title": "Fermat Contest",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
+    "type": "Competition",
+    "commitment": "Low (<2 hrs/wk)",
+    "locationType": "In Person",
+    "cost": "Varies by school (school-administered registration fee)",
+    "description": "A Waterloo math contest for Grade 11 students (and younger) with challenging, multi-step problems. Demonstrates quantitative reasoning for STEM and engineering applications.",
+    "targetGrades": [11],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/fermat.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "116",
+    "title": "Euclid Mathematics Contest",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
+    "type": "Competition",
+    "commitment": "Low (<2 hrs/wk)",
+    "locationType": "In Person",
+    "cost": "$20–$25 CAD registration fee",
+    "description": "A challenging math contest for senior students that is widely used by Waterloo and other universities for scholarship and admission consideration. Strong results demonstrate advanced problem-solving skills valued in engineering and math programs.",
+    "targetGrades": [12],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/euclid.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "117",
+    "title": "Galois Contest",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
+    "type": "Competition",
+    "commitment": "Low (<2 hrs/wk)",
+    "locationType": "In Person",
+    "cost": "Varies by school (school-administered registration fee)",
+    "description": "A full-solution Waterloo contest for Grade 10 students (and younger) where students write out complete, well-reasoned solutions. Builds mathematical communication skills.",
+    "targetGrades": [9, 10],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/galois.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "118",
+    "title": "Hypatia Contest",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
+    "type": "Competition",
+    "commitment": "Low (<2 hrs/wk)",
+    "locationType": "In Person",
+    "cost": "Varies by school (school-administered registration fee)",
+    "description": "A full-solution Waterloo contest for Grade 11 students (and younger) that rewards clear, complete written reasoning. A good step between Galois and Euclid.",
+    "targetGrades": [9, 10, 11],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/hypatia.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "119",
+    "title": "Canadian Intermediate Mathematics Contest (CIMC)",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
+    "type": "Competition",
+    "commitment": "Low (<2 hrs/wk)",
+    "locationType": "In Person",
+    "cost": "Varies by school (school-administered registration fee)",
+    "description": "A Waterloo contest for intermediate students with curriculum-based and extension problems, written in the fall. Good preparation for the Fermat and Euclid contests.",
+    "targetGrades": [9, 10],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/cimc.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "120",
+    "title": "Canadian Senior Mathematics Contest (CSMC)",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
+    "type": "Competition",
+    "commitment": "Low (<2 hrs/wk)",
+    "locationType": "In Person",
+    "cost": "$20–$25 CAD registration fee",
+    "description": "A national math contest testing curriculum-based problem solving for senior high school students, written in the fall. Participation and awards strengthen STEM applications and demonstrate quantitative reasoning ability.",
+    "targetGrades": [11, 12],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/csmc.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "121",
     "title": "Canadian Computing Competition (CCC)",
     "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
     "category": "STEM",
@@ -409,48 +3173,52 @@
     "commitment": "Low (<2 hrs/wk)",
     "locationType": "In Person",
     "cost": "$25 CAD registration fee (school-administered)",
-    "description": "A programming contest testing algorithmic problem-solving in any language, used by top computer science programs to identify talented applicants. Top scorers may qualify for the Canadian Computing Olympiad.",
-    "targetGrades": [
-      9,
-      10,
-      11,
-      12
-    ],
+    "description": "A programming contest with Junior and Senior divisions testing algorithmic problem-solving in any language, used by top computer science programs to identify talented applicants. Top scorers may qualify for the Canadian Computing Olympiad.",
+    "targetGrades": [9, 10, 11, 12],
     "officialUrl": "https://www.cemc.uwaterloo.ca/contests/computing.html",
-    "section": "Contests"
+    "section": "Contests",
+    "tags": ["stem", "coding", "technology"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
   },
   {
-    "id": "2",
-    "title": "Canadian Senior Mathematics Contest",
+    "id": "122",
+    "title": "Canadian Computing Olympiad (CCO)",
+    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
+    "category": "STEM",
+    "type": "Competition",
+    "commitment": "Medium (2-5 hrs/wk)",
+    "locationType": "In Person",
+    "cost": "Free for qualifiers (invitation-based)",
+    "description": "The national computer science olympiad for top performers on the Canadian Computing Competition. Results are used to select Canada's team for the International Olympiad in Informatics.",
+    "targetGrades": [10, 11, 12],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/computing.html",
+    "section": "Contests",
+    "tags": ["stem", "coding", "technology"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
+  },
+  {
+    "id": "123",
+    "title": "Canadian Team Mathematics Contest (CTMC)",
     "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
     "category": "STEM",
     "type": "Competition",
     "commitment": "Low (<2 hrs/wk)",
     "locationType": "In Person",
-    "cost": "$20\u2013$25 CAD registration fee",
-    "description": "A national math contest testing curriculum-based problem solving for senior high school students. Participation and awards strengthen STEM applications and demonstrate quantitative reasoning ability.",
-    "targetGrades": [
-      11,
-      12
-    ],
-    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/csmc.html",
-    "section": "Contests"
-  },
-  {
-    "id": "1",
-    "title": "Euclid Mathematics Contest",
-    "organization": "Centre for Education in Mathematics and Computing (CEMC), University of Waterloo",
-    "category": "STEM",
-    "type": "Competition",
-    "commitment": "Low (<2 hrs/wk)",
-    "locationType": "In Person",
-    "cost": "$20\u2013$25 CAD registration fee",
-    "description": "A challenging math contest for senior students that is widely used by Waterloo and other universities for scholarship and admission consideration. Strong results demonstrate advanced problem-solving skills valued in engineering and math programs.",
-    "targetGrades": [
-      11,
-      12
-    ],
-    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/euclid.html",
-    "section": "Contests"
+    "cost": "Varies by school (school-administered registration fee)",
+    "description": "A team-based Waterloo math contest where students collaborate on problems, building teamwork alongside problem-solving skills.",
+    "targetGrades": [9, 10, 11, 12],
+    "officialUrl": "https://www.cemc.uwaterloo.ca/contests/contests.html",
+    "section": "Contests",
+    "tags": ["stem", "academics"],
+    "applicationUrl": null,
+    "instagramUrl": null,
+    "logoUrl": null,
+    "isVerified": null
   }
 ]

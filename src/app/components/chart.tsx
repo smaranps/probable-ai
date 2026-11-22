@@ -38,11 +38,6 @@ const FEATURES: Feature[] = [
     official: false,
     probable: "Flags a weak course, not just your average",
   },
-  {
-    title: "Out of province conversion",
-    official: false,
-    probable: "Shows how your grades translate",
-  },
 ];
 
 export default function ComparisonChart() {
